@@ -1,0 +1,43 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+header,
+nav,
+section,
+article,
+aside,
+footer {
+  padding: 20px;
+  margin: 10px;
+  border: 1px solid #ccc;
+}
+header {
+  background-color: #f8f9fa;
+}
+nav {
+  background-color: #e9ecef;
+}
+section {
+  background-color: #f1f3f5;
+}
+article {
+  background-color: #ffffff;
+}
+aside {
+  background-color: #f8f9fa;
+}
+footer {
+  background-color: #e9ecef;
+}
+.container {
+  display: flex;
+  flex-wrap: wrap;
+}
+.main-content {
+  flex: 3;
+}
+.sidebar {
+  flex: 1;
+}
