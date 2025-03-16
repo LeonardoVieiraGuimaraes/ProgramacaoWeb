@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="pt">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Formulário completo</title>
+  </head>
+  <body>
+    <!-- Formulário que envia dados para resultado.html usando método POST -->
+    <form action="/resultado.html" target="_blank" method="POST">
+      <!-- Botões -->
+      <p>
+        <input type="button" value="Botão" title="Clique no botão" />
+        <button type="button" title="Clique no botão">Outro botão</button>
+      </p>
+      <!-- Checkbox para selecionar linguagens preferidas -->
+      <p>
+        Qual a sua linguagem preferida:
+        <input type="checkbox" name="linguagem" title="JavaScript" />JavaScript
+        <input type="checkbox" name="linguagem" title="C#" />C#
+        <input type="checkbox" name="linguagem" title="PHP" />PHP
+        <input type="checkbox" name="linguagem" title="Java" />Java
+      </p>
+      <!-- Seleção de cor -->
+      <p>Seleção de cor: <input type="color" title="Selecione uma cor" /></p>
+      <!-- Campo de data de nascimento -->
+      <p>
+        Data nascimento:
+        <input
+          type="date"
+          min="2000-01-01"
+          max="2018-12-31"
+          title="Selecione uma data"
+        />
+      </p>
+      <!-- Campo de data e hora -->
+      <p>
+        Seleção de data e hora:
+        <input type="datetime-local" title="Selecione uma data e hora" />
+      </p>
+      <!-- Campo de e-mail -->
+      <p>
+        Campo e-mail:<input
+          type="email"
+          title="Digite seu e-mail"
+          placeholder="seuemail@exemplo.com"
+        />
+      </p>
+      <!-- Seleção de arquivo -->
+      <p>
+        Seleção de arquivo: <input type="file" title="Selecione um arquivo" />
+      </p>
+      <!-- Campo oculto -->
+      <p>Campo oculto: <input type="hidden" /></p>
+      <!-- Enviar imagem -->
+      <p>
+        <input type="image" src="icon_exit.png" title="Enviar imagem" />
+      </p>
+      <!-- Campo de mês -->
+      <p>
+        Campo de mês:
+        <input
+          type="text"
+          pattern="\d{4}-\d{2}"
+          title="Digite no formato YYYY-MM"
+          placeholder="2023-01"
+        />
+      </p>
+      <!-- Campo numérico -->
+      <p>
+        Campo numérico:
+        <input
+          type="number"
+          title="Digite um número"
+          placeholder="Digite um número"
+        />
+      </p>
+      <!-- Campo de senha -->
+      <p>
+        Campo senha:
+        <input
+          type="password"
+          title="Digite sua senha"
+          placeholder="Digite sua senha"
+        />
+      </p>
+      <!-- Radio buttons para selecionar sexo -->
+      <p>
+        <input type="radio" name="sexo" title="Masculino" checked /> Masculino
+        <input type="radio" name="sexo" title="Feminino" /> Feminino
+        <input type="radio" name="sexo" title="Outros" /> Outros
+      </p>
+      <!-- Controle deslizante -->
+      <p>
+        Controle deslizante: 0
+        <input
+          type="range"
+          min="0"
+          max="100"
+          step="10"
+          title="Ajuste o valor"
+        />
+        100
+      </p>
+      <!-- Botão de reset -->
+      <p>
+        <input type="reset" value="Limpar" title="Redefinir formulário" />
+      </p>
+      <!-- Campo de pesquisa -->
+      <p>
+        Campo pesquisa:
+        <input type="search" title="Pesquisar" placeholder="Pesquisar..." />
+      </p>
+      <!-- Botão de submit -->
+      <p>
+        <input type="submit" value="Enviar" title="Enviar formulário" />
+      </p>
+      <!-- Campo de telefone -->
+      <p>
+        Campo telefone:
+        <input
+          type="tel"
+          pattern="9[0-9]{4}-[0-9]{4}"
+          title="Digite seu telefone"
+          placeholder="91234-5678"
+        />
+      </p>
+      <!-- Campo de texto -->
+      <p>
+        Campo texto:
+        <input
+          type="text"
+          title="Digite um texto"
+          placeholder="Digite um texto"
+        />
+      </p>
+      <!-- Campo de hora -->
+      <p>Campo hora:<input type="time" title="Selecione uma hora" /></p>
+      <!-- Campo de URL -->
+      <p>
+        Campo URL:
+        <input
+          type="url"
+          title="Digite uma URL"
+          placeholder="https://www.exemplo.com"
+        />
+      </p>
+      <!-- Campo de semana -->
+      <p>
+        Campo semana:<input
+          type="text"
+          pattern="\d{4}-W\d{2}"
+          title="Digite no formato YYYY-Www"
+          placeholder="2023-W01"
+        />
+      </p>
+      <!-- Campo desabilitado -->
+      <p>
+        Campo desabilitado:
+        <input type="text" disabled title="Campo desabilitado" />
+      </p>
+      <!-- Campo somente leitura -->
+      <p>
+        Campo somente leitura:
+        <input type="text" readonly title="Campo somente leitura" />
+      </p>
+      <!-- Campo limitado a 5 caracteres -->
+      <p>
+        Campo limitado a 5 caracteres:
+        <input
+          type="text"
+          maxlength="5"
+          title="Máximo 5 caracteres"
+          placeholder="Digite até 5 caracteres"
+        />
+      </p>
+      <!-- Campo obrigatório -->
+      <p>
+        Campo obrigatório:
+        <input
+          type="text"
+          required
+          title="Campo obrigatório"
+          placeholder="Campo obrigatório"
+        />
+      </p>
+      <!-- Campo com tamanho definido -->
+      <p>
+        Atribui um tamanho de 50 para o campo:
+        <input
+          type="text"
+          size="50"
+          title="Digite um texto"
+          placeholder="Digite um texto"
+        />
+      </p>
+      <!-- Campo com valor padrão -->
+      <p>
+        Campo com valor padrão:
+        <input
+          type="text"
+          value="Um valor padrão"
+          title="Digite um texto"
+          placeholder="Digite um texto"
+        />
+      </p>
+      <!-- Campo com dica -->
+      <p>
+        Campo com dica:
+        <input
+          type="email"
+          placeholder="joao.silva@gmail.com"
+          title="Digite seu e-mail"
+        />
+      </p>
+      <!-- Seleção de região do Brasil -->
+      <p>
+        Região do Brasil:
+        <select name="uf" title="Selecione uma região">
+          <option>Norte</option>
+          <option>Nordeste</option>
+          <option>Centro-Oeste</option>
+          <option selected>Sudeste</option>
+          <option>Sul</option>
+        </select>
+      </p>
+      <!-- Seleção de matérias preferidas -->
+      <p>
+        Qual a sua matéria preferida:
+        <select
+          name="disciplinas"
+          multiple
+          size="5"
+          title="Selecione suas matérias preferidas"
+        >
+          <option>Linguagens de programação</option>
+          <option>Programação para dispositivos móveis</option>
+          <option>Algoritmos</option>
+          <option selected>Programação web</option>
+          <option>Outras</option>
+        </select>
+      </p>
+      <!-- Campo de observações -->
+      <p>Observações:</p>
+      <p>
+        <textarea
+          name="observacao"
+          rows="10"
+          cols="30"
+          title="Digite suas observações"
+        >
+Este é o valor padrão para o campo observação</textarea
+        >
+      </p>
+      <!-- Campo de seleção de navegador -->
+      <p>
+        Selecione um navegador:
+        <input
+          list="navegadores"
+          title="Selecione um navegador"
+          placeholder="Digite ou selecione um navegador"
+        />
+        <datalist id="navegadores">
+          <option value="Internet Explorer"></option>
+          <option value="Firefox"></option>
+          <option value="Chrome"></option>
+          <option value="Opera"></option>
+          <option value="Safari"></option>
+        </datalist>
+      </p>
+    </form>
+  </body>
+</html>
