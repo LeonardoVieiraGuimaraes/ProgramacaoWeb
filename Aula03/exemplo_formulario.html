@@ -1,0 +1,258 @@
+<!--
+<!DOCTYPE html>
+<!-- Declaração do tipo de documento, informando ao navegador que o documento está em HTML5 -->
+<html lang="pt">
+  <!-- Tag raiz do documento HTML, com atributo 'lang' especificando o idioma do conteúdo -->
+  <head>
+    <!-- Cabeçalho do documento, contém metadados e informações não visíveis diretamente no conteúdo -->
+    <meta charset="UTF-8" />
+    <!-- Meta tag que define a codificação de caracteres do documento como UTF-8 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Meta tag que define como o conteúdo deve ser exibido em diferentes dispositivos -->
+    <title>Formulário Login</title>
+    <!-- Título da página, exibido na aba do navegador -->
+  </head>
+  <body>
+    <!-- Corpo do documento, contém todo o conteúdo visível ao usuário -->
+    <form action="/principal.html" target="_blank" method="GET">
+      <!-- Formulário com método GET que envia dados para /principal.html em uma nova aba -->
+      <p>
+        <label for="login">Login:</label>
+        <input type="text" id="login" name="login" />
+      </p>
+      <!-- Campo de texto para login -->
+      <p>
+        <label for="senha">Senha:</label>
+        <input type="password" id="senha" name="senha" />
+      </p>
+
+       <p>
+        <label for="datahoje">Data de Hoje:</label>
+        <input type="date" id="datahoje" name="datahoje" />
+      </p>
+      <!-- Campo de senha -->
+      <p>
+        <input type="reset" value="Limpar" />
+        <!-- Botão para limpar o formulário -->
+        <input type="submit" value="Enviar" />
+        <!-- Botão para enviar o formulário -->
+      </p>
+    </form>
+
+    <form>
+      <!-- Formulário genérico -->
+      ... Elementos do formulário (campo texto, botões etc.) ...
+    </form>
+
+    <form>
+      <!-- Formulário com campo de texto -->
+      <label for="campoTexto">Campo de Texto:</label>
+      <input type="text" id="campoTexto" />
+    </form>
+
+    <form>
+      <!-- Formulário com campos de login e senha -->
+      <label for="login2">Login:</label>
+      <input type="text" id="login2" />
+      <label for="senha2">Senha:</label>
+      <input type="password" id="senha2" />
+    </form>
+
+    <form>
+      <!-- Formulário com botões -->
+      <input type="button" value="Botão" />
+      <button type="button" title="Clique no botão">Outro botão</button>
+    </form>
+
+    <form>
+      <!-- Formulário com checkboxes -->
+      Qual a sua linguagem preferida:
+      <label> <input type="checkbox" name="linguagem" />JavaScript </label>
+      <label> <input type="checkbox" name="linguagem" />C# </label>
+      <label> <input type="checkbox" name="linguagem" />PHP </label>
+      <label> <input type="checkbox" name="linguagem" />Java </label>
+    </form>
+
+    <form>
+      <!-- Formulário com campo de data -->
+      <label for="dataNascimento">Data nascimento:</label>
+      <input
+        type="date"
+        id="dataNascimento"
+        min="2000-01-01"
+        max="2018-12-31"
+      />
+    </form>
+
+    <!-- Campo de seleção de cor -->
+    <label for="corFavorita">Cor favorita:</label>
+    <input type="color" id="corFavorita" />
+
+    <form>
+      <!-- Formulário com campo numérico -->
+      <label for="numero">Escolha um número de 1 a 10:</label>
+      <input type="number" id="numero" min="1" max="10" />
+    </form>
+
+    <form>
+      <!-- Formulário com vários tipos de campos -->
+      <label for="dataHora">Data e Hora:</label>
+      <input type="datetime-local" id="dataHora" />
+      <!-- Campo para seleção de data e hora -->
+      <label for="email">Email:</label>
+      <input type="email" id="email" />
+      <!-- Campo para entrada de e-mail -->
+      <label for="arquivo">Arquivo:</label>
+      <input type="file" id="arquivo" />
+      <!-- Campo para seleção de arquivos -->
+      <input type="hidden" />
+      <!-- Campo invisível -->
+      <label for="imagem">Imagem:</label>
+      <input type="image" id="imagem" />
+      <!-- Imagem como botão de envio -->
+      <label for="mes">Mês:</label>
+      <input type="month" id="mes" />
+      <!-- Campo para entrada de mês e ano -->
+      <label for="numero2">Número:</label>
+      <input type="number" id="numero2" />
+      <!-- Campo de entrada numérico -->
+    </form>
+
+    <form>
+      <label for="mesAno">Mês e Ano:</label>
+      <input
+        type="text"
+        id="mesAno"
+        name="mesAno"
+        pattern="\d{4}-\d{2}"
+        title="Digite no formato YYYY-MM, por exemplo, 2023-01"
+        placeholder="2023-01"
+      />
+    </form>
+
+    <form>
+      <!-- Formulário com campo de senha e radio button -->
+      <label for="senha3">Senha:</label>
+      <input type="password" id="senha3" />
+      <!-- Campo de senha -->
+      <label> <input type="radio" /> Opção </label>
+      <!-- Radio button -->
+    </form>
+
+    <form>
+      <!-- Formulário com radio buttons para seleção de sexo -->
+      <label> <input type="radio" name="sexo" checked />Masculino </label>
+      <label> <input type="radio" name="sexo" />Feminino </label>
+      <label> <input type="radio" name="sexo" />Outros </label>
+    </form>
+
+    <form>
+      <input type="reset" title="Redefinir formulário" />
+      <input type="search" title="Pesquisar" placeholder="Pesquisar..." />
+      <input type="submit" title="Enviar formulário" />
+    </form>
+
+    <form>
+      <!-- Formulário com vários tipos de campos -->
+      <label for="textoSimples">Texto Simples:</label>
+      <input type="text" id="textoSimples" />
+      <!-- Campo de texto simples -->
+      <label for="horaMinuto">Hora e Minuto:</label>
+      <input type="time" id="horaMinuto" />
+      <!-- Campo para entrada de hora e minuto -->
+      <label for="url">URL:</label>
+      <input type="url" id="url" />
+      <!-- Campo para entrada de URL -->
+      <label for="semanaAno">Semana e Ano:</label>
+      <input type="week" id="semanaAno" />
+      <!-- Campo para entrada de semana e ano -->
+    </form>
+    <form>
+      <label for="semana">Semana:</label>
+      <input
+        type="text"
+        id="semana"
+        name="semana"
+        pattern="\d{4}-W\d{2}"
+        title="Digite no formato YYYY-Www, por exemplo, 2023-W01"
+        placeholder="2023-W01"
+      />
+    </form>
+    <form action="/principal.html">
+      <!-- Formulário com campo de texto e botão de submit -->
+      <p>
+        <label for="campoTexto2">Campo texto:</label>
+        <input type="text" id="campoTexto2" />
+      </p>
+      <input type="submit" value="Enviar" />
+    </form>
+
+    <form action="/principal.html" target="_blank" method="POST">
+      <!-- Formulário com método POST que envia dados para /principal.html em uma nova aba -->
+      <p>
+        <label for="login3">Login:</label>
+        <input type="text" id="login3" name="login" />
+      </p>
+      <p>
+        <label for="senha4">Senha:</label>
+        <input type="password" id="senha4" name="senha" />
+      </p>
+      <p>
+        <input type="reset" value="Limpar" />
+        <input type="submit" value="Enviar" />
+      </p>
+    </form>
+
+    <form action="/principal.html" target="_blank" method="POST">
+      <!-- Formulário com campo de telefone -->
+      <label for="telefone">Telefone:</label>
+      <input type="tel" id="telefone" pattern="9[0-9]{4}-[0-9]{4}" />
+    </form>
+
+    <form>
+      <!-- Formulário com seleção de região do Brasil -->
+      <label for="regiao">Região do Brasil:</label>
+      <select id="regiao" name="uf">
+        <option>Norte</option>
+        <option>Nordeste</option>
+        <option>Centro-Oeste</option>
+        <option selected>Sudeste</option>
+        <option>Sul</option>
+      </select>
+    </form>
+
+    <form>
+      <!-- Formulário com seleção de matéria preferida -->
+      <label for="materia">Qual a sua matéria preferida:</label>
+      <select id="materia" name="disciplinas" multiple size="5">
+        <option>Linguagens de programação</option>
+        <option>Programação para dispositivos móveis</option>
+        <option>Algoritmos</option>
+        <option selected>Programação web</option>
+        <option>Outras</option>
+      </select>
+    </form>
+
+    <form>
+      <!-- Formulário com campo de seleção de navegador -->
+      <label for="navegador">Selecione um navegador:</label>
+      <input list="navegadores" id="navegador" />
+      <datalist id="navegadores">
+        <option value="Internet Explorer" />
+        <option value="Firefox" />
+        <option value="Chrome" />
+        <option value="Opera" />
+        <option value="Safari" />
+      </datalist>
+    </form>
+
+    <form>
+      <!-- Formulário com campo de texto para observações -->
+      <label for="observacao">Observações:</label><br />
+      <textarea id="observacao" name="observacao" rows="10" cols="30">
+Este é o valor padrão para o campo observação</textarea
+      >
+    </form>
+  </body>
+</html>
+-->
