@@ -1,0 +1,105 @@
+/* Estilo geral */
+body {
+  font-family: "Roboto", sans-serif;
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
+  background-color: #f9f9f9;
+  color: #444;
+}
+
+/* Cabeçalhos */
+h1 {
+  text-align: center;
+  color: #ffffff;
+  background-color: #0077b6;
+  padding: 25px;
+  margin: 0;
+  font-size: 2.8em;
+  border-bottom: 4px solid #023e8a;
+}
+
+h2,
+h3 {
+  color: #0077b6;
+  margin: 20px 0;
+  padding-bottom: 5px;
+  border-bottom: 2px solid #90e0ef;
+}
+
+/* Parágrafos */
+p {
+  margin: 20px auto;
+  font-size: 1.2em;
+  line-height: 1.8;
+  max-width: 800px;
+  text-align: justify;
+}
+
+/* Links */
+a {
+  color: #0077b6;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+a:hover {
+  text-decoration: underline;
+  color: #023e8a;
+}
+
+/* Barra lateral */
+.sidebar {
+  background-color: #caf0f8;
+  border-right: 3px solid #0077b6;
+  padding: 20px;
+  width: 250px;
+  float: left;
+  height: 100vh;
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar ul {
+  list-style-type: none; /* Remove os pontos da lista */
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar li {
+  padding: 12px;
+  margin-bottom: 10px;
+  background-color: #ffffff;
+  border: 1px solid #90e0ef;
+  border-radius: 8px;
+  text-align: center;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.sidebar li:hover {
+  background-color: #90e0ef;
+  transform: scale(1.05);
+  cursor: pointer;
+}
+
+/* Conteúdo principal */
+.main-content {
+  margin-left: 270px; /* Espaço para a barra lateral */
+  padding: 30px;
+  max-width: 900px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  margin-top: 20px;
+}
+
+/* Rodapé */
+footer {
+  text-align: center;
+  padding: 15px;
+  background-color: #0077b6;
+  color: white;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  font-size: 0.9em;
+}

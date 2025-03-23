@@ -1,0 +1,94 @@
+/* Estilo geral */
+body {
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f9;
+  color: #333;
+}
+
+/* Cabeçalhos */
+h1 {
+  text-align: center;
+  color: #fff;
+  background-color: #4caf50;
+  padding: 20px;
+  margin: 0;
+  font-size: 2.5em;
+  border-bottom: 5px solid #388e3c;
+}
+
+h2,
+h3 {
+  color: #4caf50;
+  margin: 20px;
+  border-bottom: 2px solid #4caf50;
+  padding-bottom: 5px;
+}
+
+/* Parágrafos */
+p {
+  margin: 20px;
+  font-size: 1.1em;
+  line-height: 1.8;
+}
+
+/* Links */
+a {
+  color: #4caf50;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Barra lateral */
+.sidebar {
+  background-color: #e8f5e9;
+  border-right: 5px solid #4caf50;
+  padding: 15px;
+  width: 250px;
+  float: left;
+  height: 100vh;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar ul {
+  list-style-type: none; /* Remove os pontos da lista */
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar li {
+  padding: 10px;
+  margin-bottom: 10px;
+  background-color: #f8f9fa;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.sidebar li:hover {
+  background-color: #c8e6c9;
+  cursor: pointer;
+}
+
+/* Conteúdo principal */
+.main-content {
+  margin-left: 270px; /* Espaço para a barra lateral */
+  padding: 20px;
+}
+
+/* Rodapé */
+footer {
+  text-align: center;
+  padding: 10px;
+  background-color: #4caf50;
+  color: white;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
