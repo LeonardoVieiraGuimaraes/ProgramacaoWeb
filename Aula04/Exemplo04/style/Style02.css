@@ -1,0 +1,66 @@
+/* Estilo padrão */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: black;
+    color: white;
+    text-align: center;
+    padding: 20px;
+}
+
+nav {
+    float: left;
+    width: 30%;
+    padding: 20px;
+    background-color: #f1f1f1;
+}
+
+aside {
+    float: left;
+    width: 70%;
+    padding: 20px;
+    background-color: #eaeaea;
+}
+
+footer {
+    clear: both;
+    text-align: center;
+    padding: 10px;
+    background-color: #ddd;
+}
+
+/* Media query com operador AND */
+@media screen and (max-width: 900px) and (orientation: landscape) {
+    nav, aside {
+        width: 100%;
+        float: none;
+    }
+    header {
+        font-size: 20px;
+    }
+}
+
+/* Media query com operador NOT */
+@media not all and (monochrome) {
+    body {
+        background-color: #f0f8ff;
+    }
+}
+
+/* Media query com operador ONLY */
+@media only screen and (max-width: 600px) {
+    header {
+        background-color: darkblue;
+        color: white;
+    }
+    nav {
+        background-color: lightblue;
+    }
+    aside {
+        background-color: lightgray;
+    }
+}

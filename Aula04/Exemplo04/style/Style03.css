@@ -1,0 +1,55 @@
+/* Estilo padrão */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f0;
+}
+
+header {
+    background-color: black;
+    color: white;
+    text-align: center;
+    padding: 20px;
+}
+
+nav {
+    float: left;
+    width: 30%;
+    padding: 20px;
+    background-color: #f1f1f1;
+}
+
+aside {
+    float: left;
+    width: 70%;
+    padding: 20px;
+    background-color: #eaeaea;
+}
+
+footer {
+    clear: both;
+    text-align: center;
+    padding: 10px;
+    background-color: #ddd;
+}
+
+/* Media query com múltiplas condições */
+@media (min-width: 700px), handheld and (orientation: landscape) {
+    body {
+        background-color: #d0f0c0; /* Cor de fundo muda para verde claro */
+    }
+    header {
+        font-size: 24px;
+        background-color: darkgreen;
+    }
+    nav, aside {
+        width: 100%;
+        float: none;
+        text-align: center;
+    }
+    footer {
+        background-color: darkgreen;
+        color: white;
+    }
+}
