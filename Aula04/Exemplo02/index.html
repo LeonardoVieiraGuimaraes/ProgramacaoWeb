@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Página com vários estilos CSS</title>
+    <link
+      href="style/style0.css"
+      rel="stylesheet"
+      type="text/css"
+      id="link-style"
+    />
+  </head>
+  <body>
+    <div class="container wrapper">
+      <div id="top">
+        <h1>Bem-Vindo ao exemplo de CSS</h1>
+        <p>Use o menu para selecionar diferentes estilos CSS</p>
+      </div>
+      <div class="wrapper">
+        <div id="menubar">
+          <ul id="menulist">
+            <li class="menuitem" onclick="reStyle(1)">Estilo 1</li>
+            <li class="menuitem" onclick="reStyle(2)">Estilo 2</li>
+            <li class="menuitem" onclick="reStyle(3)">Estilo 3</li>
+            <li class="menuitem" onclick="reStyle(4)">Estilo 4</li>
+            <li class="menuitem" onclick="reStyle(0)">Sem CSS</li>
+          </ul>
+        </div>
+        <div id="main">
+          <h1>Repare que é o mesmo HTML porém com CSS diferentes</h1>
+          <p>
+            Esta é uma demonstração de como diferentes estilos CSS podem alterar
+            o layout da sua página HTML. Você pode alterar o layout da página,
+            selecionando diferentes folhas de estilo no menu
+          </p>
+          <h2>Sem CSS</h2>
+          <p>
+            Esta página também possui uma opção que é remover todo o CSS (Menu
+            Sem CSS).
+            <a href="#" onclick="reStyle(0);return false">Clique aqui</a> para
+            ver como é a página sem CSS
+          </p>
+        </div>
+        <div id="sidebar">
+          <h3>Barra Lateral</h3>
+          <p>
+            CSS é uma linguagem que descreve como os elementos HTML devem ser
+            exibidos no seu navegador.
+          </p>
+        </div>
+      </div>
+      <div id="bottom">
+        <p>
+          Veja que o CSS permite controlar fontes, cores, margens, linhas,
+          alturas, larguras, imagens de fundo, posicionamentos, etc. Atualmente
+          a linguagem está na versão 3
+        </p>
+        <p>Desenvolvido por Tarley Lana</p>
+      </div>
+    </div>
+
+    <script src="script/script.js"></script>
+  </body>
+</html>

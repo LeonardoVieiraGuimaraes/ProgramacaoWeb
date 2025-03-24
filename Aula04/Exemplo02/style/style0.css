@@ -1,0 +1,10 @@
+.menuitem {
+  padding: 2px;
+  cursor: pointer;
+  width: 70px;
+  text-decoration: underline;
+}
+
+.menuitem:hover {
+  color: #32a4e7;
+}
