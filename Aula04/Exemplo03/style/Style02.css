@@ -1,0 +1,25 @@
+/* Estilo para o corpo da página */
+body {
+    background-color: #567895;
+}
+
+/* Estilo para o título (h1) */
+h1 {
+    font-size: 24pt;
+    font-family: "Impact, Arial, Sans-Serif";
+    background-color: black;
+    color: white;
+    padding: 10px;
+    text-align: center;
+}
+
+/* Estilo para o parágrafo (p) */
+p {
+    font-size: 14pt;
+    font-family: cursive;
+    color: black;
+    margin: 20px;
+    padding: 10px;
+    background-color: white;
+    border-radius: 5px;
+}
