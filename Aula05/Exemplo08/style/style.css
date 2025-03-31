@@ -1,0 +1,28 @@
+body {
+  font: 1.2em Helvetica, Arial, sans-serif;
+  margin: 20px;
+  padding: 0;
+  background-color: #eee;
+}
+
+.wrapper {
+  width: 960px;
+  margin: 2em auto;
+  overflow: hidden; /* Adicionado para evitar problemas de layout com float */
+}
+
+.col1 {
+  width: 300px;
+  float: left;
+  background-color: #fff;
+  padding: 1em; /* Adicionado para melhorar o espaçamento interno */
+  box-sizing: border-box; /* Inclui padding e border no tamanho total */
+}
+
+.col2 {
+  width: 620px;
+  float: right;
+  background-color: #fff;
+  padding: 1em; /* Adicionado para melhorar o espaçamento interno */
+  box-sizing: border-box; /* Inclui padding e border no tamanho total */
+}

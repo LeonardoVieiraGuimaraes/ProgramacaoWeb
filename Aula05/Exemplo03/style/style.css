@@ -1,0 +1,233 @@
+body {
+  font-family: cursive;
+}
+
+body > div {
+  background-color: DodgerBlue;
+}
+
+div > div {
+  background-color: #f1f1f1;
+  font-size: 30px;
+  text-align: center;
+  margin: 10px;
+  padding: 30px;
+}
+
+/* EXEMPLO 01 */
+.ex01-flex-container {
+  display: flex;
+}
+
+/* EXEMPLO 02 */
+.ex02-flex-container {
+  display: flex;
+  flex-direction: column;
+}
+
+/* EXEMPLO 03 */
+.ex03-flex-container {
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+/* EXEMPLO 04 */
+.ex04-flex-container {
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+/* EXEMPLO 05 */
+.ex05-flex-container {
+  display: flex;
+  flex-direction: row;
+}
+
+/* EXEMPLO 06 */
+.ex06-flex-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+/* EXEMPLO 07 */
+.ex07-flex-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap-reverse;
+}
+
+/* EXEMPLO 08 */
+.ex08-flex-container {
+  display: flex;
+  flex-flow: row wrap;
+}
+
+/* EXEMPLO 09 */
+.ex09-flex-container {
+  display: flex;
+}
+
+/* EXEMPLO 10 */
+.ex10-flex-container {
+  display: flex;
+}
+
+/* EXEMPLO 11 */
+.ex11-flex-container {
+  display: flex;
+}
+
+.ex11-flex-container > div {
+  flex-grow: 1;
+}
+
+/* EXEMPLO 12 */
+.ex12-flex-container {
+  display: flex;
+}
+
+/* EXEMPLO 13 */
+.ex13-flex-container {
+  display: flex;
+}
+
+.ex13-flex-container > div {
+  padding: unset;
+  flex-basis: 200px;
+}
+
+/* EXEMPLO 14 */
+.ex14-flex-container {
+  display: flex;
+  height: 300px;
+  align-items: stretch;
+}
+
+/* EXEMPLO 15 */
+.ex15-flex-container {
+  display: flex;
+  height: 300px;
+  align-items: flex-start;
+}
+
+/* EXEMPLO 16 */
+.ex16-flex-container {
+  display: flex;
+  height: 300px;
+  align-items: center;
+}
+
+/* EXEMPLO 17 */
+.ex17-flex-container {
+  display: flex;
+  height: 300px;
+  align-items: flex-end;
+}
+
+/* EXEMPLO 17.a */
+.ex17-a-flex-container {
+  display: flex;
+  align-items: baseline;
+}
+
+/* EXEMPLO 18 */
+.ex18-flex-container {
+  display: flex;
+  justify-content: flex-start;
+}
+
+/* EXEMPLO 19 */
+.ex19-flex-container {
+  display: flex;
+  justify-content: center;
+}
+
+/* EXEMPLO 20 */
+.ex20-flex-container {
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* EXEMPLO 21 */
+.ex21-flex-container {
+  display: flex;
+  justify-content: space-around;
+}
+
+/* EXEMPLO 22 */
+.ex22-flex-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+/* EXEMPLO 23 */
+.ex23-flex-container {
+  display: flex;
+  height: 300px;
+  align-items: flex-start;
+}
+
+/* EXEMPLO 24 */
+.ex24-flex-container {
+  display: flex;
+  flex-wrap: wrap;
+  height: 400px;
+  align-content: flex-start;
+}
+
+/* EXEMPLO 25 */
+.ex25-flex-container {
+  display: flex;
+  flex-wrap: wrap;
+  height: 400px;
+  align-content: flex-end;
+}
+
+/* EXEMPLO 26 */
+.ex26-flex-container {
+  display: flex;
+  flex-wrap: wrap;
+  height: 400px;
+  align-content: center;
+}
+
+/* EXEMPLO 27 */
+.ex27-flex-container {
+  display: flex;
+  flex-wrap: wrap;
+  height: 400px;
+  align-content: space-between;
+}
+
+/* EXEMPLO 28 */
+.ex28-flex-container {
+  display: flex;
+  flex-wrap: wrap;
+  height: 400px;
+  align-content: space-around;
+}
+
+/* EXEMPLO 29 */
+.ex29-flex-container {
+  display: flex;
+  flex-wrap: wrap;
+  height: 400px;
+  align-content: stretch;
+}
+
+/* EXEMPLO 30 */
+.ex30-flex-container {
+  display: flex;
+  flex-wrap: wrap;
+  height: 400px;
+  align-content: space-evenly;
+}
+
+/* EXEMPLO CENTRALIZAÇÃO PERFEITA */
+.centralizacao-perfeita {
+  display: flex;
+  height: 400px;
+  justify-content: center;
+  align-items: center;
+}

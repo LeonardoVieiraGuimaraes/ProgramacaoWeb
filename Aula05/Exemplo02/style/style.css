@@ -1,0 +1,207 @@
+body {
+  font-family: sans-serif;
+  background-color: white;
+}
+
+/* Estilo para todos os primeiros <div> após o <body> */
+div {
+  background-color: rgb(68, 130, 195); /* Cor de fundo diferente */
+  border: 2px solid black; /* Borda destacada */
+  padding: 10px; /* Alteração no padding */
+  margin: 10px; /* Alteração no margin */
+}
+
+/* Estilo para os filhos diretos de qualquer <div> */
+div > div {
+  background-color: rgb(241, 241, 240); /* Cor de fundo diferente */
+  border: 2px solid black; /* Borda destacada */
+  padding: 10px; /* Alteração no padding */
+  margin: 10px; /* Alteração no margin */
+}
+
+.ex01-flex-container {
+  display: flex;
+}
+
+.ex02-flex-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.ex03-flex-container {
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+.ex04-flex-container {
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.ex05-flex-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.ex06-flex-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap-reverse;
+}
+.ex07-flex-container {
+  display: flex;
+  flex-flow: row wrap;
+}
+
+.ex08-flex-container {
+  display: flex;
+}
+
+.ex08-01-flex-container {
+  flex-basis: 200px;
+}
+
+.ex09-flex-container {
+  display: flex;
+}
+
+.ex09-01-flex-container {
+  flex-grow: 1;
+}
+
+.ex10-flex-container {
+  display: flex;
+}
+.ex10-flex-container > div {
+  flex-grow: 1;
+}
+
+.ex11-flex-container {
+  display: flex;
+}
+
+.ex11-flex-container > div {
+  flex-grow: 2;
+}
+
+.ex12-flex-container {
+  display: flex; /* Define o contêiner como flexível */
+}
+
+.ex12-flex-container > div:nth-child(2) {
+  flex-basis: 200px; /* Define a largura base de cada item */
+  flex-shrink: 0;
+}
+
+.ex13-flex-container {
+  display: flex;
+  height: 300px;
+  align-items: stretch;
+}
+
+.ex14-flex-container {
+  display: flex;
+  height: 300px;
+  align-items: flex-start;
+}
+
+.ex15-flex-container {
+  display: flex;
+  height: 300px;
+  align-items: center;
+}
+
+.ex16-flex-container {
+  display: flex;
+  height: 300px;
+  align-items: flex-end;
+}
+.ex17-flex-container {
+  display: flex;
+  height: 300px;
+  align-items: baseline;
+}
+
+.ex18-flex-container {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.ex19-flex-container {
+  display: flex;
+  justify-content: center;
+}
+
+.ex20-flex-container {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.ex21-flex-container {
+  display: flex;
+  justify-content: space-around;
+}
+
+.ex22-flex-container {
+  display: flex;
+  height: 300px;
+  align-items: flex-start;
+}
+
+.ex22-flex-container > div:nth-child(1) {
+  align-self: stretch;
+}
+
+.ex22-flex-container > div:nth-child(2) {
+  align-self: center;
+}
+
+.ex24-flex-container {
+  display: flex;
+  flex-wrap: wrap;
+  height: 400px;
+  align-content: flex-start;
+}
+
+.ex25-flex-container {
+  display: flex;
+  flex-wrap: wrap;
+  height: 400px;
+  align-content: flex-end;
+}
+
+.ex26-flex-container {
+  display: flex;
+  flex-wrap: wrap;
+  height: 400px;
+  align-content: center;
+}
+
+.ex27-flex-container {
+  display: flex;
+  flex-wrap: wrap;
+  height: 400px;
+  align-content: space-between;
+}
+
+.ex28-flex-container {
+  display: flex;
+  flex-wrap: wrap;
+  height: 400px;
+  align-content: space-around;
+}
+
+.ex29-flex-container {
+  display: flex;
+  flex-wrap: wrap;
+  height: 400px;
+  align-content: stretch;
+}
+
+.ex30-flex-container {
+  display: flex;
+  flex-wrap: wrap;
+  height: 400px;
+  align-content: space-evenly;
+}

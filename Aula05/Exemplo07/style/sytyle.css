@@ -1,0 +1,37 @@
+body {
+  font: 1.2em Helvetica, Arial, sans-serif;
+  margin: 20px;
+  padding: 0;
+  background-color: #eee;
+}
+
+.wrapper {
+  max-width: 1200px;
+  width: 90%;
+  margin: 2em auto;
+  overflow: hidden;
+}
+
+.col1 {
+  width: 25%;
+  float: left;
+  background-color: #fff;
+  padding: 1em;
+  box-sizing: border-box;
+}
+
+.col2 {
+  width: 70%;
+  float: right;
+  background-color: #fff;
+  padding: 1em;
+  box-sizing: border-box;
+}
+
+@media (max-width: 768px) {
+  .col1,
+  .col2 {
+    width: 100%;
+    float: none;
+  }
+}
