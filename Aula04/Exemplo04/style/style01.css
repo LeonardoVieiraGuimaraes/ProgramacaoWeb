@@ -9,7 +9,7 @@ li {
 }
 
 a {
-  text-decoration: none;
+  text-decoration: underline wavy red;
   color: black;
 }
 
@@ -24,9 +24,25 @@ ul + p {
 
 header {
   background-color: black;
-  padding: 30px;
+  padding-left: 20px;
+  padding-right: 10px;
+  padding-top: 5px;
+  padding-bottom: 8px;
+  
+  margin-bottom: 20px;
+  margin-top:10px;
+  margin-left: 30px;
+  margin-right: 30px;
+  
+  border-bottom: 5px solid #d4d4d4;
+  border-top: 5px solid #d4d4d4;
+  border-left: 5px solid #d4d4d4;
+  border-right: 5px solid #d4d4d4;
+  border-radius: 20px;
+
   text-align: center;
   font-size: 35px;
+ 
 }
 
 * {
@@ -34,18 +50,18 @@ header {
 }
 
 nav {
-  float: left;
-  width: 30%;
-  height: 300px;
+  float: right;
+  width: 80%;
+  height: 30%;
   padding: 20px;
 }
 
 aside {
   float: left;
   padding: 20px;
-  width: 70%;
+  width: 50%;
   background-color: #f1f1f1;
-  height: 300px;
+  height: 500px;
 }
 
 footer {
@@ -82,7 +98,7 @@ a:hover {
   color: tomato;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 400px) {
   nav,
   article,
   aside {
