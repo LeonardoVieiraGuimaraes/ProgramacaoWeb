@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contato - Meu Site</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header>
+      <nav>
+        <ul>
+          <li>
+            <a href="index.html"><i class="fas fa-home"></i> Home</a>
+          </li>
+          <li>
+            <a href="sobre.html"><i class="fas fa-info-circle"></i> Sobre</a>
+          </li>
+          <li>
+            <a href="contato.html" class="active"
+              ><i class="fas fa-envelope"></i> Contato</a
+            >
+          </li>
+        </ul>
+      </nav>
+    </header>
+    <main>
+      <section class="contact">
+        <h2>Entre em Contato</h2>
+        <form>
+          <label for="name">Nome:</label>
+          <input type="text" id="name" name="name" required />
+          <label for="email">E-mail:</label>
+          <input type="email" id="email" name="email" required />
+          <label for="message">Mensagem:</label>
+          <textarea id="message" name="message" required></textarea>
+          <button type="submit">Enviar</button>
+        </form>
+      </section>
+    </main>
+    <footer>
+      <p>&copy; 2023 Meu Site. Todos os direitos reservados.</p>
+      <p>
+        <i class="fas fa-envelope"></i> contato@meusite.com |
+        <i class="fas fa-phone"></i> +55 11 99999-9999 |
+        <i class="fas fa-map-marker-alt"></i> São Paulo, Brasil
+      </p>
+    </footer>
+  </body>
+</html>
