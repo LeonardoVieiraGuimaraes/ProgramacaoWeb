@@ -1,0 +1,24 @@
+@media  (orientation: landscape) {
+    body {
+        background-color: lightblue;
+    }
+}
+
+@media (min-width: 600px) and (orientation: paisage) {
+    body {
+        background-color: white;
+    }
+  
+}
+
+@media not all and (monochrome) {
+    body {
+        color: black;
+    }
+}
+
+/* @media only screen and (color) {
+    body {
+        background-color: lightgreen;
+    }
+} */

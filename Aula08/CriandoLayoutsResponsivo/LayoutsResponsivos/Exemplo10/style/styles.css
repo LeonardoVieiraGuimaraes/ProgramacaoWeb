@@ -1,0 +1,7 @@
+
+@media (min-width: 700px), handheld and (orientation: landscape) {
+    body {
+        background-color: lightblue;
+        font-size: 18px;
+    }
+}

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exemplo de Imagem Responsiva</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Exemplo de Imagem Responsiva</h1>
+    <img src="www-1920x1440.jpg" alt="Imagem WWW"
+         srcset="www-640x480.jpg 640w,
+                 www-1280x960.jpg 1280w,
+                 www-1920x1440.jpg 1920w"
+         sizes="(max-width: 640px) 300px,
+                (max-width: 1280px) 1000px,
+                1920px">
+</body>
+</html>
