@@ -10,13 +10,12 @@ body {
   width: 90%;
   margin: 2em auto;
   /* overflow: hidden; */
-  background-color: aqua;
 }
 
 .col1 {
   width: 25%;
   float: left;
-  background-color: #8e9e9f;
+  background-color: #fff;
   padding: 1em;
   box-sizing: border-box;
 }
@@ -24,17 +23,15 @@ body {
 .col2 {
   width: 70%;
   float: right;
-  background-color: #e4e4f0;
+  background-color: #fff;
   padding: 1em;
   box-sizing: border-box;
 }
-
-
+/* 
 @media (max-width: 768px) {
   .col1,
   .col2 {
     width: 100%;
-    background-color: bisque;
-    
+    float: none;
   }
-}
+} */
