@@ -1,0 +1,28 @@
+.container {
+  display: flex;
+}
+#main {
+  width: 40%;
+  margin-right: 100px;
+}
+nav {
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 450px;
+}
+nav div {
+  width: 100px;
+  height: 150px;
+  margin-right: 100px;
+  text-align: center;
+}
+
+header {
+  display: flex;
+  flex-direction: row;
+  text-align: center;
+}
+
+#titulo {
+  width: 100%;
+}
