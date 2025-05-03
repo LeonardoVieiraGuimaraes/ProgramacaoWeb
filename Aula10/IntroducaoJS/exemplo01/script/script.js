@@ -229,3 +229,52 @@ function exemploEstruturaLogicaMultiplas() {
 
 // Chamada da função
 exemploEstruturaLogicaMultiplas();
+
+// Exemplos de operadores lógicos e relacionais
+function exemploOperadoresLogicosRelacionais() {
+  const x = 5;
+  const y = "5";
+  const z = 10;
+
+  // Operadores relacionais
+  window.console.log(`x > z: ${x > z}`); // false
+  window.console.log(`x < z: ${x < z}`); // true
+  window.console.log(`x >= 5: ${x >= 5}`); // true
+  window.console.log(`x <= 4: ${x <= 4}`); // false
+  window.console.log(`x == y: ${x == y}`); // true (valores iguais, tipos diferentes)
+  window.console.log(`x === y: ${x === y}`); // false (valores iguais, tipos diferentes)
+  window.console.log(`x != z: ${x != z}`); // true
+  window.console.log(`x !== y: ${x !== y}`); // true (valores iguais, mas tipos diferentes)
+
+  // Operadores lógicos
+  window.console.log(`x > 2 && x < 8: ${x > 2 && x < 8}`); // true (ambas as condições são verdadeiras)
+  window.console.log(`x < 2 || x > 8: ${x < 2 || x > 8}`); // false (nenhuma condição é verdadeira)
+  window.console.log(`!(x > z): ${!(x > z)}`); // true (negação de false)
+
+  // Exemplo prático com E (&&) e OU (||)
+  if (x > 2 && x < 8) {
+    window.console.log("x está entre 2 e 8.");
+  }
+
+  if (x < 2 || x > 8) {
+    window.console.log("x é menor que 2 ou maior que 8.");
+  } else {
+    window.console.log("x está entre 2 e 8.");
+  }
+
+  const verdadeiro = true;
+  const falso = false;
+
+  window.console.log(`!verdadeiro: ${!verdadeiro}`); // false
+  window.console.log(`!falso: ${!falso}`); // true
+
+  window.console.log(`!(x > 5): ${!(x > 5)}`); // false (negação de true)
+  window.console.log(`!(x < 5): ${!(x < 5)}`); // true (negação de false)
+
+  // Exemplo prático
+  if (!falso) {
+    window.console.log("A condição foi negada e é verdadeira.");
+  }
+}
+
+exemploOperadoresLogicosRelacionais();
