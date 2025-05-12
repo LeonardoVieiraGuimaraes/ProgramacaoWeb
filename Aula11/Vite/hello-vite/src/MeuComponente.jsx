@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function MeuComponente() {
+function MeuComponente() {
   return (
     <div>
       <h2>Olá, eu sou o MeuComponente!</h2>
@@ -8,3 +8,5 @@ export default function MeuComponente() {
     </div>
   );
 }
+
+export default MeuComponente;
