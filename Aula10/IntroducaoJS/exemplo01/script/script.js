@@ -9,6 +9,7 @@ console.table([
   { nome: "João", idade: 25 },
   { nome: "Maria", idade: 30 },
 ]); // Exibe uma tabela
+
 console.group("Grupo de Mensagens"); // Inicia um grupo
 console.log("Mensagem dentro do grupo");
 console.groupEnd(); // Finaliza o grupo
@@ -28,6 +29,19 @@ console.log(`Largura da janela: ${largura}, Altura da janela: ${altura}`);
 window.addEventListener("resize", () => {
   console.log("A janela foi redimensionada!");
 });
+
+// Exemplo criação de um objeto
+
+const pessoa = { saudar: function() {
+  console.log("Olá, mundo!, meu nome é " + this.nome + " e tenho " + this.idade + " anos.");
+}
+};
+
+
+const pessoa1 = Object.create(pessoa);
+pessoa1.nome = "João";
+pessoa1.idade = 25;
+pessoa1.saudar(); 
 
 // Exemplo de algoritmo para imprimir no console do navegador
 function exemploAlgoritmo() {
