@@ -11,8 +11,8 @@ function GuestGreeting() {
 function Greeting(props) {
   return props.isLoggedIn ? <UserGreeting /> : <GuestGreeting />;
 
-
 }
+
 // function Greeting(props) {
 // const isLoggedIn = props.isLoggedIn;
 //   if (isLoggedIn) {
