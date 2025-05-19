@@ -6,9 +6,10 @@ var sum = (x, y) => x + y;
 console.log(sum(number, x));
 
 var myMain = document.getElementById("main");
-myMain.style.color = "red";
+myMain.style.color = "red"; 
 
 var itens = document.getElementsByClassName("container");
+console.log(itens);
 itens[0].style.backgroundColor = "blue";
 
 // Exemplo usando getElementsByTagName()

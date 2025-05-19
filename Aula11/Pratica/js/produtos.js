@@ -75,9 +75,8 @@ document
     } catch (err) {
       // Em caso de erro na requisição, exibe mensagem detalhada ao usuário.
       alert(
-        "Erro ao salvar produto na API: " +
-          err.message +
-          "\nVerifique se a API está online, se CORS está liberado e se os dados enviados estão corretos."
+        "Erro ao salvar produto na API: "
+        + err.message
       );
     }
   });

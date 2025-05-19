@@ -1,0 +1,116 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}
+
+.square {
+  width: 80px;
+  height: 80px;
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin: 4px;
+  cursor: pointer;
+  background: #f0f0f0;
+  border: 2px solid #1976d2;
+  border-radius: 8px;
+  transition: background 0.2s, box-shadow 0.2s;
+  box-shadow: 0 2px 8px #0001;
+  outline: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.square:hover, .square:focus {
+  background: #e3f2fd;
+  box-shadow: 0 4px 16px #1976d233;
+}
+
+.board-row {
+  display: flex;
+  justify-content: center;
+}
+
+.status {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #1976d2;
+  margin-bottom: 1rem;
+  letter-spacing: 1px;
+}
+
+.game {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 2rem;
+}
+
+.game-board {
+  background: #fff;
+  padding: 2rem 2.5rem;
+  border-radius: 16px;
+  box-shadow: 0 4px 24px #0002;
+}
+
+.game-info {
+  text-align: left;
+  margin-top: 1rem;
+}
+
+.game-info ol {
+  padding-left: 1.2em;
+}
+
+.game-info button {
+  background: #1976d2;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 0.5em 1em;
+  margin-bottom: 0.5em;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.game-info button:hover, .game-info button:focus {
+  background: #1565c0;
+}

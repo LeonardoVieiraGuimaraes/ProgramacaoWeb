@@ -1,12 +1,12 @@
-var myMain = document.getElementById("main");
-myMain.addEventListener(
-  "click",
-  function (event) {
-    myMain.style.color = "red";
-    myMain.style.backgroundColor = "blue";
-  },
-  false
-);
+// var myMain = document.getElementById("main");
+// myMain.addEventListener(
+//   "click",
+//   function (event) {
+//     myMain.style.color = "red";
+//     myMain.style.backgroundColor = "blue";
+//   },
+//   false
+// );
 
 var myInput = document.getElementById("input");
 myInput.addEventListener(
@@ -18,20 +18,20 @@ myInput.addEventListener(
   false
 );
 
-var draggableItem = document.getElementById("draggable");
-var dropZone = document.getElementById("dropzone");
+// var draggableItem = document.getElementById("draggable");
+// var dropZone = document.getElementById("dropzone");
 
-draggableItem.addEventListener("dragstart", function (event) {
-  event.dataTransfer.setData("text", event.target.id);
-});
+// draggableItem.addEventListener("dragstart", function (event) {
+//   event.dataTransfer.setData("text", event.target.id);
+// });
 
-dropZone.addEventListener("dragover", function (event) {
-  event.preventDefault();
-});
+// dropZone.addEventListener("dragover", function (event) {
+//   event.preventDefault();
+// });
 
-dropZone.addEventListener("drop", function (event) {
-  event.preventDefault();
-  var data = event.dataTransfer.getData("text");
-  var draggedElement = document.getElementById(data);
-  dropZone.appendChild(draggedElement);
-});
+// dropZone.addEventListener("drop", function (event) {
+//   event.preventDefault();
+//   var data = event.dataTransfer.getData("text");
+//   var draggedElement = document.getElementById(data);
+//   dropZone.appendChild(draggedElement);
+// });
