@@ -1,0 +1,27 @@
+.filters {
+  columns: auto;
+  text-align: center;
+  padding: 1rem 1rem 0 1rem;
+}
+
+.filter {
+  display: inline-block;
+  width: auto;
+  margin: 0.25rem;
+  min-height: 0;
+  overflow: hidden;
+  max-width: 100%;
+  border: 1px solid rgb(170, 170, 170);
+  padding: 8px 15px;
+  border-radius: 80px;
+  color: #111;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.active-filter {
+  background: #f9748f;
+  color: #fff;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+}

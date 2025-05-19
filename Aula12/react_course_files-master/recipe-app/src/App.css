@@ -1,0 +1,48 @@
+@import url("https://fonts.googleapis.com/css?family=Montserrat&display=swap");
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  border: 15px solid #f9748f;
+}
+
+body {
+  font-family: "Montserrat", sans-serif;
+}
+
+.App {
+  min-height: 100vh;
+  background: white;
+}
+
+.header {
+  text-align: center;
+  padding: 20px 40px 60px 40px;
+}
+
+.title {
+  color: #f9748f;
+  font-weight: 200;
+  font-size: 3rem;
+}
+
+.search-form {
+  min-height: 5vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-left: 40px;
+}
+
+.recipes {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.search-filter {
+  max-width: 500px;
+  margin: 0 auto;
+}
