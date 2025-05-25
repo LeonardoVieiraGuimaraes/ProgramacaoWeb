@@ -1,0 +1,124 @@
+body,
+html,
+#root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background: #18191a;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.chatbot-container {
+  background: #23272f;
+  width: 100vw;
+  height: 100vh;
+  min-height: 100vh;
+  min-width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  border-radius: 0;
+  box-shadow: none;
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+
+.chatbot-header {
+  background: #111;
+  color: #fff;
+  width: 100vw;
+  padding: 32px 0 24px 0;
+  font-size: 2rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+  text-align: center;
+  border-bottom: 1px solid #222;
+  border-radius: 0;
+}
+
+.chatbot-messages {
+  flex: 1;
+  width: 100vw;
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 32px 24px 16px 24px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  box-sizing: border-box;
+}
+
+.message {
+  max-width: 80%;
+  padding: 14px 20px;
+  border-radius: 16px;
+  font-size: 1.08rem;
+  line-height: 1.6;
+  word-break: break-word;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
+}
+
+.message.user {
+  align-self: flex-end;
+  background: #4f8cff;
+  color: #fff;
+  border-bottom-right-radius: 4px;
+}
+
+.message.bot {
+  align-self: flex-start;
+  background: #18191a;
+  color: #fff;
+  border-bottom-left-radius: 4px;
+  text-align: justify;
+  font-family: "Fira Mono", "Consolas", "Courier New", monospace;
+  letter-spacing: 0.01em;
+}
+
+.chatbot-form {
+  display: flex;
+  width: 100vw;
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 0 24px 32px 24px;
+  border-top: 1px solid #222;
+  background: #23272f;
+  border-radius: 0 0 0 0;
+  box-sizing: border-box;
+}
+
+.chatbot-form input[type="text"] {
+  flex: 1;
+  padding: 12px 16px;
+  border: 1.5px solid #444;
+  border-radius: 8px;
+  font-size: 1.08rem;
+  background: #18191a;
+  color: #fff;
+  margin-right: 12px;
+  outline: none;
+  transition: border 0.2s;
+}
+
+.chatbot-form input[type="text"]:focus {
+  border: 1.5px solid #4f8cff;
+}
+
+.chatbot-form button {
+  background: #4f8cff;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 28px;
+  font-size: 1.08rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.chatbot-form button:disabled {
+  background: #b3d1ff;
+  cursor: not-allowed;
+}
