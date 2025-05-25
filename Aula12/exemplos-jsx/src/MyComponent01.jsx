@@ -6,7 +6,7 @@ export default class MyComponent01 extends Component {
   // O estado inicial é definido como propriedades booleanas
   state = {
     first: false,
-    second: true,
+    second: false,
   };
 
   // O método render() é obrigatório em componentes de classe
