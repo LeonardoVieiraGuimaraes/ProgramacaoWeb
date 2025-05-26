@@ -120,7 +120,14 @@ Aqui estão algumas das bibliotecas mais populares e amplamente utilizadas no ec
     - **Uso**: Muito utilizada para testes unitários e de integração em componentes React, principalmente quando se deseja manipular e inspecionar o DOM renderizado.
     - **Documentação**: [Enzyme](https://enzymejs.github.io/enzyme/)
 
+23. **Vite Test (Vitest)**
+    - **Descrição**: Ferramenta de testes rápida e moderna, integrada ao ecossistema Vite.
+    - **Uso**: Permite criar e executar testes unitários e de integração em projetos React criados com Vite, com sintaxe semelhante ao Jest e integração facilitada.
+    - **Documentação**: [Vitest](https://vitest.dev/)
+
 > **Nota:** O Jest é frequentemente utilizado em conjunto com o Enzyme para criar e executar testes automatizados em aplicações React. O Jest cuida da execução dos testes e geração de relatórios, enquanto o Enzyme facilita a manipulação e inspeção dos componentes React durante os testes.
+>
+> O **Vitest** é uma alternativa moderna ao Jest, especialmente recomendada para projetos criados com Vite, pois oferece integração nativa, execução rápida e suporte a testes de componentes React.
 
 ### Outros
 18. **Spectacle**
@@ -180,8 +187,9 @@ cd meu-projeto-react
 ### 3. Instalar as Dependências
 Instale as bibliotecas mencionadas no projeto:
 ```bash
-npm install react-router-dom axios @mui/material @emotion/react @emotion/styled redux react-redux antd @chakra-ui/react @emotion/react @emotion/styled framer-motion
+npm install react-router-dom axios @mui/material @emotion/react @emotion/styled redux react-redux antd @chakra-ui/react @emotion/react @emotion/styled framer-motion vitest
 ```
+> Para testes, você pode utilizar o **Vitest** (recomendado para projetos Vite) ou o Jest.
 
 ### 4. Executar o Projeto
 Inicie o servidor de desenvolvimento:
@@ -215,6 +223,10 @@ Agora você está pronto para começar a desenvolver sua aplicação React com V
 4. Inicie o servidor de desenvolvimento com:
    ```bash
    npm start
+   ```
+5. Para rodar os testes com o **Vitest**:
+   ```bash
+   npx vitest
    ```
 
 ## Contribuições
