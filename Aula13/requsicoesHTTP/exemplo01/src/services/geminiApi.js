@@ -2,7 +2,7 @@
 import axios from "axios";
 
 // Obtém a chave da API Gemini do arquivo de variáveis de ambiente
-const GEMINI_API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
+const GEMINI_API_KEY = 'AIzaSyC3B_QaygO9GTJy0nzeMbEWm-LFkEOUUgg';
 
 // Cria uma instância do axios com configurações padrão para a API Gemini
 const geminiApi = axios.create({
