@@ -30,6 +30,28 @@ Para instalar Jest e React Testing Library em um projeto React, execute:
 npm install --save-dev jest @testing-library/react @testing-library/jest-dom
 ```
 
+### Usando Vitest (Recomendado para projetos Vite)
+
+Se seu projeto utiliza Vite, recomenda-se usar o **Vitest** para testes, pois ele é mais rápido e integrado ao ecossistema Vite. Para instalar:
+
+```bash
+npm install --save-dev vitest @testing-library/react @testing-library/jest-dom
+```
+
+No arquivo `vite.config.js`, configure o ambiente de teste para `jsdom`:
+
+```js
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
+
+export default defineConfig({
+  plugins: [react()],
+  test: {
+    environment: "jsdom",
+  },
+});
+```
+
 ## Exemplo de Teste com Jest e React Testing Library
 
 ```jsx
@@ -57,6 +79,28 @@ ou
 ```bash
 npx jest
 ```
+
+### Como Executar os Testes com Vitest
+
+Para rodar todos os testes do projeto com Vitest:
+
+```bash
+npx vitest
+```
+
+Para rodar um teste específico (por exemplo, um teste de controle):
+
+```bash
+npx vitest run testes/exemplo01/src/MeuBotao.control.test.jsx
+```
+
+Você também pode rodar em modo interativo (watch):
+
+```bash
+npx vitest --watch
+```
+
+> **Importante:** Certifique-se de que o ambiente de teste está configurado para `jsdom` no `vite.config.js` para que os testes de componentes React funcionem corretamente.
 
 ## Dicas de Boas Práticas
 
