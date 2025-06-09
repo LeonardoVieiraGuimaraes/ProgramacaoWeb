@@ -122,4 +122,43 @@ Repita o comando para outras dependências se necessário, conforme mostrado aci
 
 ---
 
+# Testes com Vite Teste (Vitest)
+
+## Como rodar os testes
+
+### Pré-requisitos
+
+- Ter o Node.js instalado.
+- Ter as dependências do projeto instaladas (`npm install`).
+
+### Rodando os testes com Vitest
+
+1. No terminal, navegue até a pasta do projeto.
+2. Execute o comando abaixo para rodar todos os testes:
+   ```
+   npm run test
+   ```
+   Ou, para rodar em modo observador (watch):
+   ```
+   npm run test:watch
+   ```
+
+## Sobre os testes
+
+- Os testes estão localizados em arquivos com extensão `.test.jsx`.
+- Exemplo de teste unitário: `src/components/NavBar.test.jsx`
+- Exemplo de teste de integração: `src/App.test.jsx`
+- Os testes utilizam [Vitest](https://vitest.dev/) e [Testing Library](https://testing-library.com/).
+
+## O que é testado?
+
+- **Unitário:** Testa componentes isolados, como o NavBar.
+- **Integração:** Testa a interação entre componentes, como o App renderizando NavBar e rotas.
+
+## Exemplo de execução
+
+Ao rodar `npm run test`, você verá no terminal o resultado dos testes, indicando se passaram ou falharam.
+
+---
+
 Siga as instruções acima para rodar e explorar o projeto!
