@@ -229,6 +229,22 @@ Agora você está pronto para começar a desenvolver sua aplicação React com V
    npx vitest
    ```
 
+## Como Executar Testes de Controle com Vitest
+
+Para rodar o teste de controle do componente `MeuBotao`, utilize o seguinte comando no terminal, dentro do diretório do projeto:
+
+```bash
+npx vitest run testes/exemplo01/src/MeuBotao.control.test.jsx
+```
+
+Se preferir rodar todos os testes do projeto, utilize:
+
+```bash
+npx vitest
+```
+
+Certifique-se de que o ambiente de teste está configurado para `jsdom` no arquivo `vite.config.js` para garantir que os testes de componentes React funcionem corretamente.
+
 ## Contribuições
 
 Contribuições são bem-vindas! Sinta-se à vontade para abrir issues ou enviar pull requests.
