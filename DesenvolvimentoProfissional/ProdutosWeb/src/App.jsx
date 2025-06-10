@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 // Importa o BrowserRouter para controle de rotas, NavBar e as rotas da aplicação
 import { BrowserRouter } from "react-router-dom";
 import NavBar from "./components/NavBar";
@@ -21,5 +20,4 @@ function App() {
 }
 
 export default App;
-=======
->>>>>>> 58844a0e503d61a15799c65a8edc0924dbad41e6
+
