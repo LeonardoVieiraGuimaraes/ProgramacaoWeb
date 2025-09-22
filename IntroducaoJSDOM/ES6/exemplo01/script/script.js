@@ -4,11 +4,18 @@ console.error("Esta é uma mensagem de erro.");
 console.warn("Esta é uma mensagem de aviso.");
 console.info("Esta é uma mensagem informativa.");
 
+// Exemplo de alerta
+alert("Bem-vindo ao exemplo de JavaScript!");
+
+
 // Outros métodos interessantes do console
 console.table([
   { nome: "João", idade: 25 },
   { nome: "Maria", idade: 30 },
 ]); // Exibe uma tabela
+
+
+
 console.group("Grupo de Mensagens"); // Inicia um grupo
 console.log("Mensagem dentro do grupo");
 console.groupEnd(); // Finaliza o grupo
@@ -16,11 +23,10 @@ console.time("Tempo de execução"); // Inicia um cronômetro
 for (let i = 0; i < 1000000; i++) {} // Loop para simular processamento
 console.timeEnd("Tempo de execução"); // Finaliza o cronômetro
 
-// Exemplo de alerta
-alert("Bem-vindo ao exemplo de JavaScript!");
 
-// Outros métodos interessantes do window
-window.alert("Exemplo de alerta com window.alert!");
+
+// // Outros métodos interessantes do window
+// window.alert("Exemplo de alerta com window.alert!");
 const largura = window.innerWidth; // Largura da janela visível
 const altura = window.innerHeight; // Altura da janela visível
 console.log(`Largura da janela: ${largura}, Altura da janela: ${altura}`);
@@ -42,6 +48,8 @@ function exemploAlgoritmo() {
 
 // Chamada da função
 exemploAlgoritmo();
+
+
 // case-sensitive,
 function exemploVariaveis() {
   var bola;
@@ -161,6 +169,7 @@ function exemploOperadoresAritmeticos() {
   window.console.log(`Exponenciação (a ** b): ${a ** b}`); // Potência
   window.console.log(`Incremento (++a): ${++a}`); // Incremento
   window.console.log(`Decremento (--b): ${--b}`); // Decremento
+   window.console.log(`Decremento (a++): ${a++}`); // Decremento
 }
 
 // Chamada da função
@@ -235,7 +244,7 @@ function exemploOperadoresLogicosRelacionais() {
   const x = 5;
   const y = "5";
   const z = 10;
-
+  console.log(`x = ${x}, y = "${y}", z = ${z}`);
   // Operadores relacionais
   window.console.log(`x > z: ${x > z}`); // false
   window.console.log(`x < z: ${x < z}`); // true
