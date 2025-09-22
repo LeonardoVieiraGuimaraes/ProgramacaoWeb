@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM Avançado - Document Object Model</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(45deg, #2196F3, #21CBF3);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            padding: 30px;
+        }
+
+        .section {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 25px;
+            border: 2px solid #e9ecef;
+            transition: all 0.3s ease;
+        }
+
+        .section:hover {
+            border-color: #007bff;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,123,255,0.1);
+        }
+
+        .section h2 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+            border-bottom: 3px solid #007bff;
+            padding-bottom: 10px;
+        }
+
+        .button-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 15px 0;
+        }
+
+        button {
+            background: linear-gradient(45deg, #007bff, #0056b3);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,123,255,0.3);
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(0,123,255,0.4);
+        }
+
+        button.success { background: linear-gradient(45deg, #28a745, #20c997); }
+        button.danger { background: linear-gradient(45deg, #dc3545, #e74c3c); }
+        button.warning { background: linear-gradient(45deg, #ffc107, #ff8c00); }
+        button.info { background: linear-gradient(45deg, #17a2b8, #138496); }
+
+        .output {
+            background: #1e1e1e;
+            color: #00ff00;
+            border: 2px solid #333;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            min-height: 150px;
+            max-height: 200px;
+            overflow-y: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+        }
+
+        .dynamic-content {
+            min-height: 200px;
+            border: 2px dashed #ddd;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            background: #fff;
+            position: relative;
+        }
+
+        .element-tree {
+            background: #f1f3f4;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            border-left: 4px solid #007bff;
+        }
+
+        .event-demo {
+            background: #fff3cd;
+            border: 2px solid #ffc107;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .stats-dashboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .stat-card {
+            background: linear-gradient(45deg, #f8f9fa, #e9ecef);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            border: 2px solid #dee2e6;
+        }
+
+        .stat-number {
+            font-size: 2em;
+            font-weight: bold;
+            color: #007bff;
+        }
+
+        .form-demo {
+            background: #e7f3ff;
+            border: 2px solid #007bff;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .form-demo input, .form-demo select, .form-demo textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        .animation-demo {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(45deg, #ff6b6b, #feca57);
+            border-radius: 50%;
+            margin: 20px auto;
+            transition: all 0.5s ease;
+            cursor: pointer;
+        }
+
+        .animation-demo.animated {
+            transform: scale(2) rotate(360deg);
+            background: linear-gradient(45deg, #48dbfb, #0abde3);
+        }
+
+        .code-example {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .header h1 {
+                font-size: 2em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🌳 DOM - Document Object Model</h1>
+            <p>Demonstração Completa de Manipulação do DOM com JavaScript</p>
+        </div>
+
+        <div class="stats-dashboard">
+            <div class="stat-card">
+                <div class="stat-number" id="elementCount">0</div>
+                <div>Elementos Criados</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="eventCount">0</div>
+                <div>Eventos Capturados</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="operationCount">0</div>
+                <div>Operações DOM</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="nodeCount">0</div>
+                <div>Nós no DOM</div>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <!-- Seção 1: Seleção de Elementos -->
+            <div class="section">
+                <h2>🎯 Seleção de Elementos</h2>
+                <div class="button-group">
+                    <button onclick="selecionarPorId()">Por ID</button>
+                    <button onclick="selecionarPorClasse()">Por Classe</button>
+                    <button onclick="selecionarPorTag()">Por Tag</button>
+                    <button onclick="selecionarPorSeletor()">Query Selector</button>
+                </div>
+                
+                <div class="code-example">
+                    <pre><code>// Seleção de elementos
+document.getElementById('meuId')
+document.getElementsByClassName('minhaClasse')
+document.getElementsByTagName('div')
+document.querySelector('.classe')
+document.querySelectorAll('p')</code></pre>
+                </div>
+
+                <div class="output" id="selectionOutput">
+                    <div style="color: #00ff41;">📍 Resultados de Seleção:</div>
+                </div>
+            </div>
+
+            <!-- Seção 2: Criação e Manipulação -->
+            <div class="section">
+                <h2>🔧 Criação e Manipulação</h2>
+                <div class="button-group">
+                    <button class="success" onclick="criarElemento()">Criar Elemento</button>
+                    <button class="info" onclick="modificarConteudo()">Modificar Conteúdo</button>
+                    <button class="warning" onclick="alterarEstilos()">Alterar Estilos</button>
+                    <button class="danger" onclick="removerElemento()">Remover Elemento</button>
+                </div>
+
+                <div class="dynamic-content" id="dynamicContent">
+                    <p style="text-align: center; color: #666;">Área para elementos dinâmicos</p>
+                </div>
+
+                <div class="code-example">
+                    <pre><code>// Criação e manipulação
+const elem = document.createElement('div')
+elem.textContent = 'Novo elemento'
+elem.style.color = 'blue'
+document.body.appendChild(elem)</code></pre>
+                </div>
+            </div>
+
+            <!-- Seção 3: Eventos -->
+            <div class="section">
+                <h2>⚡ Eventos</h2>
+                <div class="event-demo">
+                    <h3>Teste de Eventos:</h3>
+                    <div class="button-group">
+                        <button onclick="adicionarEventoClick()">Evento Click</button>
+                        <button onclick="adicionarEventoMouse()">Evento Mouse</button>
+                        <button onclick="adicionarEventoTeclado()">Evento Teclado</button>
+                    </div>
+                    
+                    <div class="animation-demo" id="animationDemo" onclick="animarElemento()"></div>
+                </div>
+
+                <div class="code-example">
+                    <pre><code>// Eventos
+element.addEventListener('click', function() {
+    console.log('Clicado!')
+})
+
+element.onclick = () => alert('Click!')</code></pre>
+                </div>
+
+                <div class="output" id="eventOutput">
+                    <div style="color: #ffaa00;">⚡ Log de Eventos:</div>
+                </div>
+            </div>
+
+            <!-- Seção 4: Navegação DOM -->
+            <div class="section">
+                <h2>🧭 Navegação DOM</h2>
+                <div class="button-group">
+                    <button onclick="navegarParent()">Parent Node</button>
+                    <button onclick="navegarChildren()">Child Nodes</button>
+                    <button onclick="navegarSiblings()">Siblings</button>
+                    <button onclick="mostrarArvoreDOM()">Árvore DOM</button>
+                </div>
+
+                <div class="element-tree" id="domTree">
+                    <div style="color: #007bff; font-weight: bold;">🌳 Estrutura DOM:</div>
+                    <div style="margin-top: 10px; color: #666;">Clique em "Árvore DOM" para visualizar</div>
+                </div>
+
+                <div class="code-example">
+                    <pre><code>// Navegação
+element.parentNode
+element.childNodes
+element.firstChild
+element.lastChild
+element.nextSibling
+element.previousSibling</code></pre>
+                </div>
+            </div>
+
+            <!-- Seção 5: Formulários -->
+            <div class="section">
+                <h2>📝 Formulários</h2>
+                <div class="form-demo">
+                    <h3>Manipulação de Formulários:</h3>
+                    <input type="text" id="nomeInput" placeholder="Digite seu nome" />
+                    <input type="email" id="emailInput" placeholder="Digite seu email" />
+                    <select id="cidadeSelect">
+                        <option value="">Selecione uma cidade</option>
+                        <option value="sp">São Paulo</option>
+                        <option value="rj">Rio de Janeiro</option>
+                        <option value="bh">Belo Horizonte</option>
+                    </select>
+                    <textarea id="mensagemTextarea" placeholder="Digite uma mensagem"></textarea>
+                    
+                    <div class="button-group">
+                        <button onclick="capturarFormulario()">Capturar Dados</button>
+                        <button onclick="validarFormulario()">Validar</button>
+                        <button onclick="limparFormulario()">Limpar</button>
+                    </div>
+                </div>
+
+                <div class="code-example">
+                    <pre><code>// Formulários
+const input = document.getElementById('campo')
+input.value = 'novo valor'
+input.focus()
+form.addEventListener('submit', validar)</code></pre>
+                </div>
+            </div>
+
+            <!-- Seção 6: Atributos e Classes -->
+            <div class="section">
+                <h2>🏷️ Atributos e Classes</h2>
+                <div class="button-group">
+                    <button onclick="manipularAtributos()">Atributos</button>
+                    <button onclick="manipularClasses()">Classes CSS</button>
+                    <button onclick="manipularDatasets()">Data Attributes</button>
+                    <button onclick="inspecionarElemento()">Inspecionar</button>
+                </div>
+
+                <div id="attrDemo" class="dynamic-content" data-info="elemento-teste" title="Elemento de demonstração">
+                    <p>Elemento para demonstração de atributos</p>
+                </div>
+
+                <div class="code-example">
+                    <pre><code>// Atributos e Classes
+element.setAttribute('id', 'novoId')
+element.getAttribute('class')
+element.classList.add('nova-classe')
+element.classList.toggle('ativa')
+element.dataset.info = 'valor'</code></pre>
+                </div>
+
+                <div class="output" id="attributeOutput">
+                    <div style="color: #17a2b8;">🏷️ Informações de Atributos:</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Console Global -->
+        <div style="margin: 30px; margin-top: 0;">
+            <div class="section">
+                <h2>💻 Console Global</h2>
+                <div class="output" id="globalOutput" style="min-height: 200px;">
+                    <div style="color: #00ff41; font-weight: bold;">🖥️ CONSOLE DOM - DOCUMENT OBJECT MODEL</div>
+                    <div style="color: #888;">================================================</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Variáveis globais
+        let elementCounter = 0;
+        let eventCounter = 0;
+        let operationCounter = 0;
+
+        // Sistema de log
+        function log(message, type = 'info', outputId = 'globalOutput') {
+            const output = document.getElementById(outputId);
+            const timestamp = new Date().toLocaleTimeString();
+            
+            let color = '#00ff00';
+            let icon = '📋';
+            
+            switch(type) {
+                case 'success': color = '#00ff41'; icon = '✅'; break;
+                case 'error': color = '#ff4444'; icon = '❌'; break;
+                case 'warning': color = '#ffaa00'; icon = '⚠️'; break;
+                case 'info': color = '#00aaff'; icon = '💡'; break;
+                case 'event': color = '#ff69b4'; icon = '⚡'; break;
+            }
+            
+            const div = document.createElement('div');
+            div.innerHTML = `<span style="color: #888">[${timestamp}]</span> <span style="color: ${color}">${icon} ${message}</span>`;
+            output.appendChild(div);
+            output.scrollTop = output.scrollHeight;
+            
+            console.log(`${icon} ${message}`);
+            operationCounter++;
+            updateStats();
+        }
+
+        // Atualizar estatísticas
+        function updateStats() {
+            document.getElementById('elementCount').textContent = elementCounter;
+            document.getElementById('eventCount').textContent = eventCounter;
+            document.getElementById('operationCount').textContent = operationCounter;
+            document.getElementById('nodeCount').textContent = document.getElementsByTagName('*').length;
+        }
+
+        // === SELEÇÃO DE ELEMENTOS ===
+        function selecionarPorId() {
+            const elemento = document.getElementById('dynamicContent');
+            log(`getElementById: Encontrado elemento com ID 'dynamicContent'`, 'success', 'selectionOutput');
+            log(`Tag: ${elemento.tagName}, Classes: ${elemento.className}`, 'info', 'selectionOutput');
+        }
+
+        function selecionarPorClasse() {
+            const elementos = document.getElementsByClassName('section');
+            log(`getElementsByClassName: Encontrados ${elementos.length} elementos com classe 'section'`, 'success', 'selectionOutput');
+            
+            for (let i = 0; i < Math.min(3, elementos.length); i++) {
+                log(`  Elemento ${i + 1}: ${elementos[i].tagName}`, 'info', 'selectionOutput');
+            }
+        }
+
+        function selecionarPorTag() {
+            const elementos = document.getElementsByTagName('button');
+            log(`getElementsByTagName: Encontrados ${elementos.length} elementos 'button'`, 'success', 'selectionOutput');
+        }
+
+        function selecionarPorSeletor() {
+            const elementos = document.querySelectorAll('.button-group button');
+            log(`querySelectorAll: Encontrados ${elementos.length} botões em grupos`, 'success', 'selectionOutput');
+            log(`Primeiro botão: "${elementos[0].textContent}"`, 'info', 'selectionOutput');
+        }
+
+        // === CRIAÇÃO E MANIPULAÇÃO ===
+        function criarElemento() {
+            const container = document.getElementById('dynamicContent');
+            
+            const elemento = document.createElement('div');
+            elemento.innerHTML = `
+                <h4>🎉 Elemento ${++elementCounter}</h4>
+                <p>Criado em: ${new Date().toLocaleString()}</p>
+                <button onclick="this.parentElement.remove(); log('Elemento removido!', 'warning')" 
+                        style="background: #dc3545; color: white; border: none; padding: 5px 10px; border-radius: 3px; cursor: pointer;">
+                    Remover
+                </button>
+            `;
+            elemento.style.cssText = `
+                background: linear-gradient(45deg, #e3f2fd, #f3e5f5);
+                border: 2px solid #007bff;
+                border-radius: 10px;
+                padding: 15px;
+                margin: 10px 0;
+                transition: all 0.3s ease;
+            `;
+            
+            container.appendChild(elemento);
+            log(`Elemento criado: DIV com ID elemento-${elementCounter}`, 'success');
+        }
+
+        function modificarConteudo() {
+            const container = document.getElementById('dynamicContent');
+            const elementos = container.getElementsByTagName('div');
+            
+            if (elementos.length > 1) {
+                const ultimo = elementos[elementos.length - 1];
+                ultimo.querySelector('p').textContent = `Modificado em: ${new Date().toLocaleString()}`;
+                ultimo.style.background = 'linear-gradient(45deg, #fff3cd, #ffeaa7)';
+                log('Conteúdo do último elemento modificado!', 'warning');
+            } else {
+                log('Nenhum elemento para modificar. Crie um primeiro!', 'error');
+            }
+        }
+
+        function alterarEstilos() {
+            const container = document.getElementById('dynamicContent');
+            const elementos = container.getElementsByTagName('div');
+            
+            if (elementos.length > 1) {
+                const ultimo = elementos[elementos.length - 1];
+                ultimo.style.cssText += `
+                    transform: rotate(5deg) scale(1.05);
+                    box-shadow: 0 10px 30px rgba(0,123,255,0.3);
+                    border-color: #28a745;
+                `;
+                log('Estilos alterados com animação!', 'success');
+            } else {
+                log('Nenhum elemento para estilizar. Crie um primeiro!', 'error');
+            }
+        }
+
+        function removerElemento() {
+            const container = document.getElementById('dynamicContent');
+            const elementos = container.getElementsByTagName('div');
+            
+            if (elementos.length > 1) {
+                elementos[elementos.length - 1].remove();
+                log('Último elemento removido!', 'warning');
+            } else {
+                log('Nenhum elemento para remover!', 'error');
+            }
+        }
+
+        // === EVENTOS ===
+        function adicionarEventoClick() {
+            const demo = document.getElementById('animationDemo');
+            demo.addEventListener('click', function() {
+                eventCounter++;
+                log('Evento click capturado no círculo!', 'event', 'eventOutput');
+                updateStats();
+            });
+            log('Event listener de click adicionado!', 'success', 'eventOutput');
+        }
+
+        function adicionarEventoMouse() {
+            const demo = document.getElementById('animationDemo');
+            
+            demo.addEventListener('mouseenter', function() {
+                eventCounter++;
+                this.style.transform = 'scale(1.2)';
+                log('Mouse entrou no elemento!', 'event', 'eventOutput');
+                updateStats();
+            });
+            
+            demo.addEventListener('mouseleave', function() {
+                eventCounter++;
+                this.style.transform = 'scale(1)';
+                log('Mouse saiu do elemento!', 'event', 'eventOutput');
+                updateStats();
+            });
+            
+            log('Event listeners de mouse adicionados!', 'success', 'eventOutput');
+        }
+
+        function adicionarEventoTeclado() {
+            document.addEventListener('keydown', function(e) {
+                eventCounter++;
+                log(`Tecla pressionada: ${e.key} (Código: ${e.keyCode})`, 'event', 'eventOutput');
+                updateStats();
+            });
+            log('Event listener de teclado adicionado!', 'success', 'eventOutput');
+        }
+
+        function animarElemento() {
+            const demo = document.getElementById('animationDemo');
+            demo.classList.toggle('animated');
+            log('Animação CSS aplicada!', 'success', 'eventOutput');
+        }
+
+        // === NAVEGAÇÃO DOM ===
+        function navegarParent() {
+            const button = event.target;
+            const parent = button.parentNode;
+            log(`Parent do botão: ${parent.tagName}.${parent.className}`, 'info');
+            log(`Parent do parent: ${parent.parentNode.tagName}.${parent.parentNode.className}`, 'info');
+        }
+
+        function navegarChildren() {
+            const section = document.querySelector('.section');
+            log(`Primeira seção tem ${section.children.length} filhos diretos:`, 'info');
+            
+            for (let i = 0; i < section.children.length; i++) {
+                const child = section.children[i];
+                log(`  ${i + 1}. ${child.tagName}.${child.className || 'sem-classe'}`, 'info');
+            }
+        }
+
+        function navegarSiblings() {
+            const sections = document.querySelectorAll('.section');
+            const primeira = sections[0];
+            const proxima = primeira.nextElementSibling;
+            
+            if (proxima) {
+                log(`Próximo irmão da primeira seção: ${proxima.tagName}.${proxima.className}`, 'info');
+            } else {
+                log('Primeira seção não tem próximo irmão', 'warning');
+            }
+        }
+
+        function mostrarArvoreDOM() {
+            const tree = document.getElementById('domTree');
+            const container = document.querySelector('.container');
+            
+            function buildTree(element, level = 0) {
+                const indent = '  '.repeat(level);
+                const tag = element.tagName.toLowerCase();
+                const id = element.id ? `#${element.id}` : '';
+                const classes = element.className ? `.${element.className.split(' ').join('.')}` : '';
+                
+                let result = `${indent}${tag}${id}${classes}\n`;
+                
+                for (let child of element.children) {
+                    if (level < 3) { // Limitar profundidade
+                        result += buildTree(child, level + 1);
+                    }
+                }
+                
+                return result;
+            }
+            
+            const treeStructure = buildTree(container);
+            tree.innerHTML = `<div style="color: #007bff; font-weight: bold;">🌳 Estrutura DOM:</div><pre style="margin-top: 10px; color: #333; font-size: 11px;">${treeStructure}</pre>`;
+            log('Árvore DOM gerada!', 'success');
+        }
+
+        // === FORMULÁRIOS ===
+        function capturarFormulario() {
+            const nome = document.getElementById('nomeInput').value;
+            const email = document.getElementById('emailInput').value;
+            const cidade = document.getElementById('cidadeSelect').value;
+            const mensagem = document.getElementById('mensagemTextarea').value;
+            
+            log('📝 Dados do formulário capturados:', 'success');
+            log(`Nome: ${nome || 'vazio'}`, 'info');
+            log(`Email: ${email || 'vazio'}`, 'info');
+            log(`Cidade: ${cidade || 'não selecionada'}`, 'info');
+            log(`Mensagem: ${mensagem || 'vazia'}`, 'info');
+        }
+
+        function validarFormulario() {
+            const nome = document.getElementById('nomeInput');
+            const email = document.getElementById('emailInput');
+            
+            let valido = true;
+            
+            if (!nome.value.trim()) {
+                nome.style.borderColor = '#dc3545';
+                log('❌ Nome é obrigatório!', 'error');
+                valido = false;
+            } else {
+                nome.style.borderColor = '#28a745';
+            }
+            
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email.value)) {
+                email.style.borderColor = '#dc3545';
+                log('❌ Email inválido!', 'error');
+                valido = false;
+            } else {
+                email.style.borderColor = '#28a745';
+            }
+            
+            if (valido) {
+                log('✅ Formulário válido!', 'success');
+            }
+        }
+
+        function limparFormulario() {
+            document.getElementById('nomeInput').value = '';
+            document.getElementById('emailInput').value = '';
+            document.getElementById('cidadeSelect').value = '';
+            document.getElementById('mensagemTextarea').value = '';
+            
+            // Resetar cores das bordas
+            document.querySelectorAll('.form-demo input, .form-demo select, .form-demo textarea').forEach(el => {
+                el.style.borderColor = '#ddd';
+            });
+            
+            log('🧹 Formulário limpo!', 'warning');
+        }
+
+        // === ATRIBUTOS E CLASSES ===
+        function manipularAtributos() {
+            const demo = document.getElementById('attrDemo');
+            
+            // Definir novos atributos
+            demo.setAttribute('data-timestamp', new Date().toISOString());
+            demo.setAttribute('data-counter', elementCounter.toString());
+            
+            log('Atributos definidos:', 'success', 'attributeOutput');
+            log(`data-timestamp: ${demo.getAttribute('data-timestamp')}`, 'info', 'attributeOutput');
+            log(`data-counter: ${demo.getAttribute('data-counter')}`, 'info', 'attributeOutput');
+            log(`title: ${demo.getAttribute('title')}`, 'info', 'attributeOutput');
+        }
+
+        function manipularClasses() {
+            const demo = document.getElementById('attrDemo');
+            
+            demo.classList.add('highlight');
+            demo.classList.toggle('active');
+            
+            // Adicionar estilo para a classe highlight
+            if (!document.getElementById('highlightStyle')) {
+                const style = document.createElement('style');
+                style.id = 'highlightStyle';
+                style.textContent = `
+                    .highlight { 
+                        background: linear-gradient(45deg, #ff6b6b, #feca57) !important; 
+                        color: white !important;
+                        animation: pulse 1s infinite;
+                    }
+                    @keyframes pulse {
+                        0%, 100% { transform: scale(1); }
+                        50% { transform: scale(1.02); }
+                    }
+                `;
+                document.head.appendChild(style);
+            }
+            
+            log(`Classes atuais: ${demo.className}`, 'success', 'attributeOutput');
+            log('Classe "highlight" adicionada!', 'warning', 'attributeOutput');
+        }
+
+        function manipularDatasets() {
+            const demo = document.getElementById('attrDemo');
+            
+            demo.dataset.status = 'ativo';
+            demo.dataset.lastModified = new Date().toLocaleString();
+            demo.dataset.version = '1.0';
+            
+            log('Dataset attributes:', 'success', 'attributeOutput');
+            Object.keys(demo.dataset).forEach(key => {
+                log(`data-${key}: ${demo.dataset[key]}`, 'info', 'attributeOutput');
+            });
+        }
+
+        function inspecionarElemento() {
+            const demo = document.getElementById('attrDemo');
+            
+            log('🔍 Inspeção completa do elemento:', 'info', 'attributeOutput');
+            log(`Tag: ${demo.tagName}`, 'info', 'attributeOutput');
+            log(`ID: ${demo.id}`, 'info', 'attributeOutput');
+            log(`Classes: ${demo.className}`, 'info', 'attributeOutput');
+            log(`Atributos: ${demo.attributes.length}`, 'info', 'attributeOutput');
+            
+            for (let attr of demo.attributes) {
+                log(`  ${attr.name} = "${attr.value}"`, 'info', 'attributeOutput');
+            }
+        }
+
+        // Inicialização
+        window.onload = function() {
+            log('🚀 DOM Demo iniciado!', 'success');
+            log('💡 Explore todas as seções para aprender sobre o DOM', 'info');
+            log('📚 Cada operação será registrada neste console', 'info');
+            updateStats();
+            
+            // Adicionar alguns eventos básicos
+            document.addEventListener('click', function(e) {
+                if (e.target.tagName === 'BUTTON') {
+                    eventCounter++;
+                    updateStats();
+                }
+            });
+        };
+    </script>
+</body>
+</html>

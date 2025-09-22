@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM - Document Object Model</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(45deg, #2196F3, #21CBF3);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 3em;
+            margin-bottom: 15px;
+        }
+
+        .header p {
+            font-size: 1.3em;
+            opacity: 0.9;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .intro {
+            background: #f8f9fa;
+            border-left: 5px solid #007bff;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 40px;
+        }
+
+        .intro h2 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 2em;
+        }
+
+        .intro p {
+            font-size: 1.1em;
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        .examples-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .example-card {
+            background: #fff;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border: 2px solid #e9ecef;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .example-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            border-color: #007bff;
+        }
+
+        .example-card h3 {
+            color: #007bff;
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .example-card p {
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .example-card .features {
+            list-style: none;
+            margin-bottom: 20px;
+        }
+
+        .example-card .features li {
+            color: #28a745;
+            margin-bottom: 8px;
+        }
+
+        .example-card .features li:before {
+            content: "✅ ";
+            margin-right: 8px;
+        }
+
+        .btn {
+            display: inline-block;
+            background: linear-gradient(45deg, #007bff, #0056b3);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,123,255,0.3);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(0,123,255,0.4);
+            color: white;
+        }
+
+        .concepts {
+            background: #e7f3ff;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 40px 0;
+        }
+
+        .concepts h2 {
+            color: #0056b3;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .concepts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+        }
+
+        .concept-item {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid #007bff;
+        }
+
+        .concept-item h4 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .concept-item p {
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        .navigation {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 15px;
+            margin-top: 40px;
+            text-align: center;
+        }
+
+        .navigation h3 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .nav-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .nav-btn {
+            background: linear-gradient(45deg, #28a745, #20c997);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-2px);
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.5em;
+            }
+
+            .content {
+                padding: 20px;
+            }
+
+            .examples-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-links {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🌳 DOM</h1>
+            <p>Document Object Model - Manipulação de Documentos com JavaScript</p>
+        </div>
+
+        <div class="content">
+            <div class="intro">
+                <h2>O que é o DOM?</h2>
+                <p>
+                    O Document Object Model (DOM) é uma interface de programação que representa a estrutura de um documento HTML ou XML como uma árvore de objetos. Cada elemento do documento torna-se um nó nesta árvore, permitindo que linguagens como JavaScript possam acessar e modificar o conteúdo, estrutura e estilo dos documentos.
+                </p>
+                <p>
+                    O DOM é fundamental para criar páginas web interativas e dinâmicas, permitindo responder a ações do usuário, modificar conteúdo em tempo real e criar experiências web ricas e responsivas.
+                </p>
+            </div>
+
+            <div class="concepts">
+                <h2>📚 Conceitos Fundamentais</h2>
+                <div class="concepts-grid">
+                    <div class="concept-item">
+                        <h4>🎯 Seleção de Elementos</h4>
+                        <p>Localizar elementos específicos no documento usando IDs, classes, tags ou seletores CSS.</p>
+                    </div>
+                    <div class="concept-item">
+                        <h4>🔧 Manipulação</h4>
+                        <p>Criar, modificar e remover elementos dinamicamente, alterando conteúdo e estrutura.</p>
+                    </div>
+                    <div class="concept-item">
+                        <h4>⚡ Eventos</h4>
+                        <p>Capturar e responder a interações do usuário como cliques, teclado e movimentos do mouse.</p>
+                    </div>
+                    <div class="concept-item">
+                        <h4>🧭 Navegação</h4>
+                        <p>Percorrer a árvore DOM navegando entre elementos pais, filhos e irmãos.</p>
+                    </div>
+                    <div class="concept-item">
+                        <h4>🏷️ Atributos</h4>
+                        <p>Gerenciar atributos HTML, classes CSS e propriedades customizadas dos elementos.</p>
+                    </div>
+                    <div class="concept-item">
+                        <h4>📝 Formulários</h4>
+                        <p>Capturar dados de entrada, validar formulários e criar interfaces interativas.</p>
+                    </div>
+                </div>
+            </div>
+
+            <h2 style="text-align: center; color: #333; margin-bottom: 30px;">🚀 Exemplos Práticos</h2>
+
+            <div class="examples-grid">
+                <a href="exemplo01/" class="example-card">
+                    <h3>📋 Exemplo 1 - Básico</h3>
+                    <p>Introdução aos conceitos fundamentais do DOM com exemplos simples e diretos.</p>
+                    <ul class="features">
+                        <li>Seleção básica de elementos</li>
+                        <li>Modificação de conteúdo</li>
+                        <li>Eventos simples</li>
+                    </ul>
+                    <span class="btn">Ver Exemplo</span>
+                </a>
+
+                <a href="exemplo02/" class="example-card">
+                    <h3>🎨 Exemplo 2 - Estilização</h3>
+                    <p>Manipulação de estilos CSS através do DOM para criar interfaces dinâmicas.</p>
+                    <ul class="features">
+                        <li>Alteração de estilos CSS</li>
+                        <li>Classes dinâmicas</li>
+                        <li>Animações</li>
+                    </ul>
+                    <span class="btn">Ver Exemplo</span>
+                </a>
+
+                <a href="exemplo03/" class="example-card">
+                    <h3>📝 Exemplo 3 - Formulários</h3>
+                    <p>Trabalho com formulários, validação e captura de dados do usuário.</p>
+                    <ul class="features">
+                        <li>Validação de formulários</li>
+                        <li>Captura de dados</li>
+                        <li>Feedback visual</li>
+                    </ul>
+                    <span class="btn">Ver Exemplo</span>
+                </a>
+
+                <a href="exemplo04/" class="example-card">
+                    <h3>🌟 Exemplo 4 - Avançado</h3>
+                    <p>Demonstração completa com todas as funcionalidades do DOM em uma interface moderna.</p>
+                    <ul class="features">
+                        <li>Criação dinâmica de elementos</li>
+                        <li>Sistema de eventos avançado</li>
+                        <li>Navegação na árvore DOM</li>
+                        <li>Manipulação de atributos</li>
+                        <li>Console de debugging</li>
+                        <li>Interface responsiva</li>
+                    </ul>
+                    <span class="btn">Ver Exemplo</span>
+                </a>
+            </div>
+
+            <div class="navigation">
+                <h3>🧭 Navegação</h3>
+                <div class="nav-links">
+                    <a href="../" class="nav-btn">← Voltar para IntroducaoJSDOM</a>
+                    <a href="../windows/" class="nav-btn">Window Object →</a>
+                    <a href="../ES6/" class="nav-btn">ES6 Features →</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Adicionar efeitos visuais
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animação de entrada para os cards
+            const cards = document.querySelectorAll('.example-card');
+            cards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(30px)';
+                
+                setTimeout(() => {
+                    card.style.transition = 'all 0.6s ease';
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, index * 200);
+            });
+
+            // Log de navegação
+            console.log('🌳 DOM Index carregado!');
+            console.log('📚 Explore os exemplos para aprender sobre o Document Object Model');
+        });
+    </script>
+</body>
+</html>

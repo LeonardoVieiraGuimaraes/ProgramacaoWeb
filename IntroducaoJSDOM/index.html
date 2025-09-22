@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Introdução ao JavaScript e DOM</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 25px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(45deg, #2196F3, #21CBF3);
+            color: white;
+            padding: 50px;
+            text-align: center;
+            position: relative;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 20"><defs><radialGradient id="a" cx="50%" cy="0%" r="50%"><stop offset="0%" stop-color="white" stop-opacity="0.1"/><stop offset="100%" stop-color="white" stop-opacity="0"/></radialGradient></defs><rect width="100" height="20" fill="url(%23a)"/></svg>') repeat-x;
+            opacity: 0.3;
+        }
+
+        .header h1 {
+            font-size: 4em;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header p {
+            font-size: 1.4em;
+            opacity: 0.95;
+            position: relative;
+            z-index: 1;
+        }
+
+        .content {
+            padding: 50px;
+        }
+
+        .intro {
+            background: linear-gradient(45deg, #f8f9fa, #e9ecef);
+            border-left: 6px solid #007bff;
+            padding: 40px;
+            border-radius: 15px;
+            margin-bottom: 50px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+
+        .intro h2 {
+            color: #333;
+            margin-bottom: 25px;
+            font-size: 2.5em;
+        }
+
+        .intro p {
+            font-size: 1.2em;
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .sections-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+            margin: 50px 0;
+        }
+
+        .section-card {
+            background: #fff;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            border: 3px solid #e9ecef;
+            transition: all 0.4s ease;
+            text-decoration: none;
+            color: inherit;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .section-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: linear-gradient(45deg, #007bff, #0056b3);
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+
+        .section-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+            border-color: #007bff;
+        }
+
+        .section-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .section-card .icon {
+            font-size: 4em;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .section-card h3 {
+            color: #007bff;
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+
+        .section-card p {
+            color: #666;
+            margin-bottom: 25px;
+            font-size: 1.1em;
+        }
+
+        .section-card .features {
+            list-style: none;
+            margin-bottom: 30px;
+        }
+
+        .section-card .features li {
+            color: #28a745;
+            margin-bottom: 12px;
+            font-weight: 500;
+        }
+
+        .section-card .features li:before {
+            content: "✨ ";
+            margin-right: 10px;
+        }
+
+        .btn {
+            display: inline-block;
+            background: linear-gradient(45deg, #007bff, #0056b3);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 20px rgba(0,123,255,0.3);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0,123,255,0.4);
+            color: white;
+        }
+
+        .stats {
+            background: linear-gradient(45deg, #f8f9fa, #e9ecef);
+            border-radius: 20px;
+            padding: 40px;
+            margin: 50px 0;
+            text-align: center;
+        }
+
+        .stats h3 {
+            color: #333;
+            margin-bottom: 30px;
+            font-size: 2em;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+        }
+
+        .stat-item {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .stat-number {
+            font-size: 3em;
+            font-weight: bold;
+            color: #007bff;
+            margin-bottom: 10px;
+        }
+
+        .navigation {
+            background: #343a40;
+            color: white;
+            padding: 40px;
+            border-radius: 20px;
+            margin-top: 50px;
+            text-align: center;
+        }
+
+        .navigation h3 {
+            margin-bottom: 30px;
+            font-size: 2em;
+        }
+
+        .nav-links {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            flex-wrap: wrap;
+        }
+
+        .nav-btn {
+            background: linear-gradient(45deg, #28a745, #20c997);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(40,167,69,0.3);
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(40,167,69,0.4);
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                padding: 30px;
+            }
+
+            .header h1 {
+                font-size: 2.5em;
+            }
+
+            .content {
+                padding: 30px;
+            }
+
+            .sections-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .section-card {
+                padding: 30px;
+            }
+
+            .nav-links {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚀 JavaScript & DOM</h1>
+            <p>Introdução Completa ao JavaScript e Document Object Model</p>
+        </div>
+
+        <div class="content">
+            <div class="intro">
+                <h2>Bem-vindo ao Mundo do JavaScript!</h2>
+                <p>
+                    Esta seção abrangente foi criada para te guiar através dos conceitos fundamentais e avançados do JavaScript, desde a programação básica até a manipulação complexa do DOM (Document Object Model).
+                </p>
+                <p>
+                    Aqui você encontrará exemplos práticos, demonstrações interativas e projetos que te ajudarão a dominar as tecnologias essenciais para desenvolvimento web moderno.
+                </p>
+            </div>
+
+            <div class="stats">
+                <h3>📊 O que você vai aprender</h3>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-number">50+</div>
+                        <div>Exemplos Práticos</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">6</div>
+                        <div>Seções Principais</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">100+</div>
+                        <div>Conceitos Abordados</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">∞</div>
+                        <div>Possibilidades</div>
+                    </div>
+                </div>
+            </div>
+
+            <h2 style="text-align: center; color: #333; margin-bottom: 40px; font-size: 2.5em;">📚 Seções de Estudo</h2>
+
+            <div class="sections-grid">
+                <a href="DOM/" class="section-card">
+                    <span class="icon">🌳</span>
+                    <h3>DOM - Document Object Model</h3>
+                    <p>Aprenda a manipular a estrutura HTML com JavaScript, criando páginas web dinâmicas e interativas.</p>
+                    <ul class="features">
+                        <li>Seleção e manipulação de elementos</li>
+                        <li>Eventos e interatividade</li>
+                        <li>Criação dinâmica de conteúdo</li>
+                        <li>Navegação na árvore DOM</li>
+                        <li>Formulários e validação</li>
+                    </ul>
+                    <span class="btn">Explorar DOM</span>
+                </a>
+
+                <a href="windows/" class="section-card">
+                    <span class="icon">🖼️</span>
+                    <h3>Window Object</h3>
+                    <p>Domine o objeto Window do JavaScript, incluindo frames, histórico, localização e propriedades do navegador.</p>
+                    <ul class="features">
+                        <li>Window.frames e comunicação</li>
+                        <li>History API e navegação</li>
+                        <li>Location e URLs</li>
+                        <li>Navigator e detecção do browser</li>
+                        <li>Screen e informações da tela</li>
+                    </ul>
+                    <span class="btn">Explorar Window</span>
+                </a>
+
+                <a href="IntroducaoJS/" class="section-card">
+                    <span class="icon">💡</span>
+                    <h3>Introdução ao JavaScript</h3>
+                    <p>Fundamentos da linguagem JavaScript, desde variáveis até conceitos avançados de programação.</p>
+                    <ul class="features">
+                        <li>Sintaxe e tipos de dados</li>
+                        <li>Funções e escopo</li>
+                        <li>Objetos e arrays</li>
+                        <li>Controle de fluxo</li>
+                        <li>Boas práticas</li>
+                    </ul>
+                    <span class="btn">Aprender JS</span>
+                </a>
+
+                <a href="ES6/" class="section-card">
+                    <span class="icon">⚡</span>
+                    <h3>ES6+ Features</h3>
+                    <p>Recursos modernos do JavaScript ES6 e versões posteriores para código mais limpo e eficiente.</p>
+                    <ul class="features">
+                        <li>Arrow functions e template literals</li>
+                        <li>Destructuring e spread operator</li>
+                        <li>Classes e módulos</li>
+                        <li>Promises e async/await</li>
+                        <li>Map, Set e iteradores</li>
+                    </ul>
+                    <span class="btn">Descobrir ES6+</span>
+                </a>
+
+                <a href="Vite/" class="section-card">
+                    <span class="icon">⚡</span>
+                    <h3>Vite & Build Tools</h3>
+                    <p>Ferramentas modernas de desenvolvimento e build para projetos JavaScript profissionais.</p>
+                    <ul class="features">
+                        <li>Configuração do Vite</li>
+                        <li>Hot module replacement</li>
+                        <li>Bundling e otimização</li>
+                        <li>Plugins e extensões</li>
+                        <li>Deploy e produção</li>
+                    </ul>
+                    <span class="btn">Usar Vite</span>
+                </a>
+
+                <div class="section-card" style="background: linear-gradient(45deg, #f8f9fa, #e3f2fd); border-color: #007bff;">
+                    <span class="icon">🔬</span>
+                    <h3>Laboratório de Práticas</h3>
+                    <p>Área experimental para testar conceitos, criar protótipos e experimentar com código JavaScript.</p>
+                    <ul class="features">
+                        <li>Console interativo</li>
+                        <li>Snippets de código</li>
+                        <li>Testes rápidos</li>
+                        <li>Debugging tools</li>
+                        <li>Exemplos ao vivo</li>
+                    </ul>
+                    <button class="btn" onclick="openLab()">Abrir Lab</button>
+                </div>
+            </div>
+
+            <div class="navigation">
+                <h3>🧭 Navegação Principal</h3>
+                <div class="nav-links">
+                    <a href="../" class="nav-btn">← Página Principal</a>
+                    <a href="../IntroducaoHTML/" class="nav-btn">HTML Básico</a>
+                    <a href="../IntroducaoCSS/" class="nav-btn">CSS Styling</a>
+                    <a href="../FundamentosReact/" class="nav-btn">React Framework</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Animações e interatividade
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animação de entrada para os cards
+            const cards = document.querySelectorAll('.section-card');
+            cards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(50px)';
+                
+                setTimeout(() => {
+                    card.style.transition = 'all 0.8s ease';
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, index * 150);
+            });
+
+            // Contador animado para estatísticas
+            animateCounters();
+
+            // Log de boas-vindas
+            console.log('🚀 JavaScript & DOM Learning Platform');
+            console.log('📚 Explore todas as seções para dominar o desenvolvimento web!');
+            console.log('💡 Cada seção contém exemplos interativos e projetos práticos');
+        });
+
+        function animateCounters() {
+            const counters = document.querySelectorAll('.stat-number');
+            
+            counters.forEach(counter => {
+                const target = counter.textContent;
+                if (target === '∞') return;
+                
+                const targetNum = parseInt(target.replace('+', ''));
+                let current = 0;
+                const increment = targetNum / 50;
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= targetNum) {
+                        counter.textContent = target;
+                        clearInterval(timer);
+                    } else {
+                        counter.textContent = Math.floor(current) + (target.includes('+') ? '+' : '');
+                    }
+                }, 30);
+            });
+        }
+
+        function openLab() {
+            alert('🔬 JavaScript Lab\n\nEsta funcionalidade abrirá um laboratório interativo para testar código JavaScript.\n\nPor enquanto, use o console do navegador (F12) para experimentar!');
+            console.log('🔬 Use este console para experimentar com JavaScript!');
+            console.log('💡 Exemplos:');
+            console.log('   document.querySelector("h1").style.color = "red"');
+            console.log('   alert("Hello World!")');
+            console.log('   console.log("Meu primeiro script!")');
+        }
+    </script>
+</body>
+</html>

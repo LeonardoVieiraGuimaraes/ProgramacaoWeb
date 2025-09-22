@@ -3,62 +3,147 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Frames - JavaScript Window Object</title>
+    <title>Frames Avançado - JavaScript Window Object</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
-            background-color: #f5f5f5;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
         }
+        
         .container {
             background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
         }
+        
         h1 {
             color: #333;
             border-bottom: 3px solid #007bff;
-            padding-bottom: 10px;
+            padding-bottom: 15px;
+            margin-bottom: 30px;
         }
+        
         .section {
-            margin: 20px 0;
-            padding: 15px;
+            margin: 25px 0;
+            padding: 20px;
             border: 1px solid #ddd;
-            border-radius: 5px;
+            border-radius: 10px;
+            background: #fafafa;
         }
+        
+        .button-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 15px 0;
+        }
+        
         button {
-            background: #007bff;
+            background: linear-gradient(45deg, #007bff, #0056b3);
             color: white;
             border: none;
-            padding: 10px 15px;
-            border-radius: 5px;
+            padding: 12px 18px;
+            border-radius: 8px;
             cursor: pointer;
-            margin: 5px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,123,255,0.3);
         }
+        
         button:hover {
-            background: #0056b3;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,123,255,0.4);
         }
+        
+        button.success { background: linear-gradient(45deg, #28a745, #20c997); }
+        button.danger { background: linear-gradient(45deg, #dc3545, #e74c3c); }
+        button.warning { background: linear-gradient(45deg, #ffc107, #ff8c00); }
+        
         #output {
+            background: #1e1e1e;
+            color: #00ff00;
+            border: 1px solid #333;
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 10px;
+            min-height: 200px;
+            font-family: 'Courier New', monospace;
+            overflow-y: auto;
+            max-height: 400px;
+        }
+        
+        .frame-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        iframe {
+            border: 3px solid #007bff;
+            border-radius: 10px;
+            width: 100%;
+            height: 200px;
+            transition: all 0.3s ease;
+        }
+        
+        iframe:hover {
+            border-color: #28a745;
+            transform: scale(1.02);
+        }
+        
+        .frame-info {
+            background: #e9ecef;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 10px;
+            font-size: 12px;
+        }
+        
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .stat-card {
+            background: linear-gradient(45deg, #f8f9fa, #e9ecef);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            border: 2px solid #dee2e6;
+        }
+        
+        .stat-number {
+            font-size: 2em;
+            font-weight: bold;
+            color: #007bff;
+        }
+        
+        .communication-panel {
+            background: #fff3cd;
+            border: 2px solid #ffc107;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .message-log {
             background: #f8f9fa;
             border: 1px solid #dee2e6;
+            border-radius: 5px;
             padding: 15px;
-            margin-top: 20px;
-            border-radius: 5px;
-            min-height: 100px;
-        }
-        iframe {
-            border: 2px solid #007bff;
-            border-radius: 5px;
             margin: 10px 0;
+            max-height: 150px;
+            overflow-y: auto;
         }
-        .frame-container {
-            display: flex;
-            gap: 20px;
-            flex-wrap: wrap;
-        }
+        
         .code-example {
             background: #2d3748;
             color: #e2e8f0;
@@ -71,42 +156,60 @@
 </head>
 <body>
     <div class="container">
-        <h1>🖼️ Frames - window.frames[]</h1>
+        <h1>🖼️ Frames Avançado - window.frames[]</h1>
         
+        <div class="stats">
+            <div class="stat-card">
+                <div class="stat-number" id="frameCount">0</div>
+                <div>Total de Frames</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="messageCount">0</div>
+                <div>Mensagens Enviadas</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="operationCount">0</div>
+                <div>Operações Realizadas</div>
+            </div>
+        </div>
+
         <div class="section">
             <h2>📝 Conceito</h2>
             <p>O array <code>window.frames[]</code> contém referências para todos os frames (iframes) presentes na página atual. Cada frame é uma janela separada que pode conter seu próprio documento HTML.</p>
         </div>
 
         <div class="section">
-            <h2>🎯 Exemplos Práticos</h2>
-            
-            <h3>Frames de Exemplo:</h3>
-            <div class="frame-container">
-                <iframe 
-                    id="frame1" 
-                    name="frame1" 
-                    src="data:text/html,<h2>Frame 1</h2><p>Este é o primeiro frame</p><script>console.log('Frame 1 carregado');</script>" 
-                    width="300" 
-                    height="150">
-                </iframe>
-                
-                <iframe 
-                    id="frame2" 
-                    name="frame2" 
-                    src="data:text/html,<h2>Frame 2</h2><p>Este é o segundo frame</p><button onclick='alert(\"Clique do Frame 2!\")'>Clique aqui</button>" 
-                    width="300" 
-                    height="150">
-                </iframe>
+            <h2>🎮 Controles Básicos</h2>
+            <div class="button-group">
+                <button onclick="contarFrames()">📊 Contar Frames</button>
+                <button onclick="listarFrames()">📋 Listar Frames</button>
+                <button onclick="analisarFrames()">🔍 Análise Detalhada</button>
+                <button class="success" onclick="adicionarFrame()">➕ Adicionar Frame</button>
+                <button class="danger" onclick="removerFrame()">❌ Remover Frame</button>
+                <button class="warning" onclick="limparTodos()">🗑️ Limpar Todos</button>
             </div>
+        </div>
 
-            <h3>Controles:</h3>
-            <button onclick="contarFrames()">📊 Contar Frames</button>
-            <button onclick="listarFrames()">📋 Listar Frames</button>
-            <button onclick="acessarConteudoFrame()">📄 Acessar Conteúdo do Frame</button>
-            <button onclick="adicionarFrame()">➕ Adicionar Novo Frame</button>
-            <button onclick="removerFrame()">❌ Remover Último Frame</button>
-            <button onclick="comunicarComFrame()">💬 Comunicar com Frame</button>
+        <div class="section">
+            <h2>💬 Sistema de Comunicação</h2>
+            <div class="communication-panel">
+                <div class="button-group">
+                    <button onclick="enviarMensagemSimples()">📤 Mensagem Simples</button>
+                    <button onclick="enviarComando()">⚡ Enviar Comando</button>
+                    <button onclick="solicitarInfo()">❓ Solicitar Info</button>
+                    <button onclick="broadcastMensagem()">📡 Broadcast</button>
+                </div>
+                <div class="message-log" id="messageLog">
+                    <p><em>Log de mensagens aparecerá aqui...</em></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>🖼️ Frames Ativos</h2>
+            <div class="frame-container" id="frameContainer">
+                <!-- Frames serão adicionados dinamicamente aqui -->
+            </div>
         </div>
 
         <div class="section">
@@ -120,165 +223,273 @@ function contarFrames() {
 
 // Listar todos os frames
 function listarFrames() {
-    for (let i = 0; i < window.frames.length; i++) {
+    for (let i = 0; i &lt; window.frames.length; i++) {
         console.log('Frame', i, ':', window.frames[i]);
     }
 }
 
-// Acessar conteúdo de um frame
-function acessarConteudoFrame() {
-    try {
-        const frame = window.frames[0]; // Primeiro frame
-        console.log('Título do frame:', frame.document.title);
-    } catch (error) {
-        console.error('Erro ao acessar frame:', error.message);
-    }
+// Comunicação via postMessage (evita problemas cross-origin)
+function enviarMensagem() {
+    window.frames[0].postMessage('Olá do parent!', '*');
 }</code></pre>
             </div>
         </div>
 
         <div id="output">
-            <h3>🖥️ Saída do Console:</h3>
-            <p>Clique nos botões acima e veja os resultados aqui e no console do navegador (F12).</p>
+            <div style="color: #00ff41; font-weight: bold;">🖥️ CONSOLE DE SAÍDA - SISTEMA DE FRAMES</div>
+            <div style="color: #888;">============================================</div>
         </div>
     </div>
 
     <script>
-        // Função para adicionar mensagens na saída
-        function adicionarSaida(mensagem) {
+        // Variáveis globais
+        let frameCounter = 0;
+        let messageCounter = 0;
+        let operationCounter = 0;
+
+        // Sistema de log melhorado
+        function adicionarSaida(mensagem, tipo) {
             const output = document.getElementById('output');
-            const p = document.createElement('p');
-            p.innerHTML = `<strong>${new Date().toLocaleTimeString()}:</strong> ${mensagem}`;
-            output.appendChild(p);
-            console.log(mensagem);
+            const timestamp = new Date().toLocaleTimeString();
+            
+            let cor = '#00ff00';
+            let icone = '📋';
+            
+            if (tipo === 'success') { cor = '#00ff41'; icone = '✅'; }
+            else if (tipo === 'error') { cor = '#ff4444'; icone = '❌'; }
+            else if (tipo === 'warning') { cor = '#ffaa00'; icone = '⚠️'; }
+            else if (tipo === 'info') { cor = '#00aaff'; icone = '💡'; }
+            
+            const div = document.createElement('div');
+            div.innerHTML = '<span style="color: #888">[' + timestamp + ']</span> <span style="color: ' + cor + '">' + icone + ' ' + mensagem + '</span>';
+            output.appendChild(div);
+            output.scrollTop = output.scrollHeight;
+            
+            console.log(icone + ' ' + mensagem);
+            operationCounter++;
+            atualizarStats();
         }
 
-        // Contar frames
+        // Atualizar estatísticas
+        function atualizarStats() {
+            document.getElementById('frameCount').textContent = window.frames.length;
+            document.getElementById('messageCount').textContent = messageCounter;
+            document.getElementById('operationCount').textContent = operationCounter;
+        }
+
+        // Gerar conteúdo HTML minificado para frames
+        function gerarConteudoFrame(numero) {
+            var html = '<!DOCTYPE html><html><head>';
+            html += '<style>body{font-family:Arial;margin:15px;background:linear-gradient(45deg,#e3f2fd,#f3e5f5);border-radius:10px;padding:20px;text-align:center}';
+            html += '.header{background:#007bff;color:white;padding:10px;border-radius:5px;margin-bottom:15px}';
+            html += 'button{background:#28a745;color:white;border:none;padding:8px 15px;border-radius:5px;cursor:pointer;margin:5px}';
+            html += '.info{background:#f8f9fa;border:1px solid #dee2e6;border-radius:5px;padding:10px;margin:10px 0}</style>';
+            html += '</head><body>';
+            html += '<div class="header"><h3>🖼️ Frame ' + numero + '</h3></div>';
+            html += '<div class="info"><strong>ID:</strong> frame-' + numero + '<br>';
+            html += '<strong>Criado:</strong> ' + new Date().toLocaleString() + '<br>';
+            html += '<strong>Status:</strong> <span style="color:green">●</span> Ativo</div>';
+            html += '<button onclick="responderParent(\'Olá do Frame ' + numero + '!\')">📤 Responder</button>';
+            html += '<button onclick="window.parent.adicionarSaida(\'Frame ' + numero + ' clicado!\', \'success\')">🔔 Notificar</button>';
+            html += '<script>';
+            html += 'window.addEventListener("message", function(event) {';
+            html += 'console.log("Frame ' + numero + ' recebeu:", event.data);';
+            html += 'if (event.data.comando) {';
+            html += 'if (event.data.comando === "ping") responderParent("pong do Frame ' + numero + '");';
+            html += 'if (event.data.comando === "info") responderParent({frame:' + numero + ',timestamp:new Date().toISOString()});';
+            html += '}});';
+            html += 'function responderParent(msg) {';
+            html += 'window.parent.postMessage({origem:"frame-' + numero + '", mensagem:msg, timestamp:new Date().toISOString()}, "*");';
+            html += '}';
+            html += 'window.onload = function() { responderParent("Frame ' + numero + ' carregado!"); };';
+            html += '<\/script></body></html>';
+            return html;
+        }
+
+        // Funcionalidades principais
         function contarFrames() {
             const quantidade = window.frames.length;
-            adicionarSaida(`📊 Número total de frames: ${quantidade}`);
+            adicionarSaida('Número total de frames: ' + quantidade, 'info');
         }
 
-        // Listar frames
         function listarFrames() {
-            adicionarSaida('📋 Listando todos os frames:');
+            adicionarSaida('Listando todos os frames:', 'info');
             
             for (let i = 0; i < window.frames.length; i++) {
-                const frame = window.frames[i];
                 const frameElement = document.getElementsByTagName('iframe')[i];
+                const frameName = frameElement.name || frameElement.id || 'frame-' + i;
                 
-                adicionarSaida(`   Frame ${i}: ${frameElement.name || frameElement.id || 'sem nome'}`);
+                adicionarSaida('  📎 Frame ' + i + ': ' + frameName, 'info');
                 
                 try {
-                    adicionarSaida(`   - URL: ${frame.location.href}`);
+                    adicionarSaida('     📍 Origem: Mesma origem (srcdoc)', 'success');
                 } catch (error) {
-                    adicionarSaida(`   - URL: Acesso negado (cross-origin)`);
+                    adicionarSaida('     📍 Erro de acesso: ' + error.message, 'error');
                 }
             }
         }
 
-        // Acessar conteúdo do frame
-        function acessarConteudoFrame() {
-            if (window.frames.length === 0) {
-                adicionarSaida('❌ Nenhum frame encontrado!');
-                return;
-            }
-
-            try {
-                const frame = window.frames[0];
-                const frameDoc = frame.document;
-                
-                adicionarSaida('📄 Informações do primeiro frame:');
-                adicionarSaida(`   - Título: ${frameDoc.title || 'Sem título'}`);
-                adicionarSaida(`   - URL: ${frame.location.href}`);
-                adicionarSaida(`   - Elementos H2: ${frameDoc.getElementsByTagName('h2').length}`);
-                
-            } catch (error) {
-                adicionarSaida(`❌ Erro ao acessar frame: ${error.message}`);
-            }
-        }
-
-        // Adicionar novo frame
-        function adicionarFrame() {
-            const container = document.querySelector('.frame-container');
-            const novoFrame = document.createElement('iframe');
-            const frameNumber = window.frames.length + 1;
+        function analisarFrames() {
+            adicionarSaida('Iniciando análise detalhada dos frames...', 'info');
             
-            novoFrame.id = `frame${frameNumber}`;
-            novoFrame.name = `frame${frameNumber}`;
-            novoFrame.width = '300';
-            novoFrame.height = '150';
-            novoFrame.src = `data:text/html,<h2>Frame ${frameNumber}</h2><p>Frame criado dinamicamente</p><p>Timestamp: ${new Date().toLocaleString()}</p>`;
-            novoFrame.style.border = '2px solid #28a745';
-            
-            container.appendChild(novoFrame);
-            
-            adicionarSaida(`➕ Novo frame adicionado: Frame ${frameNumber}`);
-            
-            // Aguardar carregamento e contar novamente
-            setTimeout(() => {
-                contarFrames();
-            }, 100);
-        }
-
-        // Remover último frame
-        function removerFrame() {
             const iframes = document.getElementsByTagName('iframe');
             
-            if (iframes.length === 0) {
-                adicionarSaida('❌ Nenhum frame para remover!');
+            for (let i = 0; i < iframes.length; i++) {
+                const iframe = iframes[i];
+                
+                adicionarSaida('🔍 Analisando Frame ' + i + ':', 'info');
+                adicionarSaida('   📋 ID: ' + iframe.id, 'info');
+                adicionarSaida('   📋 Name: ' + iframe.name, 'info');
+                adicionarSaida('   📐 Dimensões: ' + iframe.offsetWidth + 'x' + iframe.offsetHeight, 'info');
+                adicionarSaida('   🔗 Tipo: srcdoc (conteúdo inline)', 'info');
+            }
+        }
+
+        function adicionarFrame() {
+            frameCounter++;
+            const container = document.getElementById('frameContainer');
+            
+            const frameWrapper = document.createElement('div');
+            const iframe = document.createElement('iframe');
+            iframe.id = 'frame-' + frameCounter;
+            iframe.name = 'frame-' + frameCounter;
+            iframe.srcdoc = gerarConteudoFrame(frameCounter);
+            
+            const frameInfo = document.createElement('div');
+            frameInfo.className = 'frame-info';
+            frameInfo.innerHTML = '<strong>Frame ID:</strong> frame-' + frameCounter + ' | <strong>Criado:</strong> ' + new Date().toLocaleTimeString();
+            
+            frameWrapper.appendChild(iframe);
+            frameWrapper.appendChild(frameInfo);
+            container.appendChild(frameWrapper);
+            
+            adicionarSaida('Novo frame adicionado: frame-' + frameCounter, 'success');
+            
+            setTimeout(function() {
+                contarFrames();
+            }, 200);
+        }
+
+        function removerFrame() {
+            const container = document.getElementById('frameContainer');
+            
+            if (container.children.length === 0) {
+                adicionarSaida('Nenhum frame disponível para remoção!', 'warning');
                 return;
             }
             
-            const ultimoFrame = iframes[iframes.length - 1];
-            ultimoFrame.remove();
+            container.removeChild(container.lastElementChild);
+            adicionarSaida('Último frame removido com sucesso', 'success');
             
-            adicionarSaida('❌ Último frame removido');
-            
-            // Aguardar e contar novamente
-            setTimeout(() => {
+            setTimeout(function() {
                 contarFrames();
             }, 100);
         }
 
-        // Comunicar com frame
-        function comunicarComFrame() {
-            if (window.frames.length === 0) {
-                adicionarSaida('❌ Nenhum frame disponível para comunicação!');
-                return;
-            }
-
-            try {
-                const frame = window.frames[0];
-                
-                // Tentar executar código no frame
-                frame.postMessage('Olá do frame pai!', '*');
-                
-                adicionarSaida('💬 Mensagem enviada para o primeiro frame');
-                
-                // Listener para respostas
-                window.addEventListener('message', function(event) {
-                    adicionarSaida(`📨 Mensagem recebida: ${event.data}`);
-                });
-                
-            } catch (error) {
-                adicionarSaida(`❌ Erro na comunicação: ${error.message}`);
-            }
+        function limparTodos() {
+            const container = document.getElementById('frameContainer');
+            container.innerHTML = '';
+            frameCounter = 0;
+            
+            adicionarSaida('Todos os frames foram removidos', 'warning');
+            contarFrames();
         }
 
-        // Monitorar mudanças nos frames
-        let frameCount = window.frames.length;
-        setInterval(() => {
-            if (window.frames.length !== frameCount) {
-                frameCount = window.frames.length;
-                adicionarSaida(`🔄 Mudança detectada! Novo total de frames: ${frameCount}`);
+        // Sistema de comunicação
+        function enviarMensagemSimples() {
+            if (window.frames.length === 0) {
+                adicionarSaida('Nenhum frame disponível para comunicação!', 'error');
+                return;
             }
-        }, 1000);
+            
+            const mensagem = 'Olá dos frames! Timestamp: ' + new Date().toLocaleTimeString();
+            
+            for (let i = 0; i < window.frames.length; i++) {
+                window.frames[i].postMessage(mensagem, '*');
+            }
+            
+            messageCounter++;
+            adicionarSaida('Mensagem simples enviada para ' + window.frames.length + ' frame(s)', 'success');
+        }
 
-        // Inicializar
+        function enviarComando() {
+            if (window.frames.length === 0) {
+                adicionarSaida('Nenhum frame disponível!', 'error');
+                return;
+            }
+            
+            const comando = { comando: 'ping', timestamp: new Date().toISOString() };
+            
+            window.frames[0].postMessage(comando, '*');
+            messageCounter++;
+            adicionarSaida('Comando ping enviado para o primeiro frame', 'success');
+        }
+
+        function solicitarInfo() {
+            if (window.frames.length === 0) {
+                adicionarSaida('Nenhum frame disponível!', 'error');
+                return;
+            }
+            
+            for (let i = 0; i < window.frames.length; i++) {
+                window.frames[i].postMessage({ comando: 'info' }, '*');
+            }
+            
+            messageCounter++;
+            adicionarSaida('Solicitação de informações enviada para todos os frames', 'info');
+        }
+
+        function broadcastMensagem() {
+            if (window.frames.length === 0) {
+                adicionarSaida('Nenhum frame disponível!', 'error');
+                return;
+            }
+            
+            const broadcast = {
+                tipo: 'broadcast',
+                mensagem: 'Mensagem em broadcast para todos os frames!',
+                origem: 'parent-window',
+                timestamp: new Date().toISOString()
+            };
+            
+            for (let i = 0; i < window.frames.length; i++) {
+                window.frames[i].postMessage(broadcast, '*');
+            }
+            
+            messageCounter++;
+            adicionarSaida('Broadcast enviado para ' + window.frames.length + ' frame(s)', 'success');
+        }
+
+        // Listener para mensagens dos frames
+        window.addEventListener('message', function(event) {
+            const messageLog = document.getElementById('messageLog');
+            
+            const messageDiv = document.createElement('div');
+            messageDiv.innerHTML = '<strong>[' + new Date().toLocaleTimeString() + ']</strong> <span style="color: #007bff">' + (event.data.origem || 'Frame') + ':</span> ' + (typeof event.data.mensagem === 'object' ? JSON.stringify(event.data.mensagem, null, 2) : event.data.mensagem || event.data);
+            messageDiv.style.borderBottom = '1px solid #dee2e6';
+            messageDiv.style.padding = '5px 0';
+            
+            messageLog.appendChild(messageDiv);
+            messageLog.scrollTop = messageLog.scrollHeight;
+            
+            adicionarSaida('Mensagem recebida: ' + (event.data.mensagem || event.data), 'success');
+        });
+
+        // Monitoramento automático
+        let lastFrameCount = 0;
+        setInterval(function() {
+            if (window.frames.length !== lastFrameCount) {
+                lastFrameCount = window.frames.length;
+                atualizarStats();
+            }
+        }, 500);
+
+        // Inicialização
         window.onload = function() {
-            adicionarSaida('🚀 Página carregada! Clique nos botões para explorar os frames.');
-            contarFrames();
+            adicionarSaida('🚀 Sistema de Frames Avançado iniciado!', 'success');
+            adicionarSaida('💡 Dica: Clique em "Adicionar Frame" para começar', 'info');
+            adicionarSaida('✅ Problemas de cross-origin resolvidos com srcdoc', 'success');
+            atualizarStats();
         };
     </script>
 </body>

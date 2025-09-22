@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM - JavaScript Window Object</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            border-bottom: 3px solid #007bff;
+            padding-bottom: 10px;
+        }
+        .section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        .success {
+            background: #28a745;
+        }
+        .success:hover {
+            background: #218838;
+        }
+        .danger {
+            background: #dc3545;
+        }
+        .danger:hover {
+            background: #c82333;
+        }
+        .warning {
+            background: #ffc107;
+            color: #212529;
+        }
+        .warning:hover {
+            background: #e0a800;
+        }
+        #output {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+            padding: 15px;
+            margin-top: 10px;
+            min-height: 150px;
+            overflow-y: auto;
+            max-height: 300px;
+            font-family: monospace;
+        }
+        .dynamic-area {
+            min-height: 100px;
+            border: 2px dashed #ddd;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 15px 0;
+            background: #fafafa;
+        }
+        .form-demo input, .form-demo select, .form-demo textarea {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+        }
+        .element-info {
+            background: #e7f3ff;
+            border: 1px solid #bee5eb;
+            border-radius: 5px;
+            padding: 10px;
+            margin: 10px 0;
+            font-family: monospace;
+            font-size: 14px;
+        }
+        .button-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 10px 0;
+        }
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 10px;
+            margin: 15px 0;
+        }
+        .stat-card {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+            padding: 15px;
+            text-align: center;
+        }
+        .stat-number {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #007bff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🌳 DOM - Document Object Model</h1>
+        <p><strong>Clique nos botões abaixo e veja os resultados aqui e no console do navegador (F12)</strong></p>
+
+        <!-- Estatísticas -->
+        <div class="stats">
+            <div class="stat-card">
+                <div class="stat-number" id="elementCount">0</div>
+                <div>Elementos</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="eventCount">0</div>
+                <div>Eventos</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="operationCount">0</div>
+                <div>Operações</div>
+            </div>
+        </div>
+
+        <!-- Seção 1: Seleção de Elementos -->
+        <div class="section">
+            <h2>🎯 Seleção de Elementos</h2>
+            <p>Métodos para encontrar elementos no DOM:</p>
+            
+            <div class="button-group">
+                <button onclick="demonstrarGetElementById()">getElementById</button>
+                <button onclick="demonstrarGetElementsByTagName()">getElementsByTagName</button>
+                <button onclick="demonstrarGetElementsByClassName()">getElementsByClassName</button>
+                <button onclick="demonstrarQuerySelector()">querySelector</button>
+                <button onclick="demonstrarQuerySelectorAll()">querySelectorAll</button>
+            </div>
+
+            <!-- Elementos para teste -->
+            <div class="dynamic-area">
+                <p id="paragrafo1" class="teste">Parágrafo com ID "paragrafo1"</p>
+                <div class="teste">Div com classe "teste"</div>
+                <span class="teste">Span com classe "teste"</span>
+                <h3>Título H3 para teste</h3>
+            </div>
+        </div>
+
+        <!-- Seção 2: Manipulação de Elementos -->
+        <div class="section">
+            <h2>🔧 Manipulação de Elementos</h2>
+            <p>Criação, modificação e remoção de elementos:</p>
+            
+            <div class="button-group">
+                <button class="success" onclick="criarElemento()">Criar Elemento</button>
+                <button onclick="modificarConteudo()">Modificar Conteúdo</button>
+                <button class="warning" onclick="modificarEstilo()">Modificar Estilo</button>
+                <button class="danger" onclick="removerElemento()">Remover Elemento</button>
+            </div>
+
+            <div class="dynamic-area" id="areaManipulacao">
+                <p>Área para manipulação de elementos dinâmicos</p>
+            </div>
+        </div>
+
+        <!-- Seção 3: Eventos -->
+        <div class="section">
+            <h2>⚡ Eventos</h2>
+            <p>Captura e manipulação de eventos do usuário:</p>
+            
+            <div class="button-group">
+                <button onclick="adicionarEventoClick()">Adicionar Evento Click</button>
+                <button onclick="adicionarEventoMouse()">Eventos Mouse</button>
+                <button onclick="adicionarEventoTeclado()">Evento Teclado</button>
+                <button onclick="removerEventos()">Remover Eventos</button>
+            </div>
+
+            <div class="dynamic-area" id="areaEventos">
+                <button id="botaoTeste" style="padding: 20px; font-size: 16px;">Botão para Teste de Eventos</button>
+                <input type="text" id="inputTeste" placeholder="Digite algo para testar eventos de teclado" style="width: 100%; margin-top: 10px;">
+            </div>
+        </div>
+
+        <!-- Seção 4: Navegação DOM -->
+        <div class="section">
+            <h2>🧭 Navegação DOM</h2>
+            <p>Navegação pela árvore de elementos:</p>
+            
+            <div class="button-group">
+                <button onclick="demonstrarParentNode()">Parent Node</button>
+                <button onclick="demonstrarChildNodes()">Child Nodes</button>
+                <button onclick="demonstrarSiblings()">Siblings</button>
+                <button onclick="demonstrarArvoreDOM()">Mostrar Árvore DOM</button>
+            </div>
+
+            <div class="dynamic-area" id="areaNavegacao">
+                <div id="elementoPai">
+                    <span>Primeiro filho</span>
+                    <p id="elementoMeio">Elemento do meio</p>
+                    <div>Último filho</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Seção 5: Formulários -->
+        <div class="section">
+            <h2>📝 Formulários</h2>
+            <p>Manipulação de formulários e validação:</p>
+            
+            <div class="button-group">
+                <button onclick="capturarDadosFormulario()">Capturar Dados</button>
+                <button onclick="validarFormulario()">Validar Formulário</button>
+                <button onclick="limparFormulario()">Limpar</button>
+                <button onclick="preencherFormulario()">Preencher Automático</button>
+            </div>
+
+            <div class="form-demo">
+                <input type="text" id="nomeForm" placeholder="Nome completo">
+                <input type="email" id="emailForm" placeholder="Email">
+                <select id="cidadeForm">
+                    <option value="">Selecione uma cidade</option>
+                    <option value="sp">São Paulo</option>
+                    <option value="rj">Rio de Janeiro</option>
+                    <option value="bh">Belo Horizonte</option>
+                    <option value="salvador">Salvador</option>
+                </select>
+                <textarea id="mensagemForm" placeholder="Mensagem" rows="3"></textarea>
+            </div>
+        </div>
+
+        <!-- Seção 6: Atributos e Classes -->
+        <div class="section">
+            <h2>🏷️ Atributos e Classes</h2>
+            <p>Manipulação de atributos HTML e classes CSS:</p>
+            
+            <div class="button-group">
+                <button onclick="manipularAtributos()">Atributos HTML</button>
+                <button onclick="manipularClasses()">Classes CSS</button>
+                <button onclick="manipularDataAttributes()">Data Attributes</button>
+                <button onclick="inspecionarElemento()">Inspecionar Elemento</button>
+            </div>
+
+            <div class="dynamic-area">
+                <div id="elementoAtributos" class="exemplo" title="Elemento de teste" data-info="informação-teste">
+                    Elemento para manipulação de atributos
+                </div>
+            </div>
+        </div>
+
+        <!-- Console de Saída -->
+        <div class="section">
+            <h2>💻 Console de Saída</h2>
+            <div id="output">
+                <strong>🌳 DOM Console - Clique nos botões acima para ver os resultados</strong><br>
+                ================================================<br>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Variáveis globais para contadores
+        let elementCounter = 0;
+        let eventCounter = 0;
+        let operationCounter = 0;
+
+        // Função para adicionar saída ao console
+        function adicionarSaida(texto) {
+            const output = document.getElementById('output');
+            const timestamp = new Date().toLocaleTimeString();
+            output.innerHTML += `<span style="color: #666">[${timestamp}]</span> ${texto}<br>`;
+            output.scrollTop = output.scrollHeight;
+            console.log(texto);
+            
+            operationCounter++;
+            atualizarContadores();
+        }
+
+        // Atualizar contadores
+        function atualizarContadores() {
+            document.getElementById('elementCount').textContent = elementCounter;
+            document.getElementById('eventCount').textContent = eventCounter;
+            document.getElementById('operationCount').textContent = operationCounter;
+        }
+
+        // === SELEÇÃO DE ELEMENTOS ===
+        function demonstrarGetElementById() {
+            const elemento = document.getElementById('paragrafo1');
+            adicionarSaida(`<strong>getElementById('paragrafo1'):</strong> ${elemento ? elemento.tagName + ' encontrado' : 'Elemento não encontrado'}`);
+            if (elemento) {
+                elemento.style.background = 'yellow';
+                setTimeout(() => elemento.style.background = '', 2000);
+            }
+        }
+
+        function demonstrarGetElementsByTagName() {
+            const elementos = document.getElementsByTagName('button');
+            adicionarSaida(`<strong>getElementsByTagName('button'):</strong> ${elementos.length} elementos encontrados`);
+            adicionarSaida(`Primeiro botão: "${elementos[0].textContent}"`);
+        }
+
+        function demonstrarGetElementsByClassName() {
+            const elementos = document.getElementsByClassName('teste');
+            adicionarSaida(`<strong>getElementsByClassName('teste'):</strong> ${elementos.length} elementos encontrados`);
+            for (let i = 0; i < elementos.length; i++) {
+                elementos[i].style.border = '2px solid red';
+            }
+            setTimeout(() => {
+                for (let i = 0; i < elementos.length; i++) {
+                    elementos[i].style.border = '';
+                }
+            }, 2000);
+        }
+
+        function demonstrarQuerySelector() {
+            const elemento = document.querySelector('.teste');
+            adicionarSaida(`<strong>querySelector('.teste'):</strong> ${elemento ? 'Primeiro elemento com classe "teste" encontrado' : 'Elemento não encontrado'}`);
+            if (elemento) {
+                elemento.style.background = 'lightblue';
+                setTimeout(() => elemento.style.background = '', 2000);
+            }
+        }
+
+        function demonstrarQuerySelectorAll() {
+            const elementos = document.querySelectorAll('.teste');
+            adicionarSaida(`<strong>querySelectorAll('.teste'):</strong> ${elementos.length} elementos encontrados`);
+            elementos.forEach((el, index) => {
+                setTimeout(() => {
+                    el.style.background = 'lightgreen';
+                    setTimeout(() => el.style.background = '', 1000);
+                }, index * 500);
+            });
+        }
+
+        // === MANIPULAÇÃO DE ELEMENTOS ===
+        function criarElemento() {
+            const area = document.getElementById('areaManipulacao');
+            const novoElemento = document.createElement('div');
+            elementCounter++;
+            
+            novoElemento.innerHTML = `
+                <h4>Elemento Criado #${elementCounter}</h4>
+                <p>Criado em: ${new Date().toLocaleString()}</p>
+                <button onclick="this.parentElement.remove(); adicionarSaida('Elemento removido!')" style="background: #dc3545; color: white; border: none; padding: 5px 10px; border-radius: 3px;">Remover</button>
+            `;
+            novoElemento.style.cssText = 'border: 2px solid #007bff; padding: 10px; margin: 5px 0; border-radius: 5px; background: #f8f9fa;';
+            
+            area.appendChild(novoElemento);
+            adicionarSaida(`<strong>createElement:</strong> Novo elemento DIV criado e adicionado`);
+        }
+
+        function modificarConteudo() {
+            const area = document.getElementById('areaManipulacao');
+            const elementos = area.getElementsByTagName('div');
+            
+            if (elementos.length > 1) {
+                const ultimo = elementos[elementos.length - 1];
+                ultimo.querySelector('p').textContent = `Modificado em: ${new Date().toLocaleString()}`;
+                adicionarSaida(`<strong>textContent:</strong> Conteúdo do último elemento modificado`);
+            } else {
+                adicionarSaida(`<span style="color: red">Erro:</span> Crie um elemento primeiro!`);
+            }
+        }
+
+        function modificarEstilo() {
+            const area = document.getElementById('areaManipulacao');
+            const elementos = area.getElementsByTagName('div');
+            
+            if (elementos.length > 1) {
+                const ultimo = elementos[elementos.length - 1];
+                ultimo.style.cssText += 'transform: rotate(5deg); background: #ffe6e6; border-color: #ff6b6b;';
+                adicionarSaida(`<strong>style.cssText:</strong> Estilo do último elemento alterado`);
+            } else {
+                adicionarSaida(`<span style="color: red">Erro:</span> Crie um elemento primeiro!`);
+            }
+        }
+
+        function removerElemento() {
+            const area = document.getElementById('areaManipulacao');
+            const elementos = area.getElementsByTagName('div');
+            
+            if (elementos.length > 1) {
+                elementos[elementos.length - 1].remove();
+                adicionarSaida(`<strong>remove():</strong> Último elemento removido`);
+            } else {
+                adicionarSaida(`<span style="color: red">Erro:</span> Nenhum elemento para remover!`);
+            }
+        }
+
+        // === EVENTOS ===
+        function adicionarEventoClick() {
+            const botao = document.getElementById('botaoTeste');
+            
+            botao.addEventListener('click', function() {
+                eventCounter++;
+                adicionarSaida(`<strong>Evento Click:</strong> Botão clicado! Total: ${eventCounter}`);
+                this.style.background = '#28a745';
+                setTimeout(() => this.style.background = '', 1000);
+                atualizarContadores();
+            });
+            
+            adicionarSaida(`<strong>addEventListener('click'):</strong> Evento click adicionado ao botão`);
+        }
+
+        function adicionarEventoMouse() {
+            const botao = document.getElementById('botaoTeste');
+            
+            botao.addEventListener('mouseenter', function() {
+                eventCounter++;
+                this.style.transform = 'scale(1.1)';
+                adicionarSaida(`<strong>Evento MouseEnter:</strong> Mouse entrou no botão`);
+                atualizarContadores();
+            });
+            
+            botao.addEventListener('mouseleave', function() {
+                eventCounter++;
+                this.style.transform = 'scale(1)';
+                adicionarSaida(`<strong>Evento MouseLeave:</strong> Mouse saiu do botão`);
+                atualizarContadores();
+            });
+            
+            adicionarSaida(`<strong>addEventListener('mouse'):</strong> Eventos de mouse adicionados`);
+        }
+
+        function adicionarEventoTeclado() {
+            const input = document.getElementById('inputTeste');
+            
+            input.addEventListener('keyup', function(e) {
+                eventCounter++;
+                adicionarSaida(`<strong>Evento KeyUp:</strong> Tecla "${e.key}" pressionada. Texto: "${this.value}"`);
+                atualizarContadores();
+            });
+            
+            adicionarSaida(`<strong>addEventListener('keyup'):</strong> Evento de teclado adicionado ao input`);
+        }
+
+        function removerEventos() {
+            const botao = document.getElementById('botaoTeste');
+            const input = document.getElementById('inputTeste');
+            
+            // Clonar elementos para remover todos os eventos
+            const novoBotao = botao.cloneNode(true);
+            const novoInput = input.cloneNode(true);
+            
+            botao.parentNode.replaceChild(novoBotao, botao);
+            input.parentNode.replaceChild(novoInput, input);
+            
+            adicionarSaida(`<strong>removeEventListener:</strong> Todos os eventos removidos`);
+        }
+
+        // === NAVEGAÇÃO DOM ===
+        function demonstrarParentNode() {
+            const elemento = document.getElementById('elementoMeio');
+            const pai = elemento.parentNode;
+            adicionarSaida(`<strong>parentNode:</strong> Pai de "elementoMeio" é ${pai.tagName}#${pai.id}`);
+            pai.style.border = '3px solid orange';
+            setTimeout(() => pai.style.border = '', 2000);
+        }
+
+        function demonstrarChildNodes() {
+            const pai = document.getElementById('elementoPai');
+            adicionarSaida(`<strong>childNodes:</strong> Elemento pai tem ${pai.childNodes.length} nós filhos`);
+            adicionarSaida(`<strong>children:</strong> Elemento pai tem ${pai.children.length} elementos filhos`);
+            
+            for (let i = 0; i < pai.children.length; i++) {
+                pai.children[i].style.background = 'lightcoral';
+            }
+            setTimeout(() => {
+                for (let i = 0; i < pai.children.length; i++) {
+                    pai.children[i].style.background = '';
+                }
+            }, 2000);
+        }
+
+        function demonstrarSiblings() {
+            const elemento = document.getElementById('elementoMeio');
+            const anterior = elemento.previousElementSibling;
+            const proximo = elemento.nextElementSibling;
+            
+            adicionarSaida(`<strong>previousElementSibling:</strong> ${anterior ? anterior.tagName : 'null'}`);
+            adicionarSaida(`<strong>nextElementSibling:</strong> ${proximo ? proximo.tagName : 'null'}`);
+            
+            if (anterior) anterior.style.background = 'lightblue';
+            elemento.style.background = 'lightyellow';
+            if (proximo) proximo.style.background = 'lightgreen';
+            
+            setTimeout(() => {
+                if (anterior) anterior.style.background = '';
+                elemento.style.background = '';
+                if (proximo) proximo.style.background = '';
+            }, 2000);
+        }
+
+        function demonstrarArvoreDOM() {
+            const pai = document.getElementById('elementoPai');
+            
+            function criarArvore(elemento, nivel = 0) {
+                const espacos = '&nbsp;&nbsp;'.repeat(nivel);
+                let arvore = `${espacos}${elemento.tagName}`;
+                if (elemento.id) arvore += `#${elemento.id}`;
+                if (elemento.className) arvore += `.${elemento.className}`;
+                arvore += '<br>';
+                
+                for (let filho of elemento.children) {
+                    arvore += criarArvore(filho, nivel + 1);
+                }
+                
+                return arvore;
+            }
+            
+            const arvore = criarArvore(pai);
+            adicionarSaida(`<strong>Árvore DOM:</strong><br>${arvore}`);
+        }
+
+        // === FORMULÁRIOS ===
+        function capturarDadosFormulario() {
+            const nome = document.getElementById('nomeForm').value;
+            const email = document.getElementById('emailForm').value;
+            const cidade = document.getElementById('cidadeForm').value;
+            const mensagem = document.getElementById('mensagemForm').value;
+            
+            adicionarSaida(`<strong>Dados do Formulário:</strong>`);
+            adicionarSaida(`Nome: ${nome || 'vazio'}`);
+            adicionarSaida(`Email: ${email || 'vazio'}`);
+            adicionarSaida(`Cidade: ${cidade || 'não selecionada'}`);
+            adicionarSaida(`Mensagem: ${mensagem || 'vazia'}`);
+        }
+
+        function validarFormulario() {
+            const nome = document.getElementById('nomeForm');
+            const email = document.getElementById('emailForm');
+            let valido = true;
+            
+            // Validar nome
+            if (!nome.value.trim()) {
+                nome.style.borderColor = 'red';
+                adicionarSaida(`<span style="color: red">Erro:</span> Nome é obrigatório`);
+                valido = false;
+            } else {
+                nome.style.borderColor = 'green';
+            }
+            
+            // Validar email
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email.value)) {
+                email.style.borderColor = 'red';
+                adicionarSaida(`<span style="color: red">Erro:</span> Email inválido`);
+                valido = false;
+            } else {
+                email.style.borderColor = 'green';
+            }
+            
+            if (valido) {
+                adicionarSaida(`<span style="color: green">✓ Formulário válido!</span>`);
+            }
+        }
+
+        function limparFormulario() {
+            document.getElementById('nomeForm').value = '';
+            document.getElementById('emailForm').value = '';
+            document.getElementById('cidadeForm').value = '';
+            document.getElementById('mensagemForm').value = '';
+            
+            // Resetar bordas
+            document.querySelectorAll('.form-demo input, .form-demo select, .form-demo textarea').forEach(el => {
+                el.style.borderColor = '#ddd';
+            });
+            
+            adicionarSaida(`<strong>Formulário limpo!</strong>`);
+        }
+
+        function preencherFormulario() {
+            document.getElementById('nomeForm').value = 'João Silva';
+            document.getElementById('emailForm').value = 'joao@exemplo.com';
+            document.getElementById('cidadeForm').value = 'sp';
+            document.getElementById('mensagemForm').value = 'Esta é uma mensagem de teste preenchida automaticamente.';
+            
+            adicionarSaida(`<strong>Formulário preenchido automaticamente!</strong>`);
+        }
+
+        // === ATRIBUTOS E CLASSES ===
+        function manipularAtributos() {
+            const elemento = document.getElementById('elementoAtributos');
+            
+            // Definir novos atributos
+            elemento.setAttribute('data-timestamp', new Date().toISOString());
+            elemento.setAttribute('data-contador', elementCounter.toString());
+            
+            adicionarSaida(`<strong>setAttribute:</strong> Atributos definidos`);
+            adicionarSaida(`title: ${elemento.getAttribute('title')}`);
+            adicionarSaida(`data-info: ${elemento.getAttribute('data-info')}`);
+            adicionarSaida(`data-timestamp: ${elemento.getAttribute('data-timestamp')}`);
+        }
+
+        function manipularClasses() {
+            const elemento = document.getElementById('elementoAtributos');
+            
+            elemento.classList.add('destacado');
+            elemento.classList.toggle('ativo');
+            
+            // Adicionar CSS para as classes
+            if (!document.getElementById('classesCSS')) {
+                const style = document.createElement('style');
+                style.id = 'classesCSS';
+                style.textContent = `
+                    .destacado { background: yellow !important; font-weight: bold; }
+                    .ativo { border: 3px solid green !important; }
+                `;
+                document.head.appendChild(style);
+            }
+            
+            adicionarSaida(`<strong>classList:</strong> Classes manipuladas`);
+            adicionarSaida(`Classes atuais: ${elemento.className}`);
+            adicionarSaida(`Contém 'destacado': ${elemento.classList.contains('destacado')}`);
+        }
+
+        function manipularDataAttributes() {
+            const elemento = document.getElementById('elementoAtributos');
+            
+            elemento.dataset.status = 'ativo';
+            elemento.dataset.ultimaModificacao = new Date().toLocaleString();
+            elemento.dataset.versao = '1.0';
+            
+            adicionarSaida(`<strong>dataset:</strong> Data attributes definidos`);
+            Object.keys(elemento.dataset).forEach(key => {
+                adicionarSaida(`data-${key}: ${elemento.dataset[key]}`);
+            });
+        }
+
+        function inspecionarElemento() {
+            const elemento = document.getElementById('elementoAtributos');
+            
+            adicionarSaida(`<strong>Inspeção do elemento:</strong>`);
+            adicionarSaida(`tagName: ${elemento.tagName}`);
+            adicionarSaida(`id: ${elemento.id}`);
+            adicionarSaida(`className: ${elemento.className}`);
+            adicionarSaida(`Número de atributos: ${elemento.attributes.length}`);
+            
+            for (let attr of elemento.attributes) {
+                adicionarSaida(`${attr.name} = "${attr.value}"`);
+            }
+        }
+
+        // Inicialização
+        window.onload = function() {
+            adicionarSaida('<strong>🌳 DOM Demo carregado! Explore todas as funcionalidades acima.</strong>');
+            atualizarContadores();
+        };
+    </script>
+</body>
+</html>
