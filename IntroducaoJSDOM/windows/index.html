@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Window Objects - Introdução</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+        }
+        
+        .header h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-left: 5px solid;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+        
+        .card.frames { border-left-color: #007bff; }
+        .card.history { border-left-color: #28a745; }
+        .card.location { border-left-color: #dc3545; }
+        .card.navigator { border-left-color: #6f42c1; }
+        .card.screen { border-left-color: #fd7e14; }
+        
+        .card-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .card-icon {
+            font-size: 2.5rem;
+            margin-right: 15px;
+        }
+        
+        .card h2 {
+            color: #333;
+            font-size: 1.5rem;
+        }
+        
+        .card p {
+            color: #666;
+            margin-bottom: 20px;
+            line-height: 1.7;
+        }
+        
+        .card-features {
+            margin-bottom: 25px;
+        }
+        
+        .card-features h4 {
+            color: #555;
+            margin-bottom: 10px;
+            font-size: 1rem;
+        }
+        
+        .features-list {
+            list-style: none;
+        }
+        
+        .features-list li {
+            color: #777;
+            margin-bottom: 5px;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .features-list li:before {
+            content: "✓";
+            color: #28a745;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 25px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .info-section {
+            background: rgba(255,255,255,0.95);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .info-section h2 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+        }
+        
+        .code-block {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .navigation-links {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 30px;
+        }
+        
+        .nav-link {
+            padding: 10px 20px;
+            background: rgba(255,255,255,0.2);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            transition: background 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+        
+        .nav-link:hover {
+            background: rgba(255,255,255,0.3);
+        }
+        
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .card {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>🌐 JavaScript Window Objects</h1>
+            <p>Explore os principais objetos do window em JavaScript com exemplos práticos e interativos</p>
+        </header>
+
+        <section class="info-section">
+            <h2>📚 Sobre os Objetos Window</h2>
+            <p>O objeto <code>window</code> é o objeto global do JavaScript no navegador. Ele representa a janela do navegador e contém vários objetos úteis para interagir com o ambiente do navegador:</p>
+            
+            <div class="code-block">
+// Objetos principais do window
+window.frames[]    // Array de frames/iframes
+window.history     // Histórico de navegação
+window.location    // Informações da URL atual
+window.navigator   // Informações do navegador
+window.screen      // Informações da tela
+            </div>
+            
+            <p>Cada um desses objetos oferece funcionalidades específicas para diferentes aspectos da experiência web. Clique nos cartões abaixo para explorar exemplos práticos de cada objeto.</p>
+        </section>
+
+        <div class="cards-grid">
+            <div class="card frames">
+                <div class="card-header">
+                    <div class="card-icon">🖼️</div>
+                    <h2>Frames</h2>
+                </div>
+                <p>Trabalhe com frames e iframes na página. Aprenda a manipular múltiplos documentos HTML dentro de uma única página e estabelecer comunicação entre eles.</p>
+                
+                <div class="card-features">
+                    <h4>🎯 O que você vai aprender:</h4>
+                    <ul class="features-list">
+                        <li>Acessar e contar frames</li>
+                        <li>Manipular conteúdo de iframes</li>
+                        <li>Comunicação entre frames</li>
+                        <li>Criar e remover frames dinamicamente</li>
+                    </ul>
+                </div>
+                
+                <a href="frames.html" class="btn">🚀 Explorar Frames</a>
+            </div>
+
+            <div class="card history">
+                <div class="card-header">
+                    <div class="card-icon">🕒</div>
+                    <h2>History</h2>
+                </div>
+                <p>Controle o histórico de navegação do usuário. Aprenda a implementar navegação single-page application (SPA) e manipular o histórico do navegador.</p>
+                
+                <div class="card-features">
+                    <h4>🎯 O que você vai aprender:</h4>
+                    <ul class="features-list">
+                        <li>Navegar pelo histórico (back/forward)</li>
+                        <li>HTML5 History API</li>
+                        <li>Push e Replace State</li>
+                        <li>Eventos de mudança de estado</li>
+                    </ul>
+                </div>
+                
+                <a href="history.html" class="btn">🚀 Explorar History</a>
+            </div>
+
+            <div class="card location">
+                <div class="card-header">
+                    <div class="card-icon">🌐</div>
+                    <h2>Location</h2>
+                </div>
+                <p>Manipule e analise URLs. Aprenda a trabalhar com diferentes partes da URL, redirecionamentos e construção de URLs dinâmicas.</p>
+                
+                <div class="card-features">
+                    <h4>🎯 O que você vai aprender:</h4>
+                    <ul class="features-list">
+                        <li>Analisar componentes da URL</li>
+                        <li>Redirecionamentos e navegação</li>
+                        <li>Manipular query strings</li>
+                        <li>Construir URLs dinamicamente</li>
+                    </ul>
+                </div>
+                
+                <a href="location.html" class="btn">🚀 Explorar Location</a>
+            </div>
+
+            <div class="card navigator">
+                <div class="card-header">
+                    <div class="card-icon">🧭</div>
+                    <h2>Navigator</h2>
+                </div>
+                <p>Detecte recursos e informações do navegador. Aprenda a adaptar sua aplicação baseada nas capacidades e características do browser do usuário.</p>
+                
+                <div class="card-features">
+                    <h4>🎯 O que você vai aprender:</h4>
+                    <ul class="features-list">
+                        <li>Informações do navegador e sistema</li>
+                        <li>Detecção de recursos (APIs)</li>
+                        <li>Geolocalização e permissões</li>
+                        <li>User agent e device detection</li>
+                    </ul>
+                </div>
+                
+                <a href="navigator.html" class="btn">🚀 Explorar Navigator</a>
+            </div>
+
+            <div class="card screen">
+                <div class="card-header">
+                    <div class="card-icon">🖥️</div>
+                    <h2>Screen</h2>
+                </div>
+                <p>Trabalhe com informações da tela. Aprenda a criar layouts responsivos e adaptar sua aplicação às características da tela do usuário.</p>
+                
+                <div class="card-features">
+                    <h4>🎯 O que você vai aprender:</h4>
+                    <ul class="features-list">
+                        <li>Dimensões e resolução da tela</li>
+                        <li>Orientação e responsividade</li>
+                        <li>Detecção de dispositivos</li>
+                        <li>Cálculo de DPI e breakpoints</li>
+                    </ul>
+                </div>
+                
+                <a href="screen.html" class="btn">🚀 Explorar Screen</a>
+            </div>
+        </div>
+
+        <section class="info-section">
+            <h2>🛠️ Como usar os exemplos</h2>
+            <p>Cada página de exemplo contém:</p>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li><strong>📝 Conceitos teóricos:</strong> Explicação do objeto e suas funcionalidades</li>
+                <li><strong>🎯 Exemplos práticos:</strong> Botões interativos para testar cada funcionalidade</li>
+                <li><strong>💻 Código JavaScript:</strong> Snippets de código que você pode copiar e usar</li>
+                <li><strong>🖥️ Saída em tempo real:</strong> Resultados mostrados na página e no console</li>
+            </ul>
+            
+            <div class="code-block">
+// Dica: Abra as ferramentas de desenvolvedor (F12) 
+// para ver logs detalhados no console durante os testes!
+console.log('Bem-vindo aos exemplos de Window Objects!');
+            </div>
+        </section>
+
+        <div class="navigation-links">
+            <a href="../README.md" class="nav-link">📚 Voltar ao README</a>
+            <a href="frames.html" class="nav-link">🖼️ Frames</a>
+            <a href="history.html" class="nav-link">🕒 History</a>
+            <a href="location.html" class="nav-link">🌐 Location</a>
+            <a href="navigator.html" class="nav-link">🧭 Navigator</a>
+            <a href="screen.html" class="nav-link">🖥️ Screen</a>
+        </div>
+    </div>
+
+    <script>
+        // Adicionar interatividade à página inicial
+        console.log('🌐 JavaScript Window Objects - Exemplos Carregados!');
+        console.log('💡 Dica: Navegue pelos exemplos para aprender sobre cada objeto do window');
+        
+        // Mostrar informações básicas do window no console
+        console.group('📊 Informações atuais do Window:');
+        console.log('🖼️ Frames:', window.frames.length);
+        console.log('🕒 Histórico:', history.length, 'entradas');
+        console.log('🌐 URL:', location.href);
+        console.log('🧭 Navegador:', navigator.userAgent.split(' ')[0]);
+        console.log('🖥️ Tela:', `${screen.width}x${screen.height}`);
+        console.groupEnd();
+        
+        // Adicionar efeitos visuais
+        document.querySelectorAll('.card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-8px) scale(1.02)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+        
+        // Exibir uma mensagem de boas-vindas
+        setTimeout(() => {
+            console.log('🎉 Explore os exemplos clicando nos botões "🚀 Explorar" em cada cartão!');
+        }, 1000);
+    </script>
+</body>
+</html>

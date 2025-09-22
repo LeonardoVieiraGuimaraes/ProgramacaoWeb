@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navigator - JavaScript Window Object</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            border-bottom: 3px solid #6f42c1;
+            padding-bottom: 10px;
+        }
+        .section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        button {
+            background: #6f42c1;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background: #5a2d91;
+        }
+        .success {
+            background: #28a745;
+        }
+        .success:hover {
+            background: #218838;
+        }
+        .warning {
+            background: #ffc107;
+            color: #212529;
+        }
+        .warning:hover {
+            background: #e0a800;
+        }
+        #output {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            padding: 15px;
+            margin-top: 20px;
+            border-radius: 5px;
+            min-height: 100px;
+        }
+        .code-example {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+            overflow-x: auto;
+        }
+        .navigator-info {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 10px;
+            margin: 15px 0;
+        }
+        .navigator-info dt {
+            font-weight: bold;
+            background: #e9ecef;
+            padding: 8px;
+            border-radius: 3px;
+        }
+        .navigator-info dd {
+            background: #f8f9fa;
+            padding: 8px;
+            border-radius: 3px;
+            font-family: monospace;
+            word-break: break-all;
+            margin: 0;
+        }
+        .feature-test {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        .button-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 10px;
+            margin: 15px 0;
+        }
+        .status {
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.8em;
+            font-weight: bold;
+        }
+        .supported {
+            background: #d4edda;
+            color: #155724;
+        }
+        .not-supported {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        .geolocation-info {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧭 Navigator - window.navigator</h1>
+        
+        <div class="section">
+            <h2>📝 Conceito</h2>
+            <p>O objeto <code>window.navigator</code> contém informações sobre o navegador do usuário, incluindo nome, versão, sistema operacional, idioma, e capacidades do navegador. É útil para detectar recursos e adaptar o comportamento da aplicação.</p>
+        </div>
+
+        <div class="section">
+            <h2>📊 Informações do Navegador</h2>
+            <dl class="navigator-info" id="navigatorInfo">
+                <!-- Será preenchido dinamicamente -->
+            </dl>
+            <button onclick="atualizarInfo()" class="success">🔄 Atualizar Informações</button>
+        </div>
+
+        <div class="section">
+            <h2>🔍 Detecção de Recursos</h2>
+            <div id="featureDetection" class="feature-test">
+                <!-- Será preenchido dinamicamente -->
+            </div>
+            <button onclick="detectarRecursos()">🧪 Detectar Recursos</button>
+        </div>
+
+        <div class="section">
+            <h2>🌐 APIs do Navigator</h2>
+            <div class="button-grid">
+                <button onclick="obterGeolocalizacao()">📍 Geolocalização</button>
+                <button onclick="obterInfoConexao()">📶 Info da Conexão</button>
+                <button onclick="obterInfoBateria()">🔋 Info da Bateria</button>
+                <button onclick="obterInfoMemoria()">💾 Info da Memória</button>
+                <button onclick="obterInfoGamepads()">🎮 Gamepads</button>
+                <button onclick="testarPermissoes()">🔐 Permissões</button>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>📱 Detecção de Dispositivo e Plataforma</h2>
+            <div class="button-grid">
+                <button onclick="detectarDispositivo()">📱 Tipo de Dispositivo</button>
+                <button onclick="detectarNavegador()">🌐 Tipo de Navegador</button>
+                <button onclick="detectarSO()">💻 Sistema Operacional</button>
+                <button onclick="detectarIdioma()">🌍 Idioma e Localização</button>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>🧪 Testes Avançados</h2>
+            <div class="button-grid">
+                <button onclick="testarUserAgent()" class="warning">🕵️ Analisar User Agent</button>
+                <button onclick="testarCookies()">🍪 Teste de Cookies</button>
+                <button onclick="testarJavaScript()">⚡ Capacidades JS</button>
+                <button onclick="obterInfoCompleta()" class="success">📋 Relatório Completo</button>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>💻 Código JavaScript</h2>
+            <div class="code-example">
+                <pre><code>// Informações básicas do navegador
+navigator.userAgent;      // String do user agent
+navigator.appName;        // Nome da aplicação
+navigator.appVersion;     // Versão da aplicação
+navigator.platform;      // Plataforma do sistema
+navigator.language;      // Idioma preferido
+navigator.languages;     // Array de idiomas
+
+// Detecção de recursos
+navigator.cookieEnabled;  // Cookies habilitados
+navigator.onLine;         // Status de conexão
+navigator.javaEnabled();  // Java habilitado
+
+// APIs modernas
+navigator.geolocation;    // API de geolocalização
+navigator.serviceWorker;  // Service Workers
+navigator.mediaDevices;   // Dispositivos de mídia</code></pre>
+            </div>
+        </div>
+
+        <div id="output">
+            <h3>🖥️ Saída do Console:</h3>
+            <p>Clique nos botões acima e veja os resultados aqui e no console do navegador (F12).</p>
+        </div>
+    </div>
+
+    <script>
+        // Função para adicionar mensagens na saída
+        function adicionarSaida(mensagem) {
+            const output = document.getElementById('output');
+            const p = document.createElement('p');
+            p.innerHTML = `<strong>${new Date().toLocaleTimeString()}:</strong> ${mensagem}`;
+            output.appendChild(p);
+            console.log(mensagem);
+        }
+
+        // Atualizar informações do navigator
+        function atualizarInfo() {
+            const info = document.getElementById('navigatorInfo');
+            const propriedades = [
+                ['userAgent', 'User Agent'],
+                ['appName', 'Nome da Aplicação'],
+                ['appVersion', 'Versão da Aplicação'],
+                ['platform', 'Plataforma'],
+                ['language', 'Idioma Principal'],
+                ['languages', 'Idiomas Suportados'],
+                ['cookieEnabled', 'Cookies Habilitados'],
+                ['onLine', 'Status Online'],
+                ['hardwareConcurrency', 'Núcleos do Processador'],
+                ['maxTouchPoints', 'Pontos de Toque Máximo'],
+                ['vendor', 'Fornecedor'],
+                ['vendorSub', 'Sub-fornecedor'],
+                ['product', 'Produto'],
+                ['productSub', 'Sub-produto']
+            ];
+
+            info.innerHTML = '';
+            
+            propriedades.forEach(([prop, desc]) => {
+                const dt = document.createElement('dt');
+                const dd = document.createElement('dd');
+                
+                dt.textContent = desc + ':';
+                
+                let valor = navigator[prop];
+                if (Array.isArray(valor)) {
+                    valor = valor.join(', ');
+                } else if (typeof valor === 'boolean') {
+                    valor = valor ? 'Sim' : 'Não';
+                } else if (valor === undefined || valor === null) {
+                    valor = 'Não disponível';
+                }
+                
+                dd.textContent = valor;
+                
+                info.appendChild(dt);
+                info.appendChild(dd);
+            });
+
+            adicionarSaida('📊 Informações do navigator atualizadas');
+        }
+
+        // Detectar recursos do navegador
+        function detectarRecursos() {
+            const recursos = [
+                { nome: 'Cookies', teste: () => navigator.cookieEnabled },
+                { nome: 'Java', teste: () => navigator.javaEnabled() },
+                { nome: 'Geolocalização', teste: () => 'geolocation' in navigator },
+                { nome: 'Service Worker', teste: () => 'serviceWorker' in navigator },
+                { nome: 'Push Manager', teste: () => 'PushManager' in window },
+                { nome: 'Notification', teste: () => 'Notification' in window },
+                { nome: 'WebRTC', teste: () => 'RTCPeerConnection' in window },
+                { nome: 'WebGL', teste: () => {
+                    try {
+                        const canvas = document.createElement('canvas');
+                        return !!(canvas.getContext('webgl') || canvas.getContext('experimental-webgl'));
+                    } catch (e) {
+                        return false;
+                    }
+                }},
+                { nome: 'LocalStorage', teste: () => 'localStorage' in window },
+                { nome: 'SessionStorage', teste: () => 'sessionStorage' in window },
+                { nome: 'IndexedDB', teste: () => 'indexedDB' in window },
+                { nome: 'Web Workers', teste: () => 'Worker' in window },
+                { nome: 'WebAssembly', teste: () => 'WebAssembly' in window },
+                { nome: 'Gamepad API', teste: () => 'getGamepads' in navigator },
+                { nome: 'MediaDevices', teste: () => 'mediaDevices' in navigator },
+                { nome: 'Clipboard API', teste: () => 'clipboard' in navigator }
+            ];
+
+            const featureDiv = document.getElementById('featureDetection');
+            featureDiv.innerHTML = '<h4>🔍 Recursos Detectados:</h4>';
+
+            recursos.forEach(recurso => {
+                const supported = recurso.teste();
+                const status = supported ? 'supported' : 'not-supported';
+                const icon = supported ? '✅' : '❌';
+                
+                featureDiv.innerHTML += `
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin: 5px 0;">
+                        <span>${icon} ${recurso.nome}</span>
+                        <span class="status ${status}">${supported ? 'Suportado' : 'Não Suportado'}</span>
+                    </div>
+                `;
+            });
+
+            adicionarSaida('🔍 Detecção de recursos concluída');
+        }
+
+        // APIs do Navigator
+        function obterGeolocalizacao() {
+            if ('geolocation' in navigator) {
+                adicionarSaida('📍 Solicitando geolocalização...');
+                
+                navigator.geolocation.getCurrentPosition(
+                    function(position) {
+                        adicionarSaida('✅ Geolocalização obtida:');
+                        adicionarSaida(`   - Latitude: ${position.coords.latitude}`);
+                        adicionarSaida(`   - Longitude: ${position.coords.longitude}`);
+                        adicionarSaida(`   - Precisão: ${position.coords.accuracy} metros`);
+                        
+                        if (position.coords.altitude !== null) {
+                            adicionarSaida(`   - Altitude: ${position.coords.altitude} metros`);
+                        }
+                    },
+                    function(error) {
+                        adicionarSaida(`❌ Erro na geolocalização: ${error.message}`);
+                    },
+                    {
+                        enableHighAccuracy: true,
+                        timeout: 5000,
+                        maximumAge: 0
+                    }
+                );
+            } else {
+                adicionarSaida('❌ Geolocalização não suportada');
+            }
+        }
+
+        function obterInfoConexao() {
+            if ('connection' in navigator) {
+                const conn = navigator.connection;
+                adicionarSaida('📶 Informações da conexão:');
+                adicionarSaida(`   - Tipo: ${conn.effectiveType || 'Desconhecido'}`);
+                adicionarSaida(`   - Velocidade: ${conn.downlink || 'Desconhecida'} Mbps`);
+                adicionarSaida(`   - RTT: ${conn.rtt || 'Desconhecido'} ms`);
+                
+                if (conn.saveData !== undefined) {
+                    adicionarSaida(`   - Modo economia: ${conn.saveData ? 'Ativado' : 'Desativado'}`);
+                }
+            } else {
+                adicionarSaida('❌ API de conexão não suportada');
+            }
+        }
+
+        function obterInfoBateria() {
+            if ('getBattery' in navigator) {
+                navigator.getBattery().then(function(battery) {
+                    adicionarSaida('🔋 Informações da bateria:');
+                    adicionarSaida(`   - Nível: ${Math.round(battery.level * 100)}%`);
+                    adicionarSaida(`   - Carregando: ${battery.charging ? 'Sim' : 'Não'}`);
+                    
+                    if (battery.chargingTime !== Infinity) {
+                        adicionarSaida(`   - Tempo para carregar: ${Math.round(battery.chargingTime / 60)} minutos`);
+                    }
+                    
+                    if (battery.dischargingTime !== Infinity) {
+                        adicionarSaida(`   - Tempo de bateria: ${Math.round(battery.dischargingTime / 60)} minutos`);
+                    }
+                });
+            } else {
+                adicionarSaida('❌ API de bateria não suportada');
+            }
+        }
+
+        function obterInfoMemoria() {
+            if ('memory' in performance) {
+                const mem = performance.memory;
+                adicionarSaida('💾 Informações de memória:');
+                adicionarSaida(`   - Limite: ${Math.round(mem.jsHeapSizeLimit / 1048576)} MB`);
+                adicionarSaida(`   - Total usado: ${Math.round(mem.totalJSHeapSize / 1048576)} MB`);
+                adicionarSaida(`   - Usado: ${Math.round(mem.usedJSHeapSize / 1048576)} MB`);
+            } else {
+                adicionarSaida('❌ Informações de memória não disponíveis');
+            }
+        }
+
+        function obterInfoGamepads() {
+            if ('getGamepads' in navigator) {
+                const gamepads = navigator.getGamepads();
+                const conectados = Array.from(gamepads).filter(gp => gp !== null);
+                
+                adicionarSaida(`🎮 Gamepads conectados: ${conectados.length}`);
+                
+                conectados.forEach((gamepad, index) => {
+                    adicionarSaida(`   - ${index + 1}: ${gamepad.id}`);
+                    adicionarSaida(`     * Botões: ${gamepad.buttons.length}`);
+                    adicionarSaida(`     * Eixos: ${gamepad.axes.length}`);
+                });
+            } else {
+                adicionarSaida('❌ API de Gamepad não suportada');
+            }
+        }
+
+        function testarPermissoes() {
+            if ('permissions' in navigator) {
+                const permissoes = ['geolocation', 'notifications', 'camera', 'microphone'];
+                
+                adicionarSaida('🔐 Verificando permissões...');
+                
+                permissoes.forEach(async (permissao) => {
+                    try {
+                        const resultado = await navigator.permissions.query({name: permissao});
+                        adicionarSaida(`   - ${permissao}: ${resultado.state}`);
+                    } catch (error) {
+                        adicionarSaida(`   - ${permissao}: Não suportado`);
+                    }
+                });
+            } else {
+                adicionarSaida('❌ API de Permissões não suportada');
+            }
+        }
+
+        // Detecção de dispositivo e plataforma
+        function detectarDispositivo() {
+            const userAgent = navigator.userAgent.toLowerCase();
+            let tipo = 'Desktop';
+            let detalhes = [];
+
+            if (/mobile|android|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(userAgent)) {
+                tipo = 'Mobile';
+                
+                if (/iphone|ipod/i.test(userAgent)) detalhes.push('iPhone/iPod');
+                if (/ipad/i.test(userAgent)) detalhes.push('iPad');
+                if (/android/i.test(userAgent)) detalhes.push('Android');
+            }
+            
+            if (/tablet|ipad/i.test(userAgent)) {
+                tipo = 'Tablet';
+            }
+
+            adicionarSaida(`📱 Tipo de dispositivo: ${tipo}`);
+            if (detalhes.length > 0) {
+                adicionarSaida(`   - Detalhes: ${detalhes.join(', ')}`);
+            }
+            
+            adicionarSaida(`   - Touch: ${navigator.maxTouchPoints > 0 ? 'Suportado' : 'Não suportado'}`);
+            adicionarSaida(`   - Pontos de toque: ${navigator.maxTouchPoints}`);
+        }
+
+        function detectarNavegador() {
+            const userAgent = navigator.userAgent;
+            let navegador = 'Desconhecido';
+            let versao = 'Desconhecida';
+
+            if (userAgent.includes('Chrome') && !userAgent.includes('Edg')) {
+                navegador = 'Chrome';
+                versao = userAgent.match(/Chrome\/([0-9.]+)/)?.[1] || versao;
+            } else if (userAgent.includes('Firefox')) {
+                navegador = 'Firefox';
+                versao = userAgent.match(/Firefox\/([0-9.]+)/)?.[1] || versao;
+            } else if (userAgent.includes('Safari') && !userAgent.includes('Chrome')) {
+                navegador = 'Safari';
+                versao = userAgent.match(/Version\/([0-9.]+)/)?.[1] || versao;
+            } else if (userAgent.includes('Edg')) {
+                navegador = 'Edge';
+                versao = userAgent.match(/Edg\/([0-9.]+)/)?.[1] || versao;
+            } else if (userAgent.includes('Opera') || userAgent.includes('OPR')) {
+                navegador = 'Opera';
+                versao = userAgent.match(/(Opera|OPR)\/([0-9.]+)/)?.[2] || versao;
+            }
+
+            adicionarSaida(`🌐 Navegador: ${navegador} ${versao}`);
+            adicionarSaida(`   - Vendor: ${navigator.vendor || 'Não disponível'}`);
+            adicionarSaida(`   - Product: ${navigator.product || 'Não disponível'}`);
+        }
+
+        function detectarSO() {
+            const platform = navigator.platform.toLowerCase();
+            const userAgent = navigator.userAgent.toLowerCase();
+            let so = 'Desconhecido';
+
+            if (platform.includes('win')) {
+                so = 'Windows';
+                if (userAgent.includes('windows nt 10')) so += ' 10/11';
+                else if (userAgent.includes('windows nt 6.3')) so += ' 8.1';
+                else if (userAgent.includes('windows nt 6.2')) so += ' 8';
+                else if (userAgent.includes('windows nt 6.1')) so += ' 7';
+            } else if (platform.includes('mac')) {
+                so = 'macOS';
+            } else if (platform.includes('linux')) {
+                so = 'Linux';
+            } else if (userAgent.includes('android')) {
+                so = 'Android';
+            } else if (userAgent.includes('iphone') || userAgent.includes('ipad')) {
+                so = 'iOS';
+            }
+
+            adicionarSaida(`💻 Sistema Operacional: ${so}`);
+            adicionarSaida(`   - Plataforma: ${navigator.platform}`);
+            adicionarSaida(`   - Arquitetura: ${navigator.userAgentData?.platform || 'Não disponível'}`);
+        }
+
+        function detectarIdioma() {
+            adicionarSaida('🌍 Informações de idioma:');
+            adicionarSaida(`   - Idioma principal: ${navigator.language}`);
+            adicionarSaida(`   - Idiomas aceitos: ${navigator.languages.join(', ')}`);
+            
+            // Tentar detectar fuso horário
+            const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+            adicionarSaida(`   - Fuso horário: ${timeZone}`);
+            
+            // Detectar formato de números
+            const numberFormat = new Intl.NumberFormat().format(1234.56);
+            adicionarSaida(`   - Formato numérico: ${numberFormat}`);
+        }
+
+        // Testes avançados
+        function testarUserAgent() {
+            const ua = navigator.userAgent;
+            adicionarSaida('🕵️ Análise detalhada do User Agent:');
+            adicionarSaida(`   - Completo: ${ua}`);
+            
+            // Extrair informações específicas
+            const regex = {
+                navegador: /(Chrome|Firefox|Safari|Edge|Opera)\/([0-9.]+)/,
+                webkit: /(WebKit)\/([0-9.]+)/,
+                gecko: /(Gecko)\/([0-9]+)/,
+                so: /(Windows NT|Mac OS X|Linux|Android|iOS) ([0-9._]+)/
+            };
+
+            Object.entries(regex).forEach(([nome, pattern]) => {
+                const match = ua.match(pattern);
+                if (match) {
+                    adicionarSaida(`   - ${nome}: ${match[1]} ${match[2] || ''}`);
+                }
+            });
+        }
+
+        function testarCookies() {
+            adicionarSaida('🍪 Testando cookies:');
+            adicionarSaida(`   - Habilitados: ${navigator.cookieEnabled ? 'Sim' : 'Não'}`);
+            
+            if (navigator.cookieEnabled) {
+                // Testar criação de cookie
+                document.cookie = 'teste=valor; path=/';
+                const cookieExists = document.cookie.includes('teste=valor');
+                adicionarSaida(`   - Teste de escrita: ${cookieExists ? 'Sucesso' : 'Falhou'}`);
+                
+                // Limpar cookie de teste
+                document.cookie = 'teste=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/';
+            }
+        }
+
+        function testarJavaScript() {
+            adicionarSaida('⚡ Capacidades JavaScript:');
+            
+            const testes = [
+                { nome: 'ES6 Arrow Functions', teste: () => eval('(() => true)()') },
+                { nome: 'ES6 Classes', teste: () => eval('class Test {}; true') },
+                { nome: 'ES6 Promises', teste: () => typeof Promise !== 'undefined' },
+                { nome: 'ES8 Async/Await', teste: () => eval('(async function() { return true; })') instanceof Function },
+                { nome: 'Modules', teste: () => 'import' in window || typeof importScripts !== 'undefined' },
+                { nome: 'Fetch API', teste: () => typeof fetch !== 'undefined' },
+                { nome: 'Proxy', teste: () => typeof Proxy !== 'undefined' },
+                { nome: 'Symbol', teste: () => typeof Symbol !== 'undefined' }
+            ];
+
+            testes.forEach(teste => {
+                try {
+                    const resultado = teste.teste();
+                    adicionarSaida(`   - ${teste.nome}: ${resultado ? 'Suportado' : 'Não suportado'}`);
+                } catch (error) {
+                    adicionarSaida(`   - ${teste.nome}: Erro (${error.message})`);
+                }
+            });
+        }
+
+        function obterInfoCompleta() {
+            adicionarSaida('📋 Gerando relatório completo...');
+            
+            // Limpar saída anterior
+            const output = document.getElementById('output');
+            output.innerHTML = '<h3>📋 Relatório Completo do Navigator:</h3>';
+            
+            // Executar todas as funções de detecção
+            atualizarInfo();
+            detectarRecursos();
+            detectarDispositivo();
+            detectarNavegador();
+            detectarSO();
+            detectarIdioma();
+            testarJavaScript();
+            
+            adicionarSaida('✅ Relatório completo gerado!');
+        }
+
+        // Inicializar
+        window.onload = function() {
+            adicionarSaida('🚀 Página carregada! Explore o objeto Navigator.');
+            atualizarInfo();
+            detectarRecursos();
+        };
+    </script>
+</body>
+</html>

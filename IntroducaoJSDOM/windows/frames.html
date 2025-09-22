@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Frames - JavaScript Window Object</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            border-bottom: 3px solid #007bff;
+            padding-bottom: 10px;
+        }
+        .section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        #output {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            padding: 15px;
+            margin-top: 20px;
+            border-radius: 5px;
+            min-height: 100px;
+        }
+        iframe {
+            border: 2px solid #007bff;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        .frame-container {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .code-example {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🖼️ Frames - window.frames[]</h1>
+        
+        <div class="section">
+            <h2>📝 Conceito</h2>
+            <p>O array <code>window.frames[]</code> contém referências para todos os frames (iframes) presentes na página atual. Cada frame é uma janela separada que pode conter seu próprio documento HTML.</p>
+        </div>
+
+        <div class="section">
+            <h2>🎯 Exemplos Práticos</h2>
+            
+            <h3>Frames de Exemplo:</h3>
+            <div class="frame-container">
+                <iframe 
+                    id="frame1" 
+                    name="frame1" 
+                    src="data:text/html,<h2>Frame 1</h2><p>Este é o primeiro frame</p><script>console.log('Frame 1 carregado');</script>" 
+                    width="300" 
+                    height="150">
+                </iframe>
+                
+                <iframe 
+                    id="frame2" 
+                    name="frame2" 
+                    src="data:text/html,<h2>Frame 2</h2><p>Este é o segundo frame</p><button onclick='alert(\"Clique do Frame 2!\")'>Clique aqui</button>" 
+                    width="300" 
+                    height="150">
+                </iframe>
+            </div>
+
+            <h3>Controles:</h3>
+            <button onclick="contarFrames()">📊 Contar Frames</button>
+            <button onclick="listarFrames()">📋 Listar Frames</button>
+            <button onclick="acessarConteudoFrame()">📄 Acessar Conteúdo do Frame</button>
+            <button onclick="adicionarFrame()">➕ Adicionar Novo Frame</button>
+            <button onclick="removerFrame()">❌ Remover Último Frame</button>
+            <button onclick="comunicarComFrame()">💬 Comunicar com Frame</button>
+        </div>
+
+        <div class="section">
+            <h2>💻 Código JavaScript</h2>
+            <div class="code-example">
+                <pre><code>// Contar número de frames
+function contarFrames() {
+    const quantidade = window.frames.length;
+    console.log('Número de frames:', quantidade);
+}
+
+// Listar todos os frames
+function listarFrames() {
+    for (let i = 0; i < window.frames.length; i++) {
+        console.log('Frame', i, ':', window.frames[i]);
+    }
+}
+
+// Acessar conteúdo de um frame
+function acessarConteudoFrame() {
+    try {
+        const frame = window.frames[0]; // Primeiro frame
+        console.log('Título do frame:', frame.document.title);
+    } catch (error) {
+        console.error('Erro ao acessar frame:', error.message);
+    }
+}</code></pre>
+            </div>
+        </div>
+
+        <div id="output">
+            <h3>🖥️ Saída do Console:</h3>
+            <p>Clique nos botões acima e veja os resultados aqui e no console do navegador (F12).</p>
+        </div>
+    </div>
+
+    <script>
+        // Função para adicionar mensagens na saída
+        function adicionarSaida(mensagem) {
+            const output = document.getElementById('output');
+            const p = document.createElement('p');
+            p.innerHTML = `<strong>${new Date().toLocaleTimeString()}:</strong> ${mensagem}`;
+            output.appendChild(p);
+            console.log(mensagem);
+        }
+
+        // Contar frames
+        function contarFrames() {
+            const quantidade = window.frames.length;
+            adicionarSaida(`📊 Número total de frames: ${quantidade}`);
+        }
+
+        // Listar frames
+        function listarFrames() {
+            adicionarSaida('📋 Listando todos os frames:');
+            
+            for (let i = 0; i < window.frames.length; i++) {
+                const frame = window.frames[i];
+                const frameElement = document.getElementsByTagName('iframe')[i];
+                
+                adicionarSaida(`   Frame ${i}: ${frameElement.name || frameElement.id || 'sem nome'}`);
+                
+                try {
+                    adicionarSaida(`   - URL: ${frame.location.href}`);
+                } catch (error) {
+                    adicionarSaida(`   - URL: Acesso negado (cross-origin)`);
+                }
+            }
+        }
+
+        // Acessar conteúdo do frame
+        function acessarConteudoFrame() {
+            if (window.frames.length === 0) {
+                adicionarSaida('❌ Nenhum frame encontrado!');
+                return;
+            }
+
+            try {
+                const frame = window.frames[0];
+                const frameDoc = frame.document;
+                
+                adicionarSaida('📄 Informações do primeiro frame:');
+                adicionarSaida(`   - Título: ${frameDoc.title || 'Sem título'}`);
+                adicionarSaida(`   - URL: ${frame.location.href}`);
+                adicionarSaida(`   - Elementos H2: ${frameDoc.getElementsByTagName('h2').length}`);
+                
+            } catch (error) {
+                adicionarSaida(`❌ Erro ao acessar frame: ${error.message}`);
+            }
+        }
+
+        // Adicionar novo frame
+        function adicionarFrame() {
+            const container = document.querySelector('.frame-container');
+            const novoFrame = document.createElement('iframe');
+            const frameNumber = window.frames.length + 1;
+            
+            novoFrame.id = `frame${frameNumber}`;
+            novoFrame.name = `frame${frameNumber}`;
+            novoFrame.width = '300';
+            novoFrame.height = '150';
+            novoFrame.src = `data:text/html,<h2>Frame ${frameNumber}</h2><p>Frame criado dinamicamente</p><p>Timestamp: ${new Date().toLocaleString()}</p>`;
+            novoFrame.style.border = '2px solid #28a745';
+            
+            container.appendChild(novoFrame);
+            
+            adicionarSaida(`➕ Novo frame adicionado: Frame ${frameNumber}`);
+            
+            // Aguardar carregamento e contar novamente
+            setTimeout(() => {
+                contarFrames();
+            }, 100);
+        }
+
+        // Remover último frame
+        function removerFrame() {
+            const iframes = document.getElementsByTagName('iframe');
+            
+            if (iframes.length === 0) {
+                adicionarSaida('❌ Nenhum frame para remover!');
+                return;
+            }
+            
+            const ultimoFrame = iframes[iframes.length - 1];
+            ultimoFrame.remove();
+            
+            adicionarSaida('❌ Último frame removido');
+            
+            // Aguardar e contar novamente
+            setTimeout(() => {
+                contarFrames();
+            }, 100);
+        }
+
+        // Comunicar com frame
+        function comunicarComFrame() {
+            if (window.frames.length === 0) {
+                adicionarSaida('❌ Nenhum frame disponível para comunicação!');
+                return;
+            }
+
+            try {
+                const frame = window.frames[0];
+                
+                // Tentar executar código no frame
+                frame.postMessage('Olá do frame pai!', '*');
+                
+                adicionarSaida('💬 Mensagem enviada para o primeiro frame');
+                
+                // Listener para respostas
+                window.addEventListener('message', function(event) {
+                    adicionarSaida(`📨 Mensagem recebida: ${event.data}`);
+                });
+                
+            } catch (error) {
+                adicionarSaida(`❌ Erro na comunicação: ${error.message}`);
+            }
+        }
+
+        // Monitorar mudanças nos frames
+        let frameCount = window.frames.length;
+        setInterval(() => {
+            if (window.frames.length !== frameCount) {
+                frameCount = window.frames.length;
+                adicionarSaida(`🔄 Mudança detectada! Novo total de frames: ${frameCount}`);
+            }
+        }, 1000);
+
+        // Inicializar
+        window.onload = function() {
+            adicionarSaida('🚀 Página carregada! Clique nos botões para explorar os frames.');
+            contarFrames();
+        };
+    </script>
+</body>
+</html>

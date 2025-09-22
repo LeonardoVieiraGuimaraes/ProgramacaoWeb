@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Location - JavaScript Window Object</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            border-bottom: 3px solid #dc3545;
+            padding-bottom: 10px;
+        }
+        .section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        button {
+            background: #dc3545;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background: #c82333;
+        }
+        .info {
+            background: #17a2b8;
+        }
+        .info:hover {
+            background: #138496;
+        }
+        .warning {
+            background: #ffc107;
+            color: #212529;
+        }
+        .warning:hover {
+            background: #e0a800;
+        }
+        #output {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            padding: 15px;
+            margin-top: 20px;
+            border-radius: 5px;
+            min-height: 100px;
+        }
+        .code-example {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+            overflow-x: auto;
+        }
+        .location-info {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 10px;
+            margin: 15px 0;
+        }
+        .location-info dt {
+            font-weight: bold;
+            background: #e9ecef;
+            padding: 8px;
+            border-radius: 3px;
+        }
+        .location-info dd {
+            background: #f8f9fa;
+            padding: 8px;
+            border-radius: 3px;
+            font-family: monospace;
+            word-break: break-all;
+            margin: 0;
+        }
+        .url-builder {
+            background: #d1ecf1;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+        .url-builder input {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+        }
+        .button-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+            margin: 15px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🌐 Location - window.location</h1>
+        
+        <div class="section">
+            <h2>📝 Conceito</h2>
+            <p>O objeto <code>window.location</code> contém informações sobre a URL atual da página e fornece métodos para navegar para outras URLs. Ele permite ler e modificar diferentes partes da URL atual.</p>
+        </div>
+
+        <div class="section">
+            <h2>📊 Informações da Location Atual</h2>
+            <dl class="location-info" id="locationInfo">
+                <!-- Será preenchido dinamicamente -->
+            </dl>
+            <button onclick="atualizarInfo()" class="info">🔄 Atualizar Informações</button>
+        </div>
+
+        <div class="section">
+            <h2>🎯 Métodos de Navegação</h2>
+            <div class="button-grid">
+                <button onclick="redirecionarURL()">🔗 Redirecionar (assign)</button>
+                <button onclick="substituirURL()">🔄 Substituir (replace)</button>
+                <button onclick="recarregarPagina()">♻️ Recarregar (reload)</button>
+                <button onclick="abrirNovaJanela()">🆕 Nova Janela</button>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>🔧 Manipulação de URL</h2>
+            <div class="url-builder">
+                <h4>Construtor de URL:</h4>
+                <input type="text" id="protocolo" placeholder="Protocolo (ex: https:)">
+                <input type="text" id="hostname" placeholder="Hostname (ex: www.exemplo.com)">
+                <input type="text" id="porta" placeholder="Porta (ex: 8080)">
+                <input type="text" id="pathname" placeholder="Caminho (ex: /pagina)">
+                <input type="text" id="search" placeholder="Query String (ex: ?id=123)">
+                <input type="text" id="hash" placeholder="Hash (ex: #secao)">
+                <button onclick="construirURL()" class="info">🏗️ Construir URL</button>
+                <button onclick="navegarParaURL()" class="warning">🚀 Navegar para URL</button>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>🧪 Testes e Experimentos</h2>
+            <div class="button-grid">
+                <button onclick="adicionarParametros()">➕ Adicionar Parâmetros</button>
+                <button onclick="removerParametros()">➖ Limpar Parâmetros</button>
+                <button onclick="mudarHash()">🔗 Mudar Hash</button>
+                <button onclick="analisarURL()">🔍 Analisar URL</button>
+                <button onclick="testarURLs()" class="info">🧪 Testar URLs</button>
+                <button onclick="simularNavegacao()" class="warning">🎭 Simular Navegação</button>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>💻 Código JavaScript</h2>
+            <div class="code-example">
+                <pre><code>// Propriedades de leitura e escrita
+location.href;      // URL completa
+location.protocol;  // Protocolo (http:, https:)
+location.hostname;  // Nome do host
+location.port;      // Porta
+location.pathname;  // Caminho
+location.search;    // Query string (?param=valor)
+location.hash;      // Fragmento (#ancola)
+
+// Métodos de navegação
+location.assign(url);   // Navega para URL (adiciona ao histórico)
+location.replace(url);  // Substitui URL atual (não adiciona ao histórico)
+location.reload();      // Recarrega a página
+
+// Propriedades somente leitura
+location.origin;    // Origem (protocolo + hostname + porta)
+location.host;      // Host (hostname + porta)</code></pre>
+            </div>
+        </div>
+
+        <div id="output">
+            <h3>🖥️ Saída do Console:</h3>
+            <p>Clique nos botões acima e veja os resultados aqui e no console do navegador (F12).</p>
+        </div>
+    </div>
+
+    <script>
+        // Função para adicionar mensagens na saída
+        function adicionarSaida(mensagem) {
+            const output = document.getElementById('output');
+            const p = document.createElement('p');
+            p.innerHTML = `<strong>${new Date().toLocaleTimeString()}:</strong> ${mensagem}`;
+            output.appendChild(p);
+            console.log(mensagem);
+        }
+
+        // Atualizar informações da location
+        function atualizarInfo() {
+            const info = document.getElementById('locationInfo');
+            const propriedades = [
+                ['href', 'URL Completa'],
+                ['origin', 'Origem'],
+                ['protocol', 'Protocolo'],
+                ['hostname', 'Nome do Host'],
+                ['port', 'Porta'],
+                ['host', 'Host (hostname + porta)'],
+                ['pathname', 'Caminho'],
+                ['search', 'Query String'],
+                ['hash', 'Hash/Fragmento']
+            ];
+
+            info.innerHTML = '';
+            
+            propriedades.forEach(([prop, desc]) => {
+                const dt = document.createElement('dt');
+                const dd = document.createElement('dd');
+                
+                dt.textContent = desc + ':';
+                dd.textContent = location[prop] || '(vazio)';
+                
+                info.appendChild(dt);
+                info.appendChild(dd);
+            });
+
+            adicionarSaida('📊 Informações da location atualizadas');
+        }
+
+        // Métodos de navegação
+        function redirecionarURL() {
+            const url = prompt('Digite a URL para redirecionar:');
+            if (url) {
+                try {
+                    adicionarSaida(`🔗 Redirecionando para: ${url}`);
+                    location.assign(url);
+                } catch (error) {
+                    adicionarSaida(`❌ Erro ao redirecionar: ${error.message}`);
+                }
+            }
+        }
+
+        function substituirURL() {
+            const url = prompt('Digite a URL para substituir:');
+            if (url) {
+                try {
+                    adicionarSaida(`🔄 Substituindo URL atual por: ${url}`);
+                    location.replace(url);
+                } catch (error) {
+                    adicionarSaida(`❌ Erro ao substituir: ${error.message}`);
+                }
+            }
+        }
+
+        function recarregarPagina() {
+            if (confirm('Tem certeza que deseja recarregar a página?')) {
+                adicionarSaida('♻️ Recarregando a página...');
+                location.reload();
+            }
+        }
+
+        function abrirNovaJanela() {
+            const url = prompt('Digite a URL para abrir em nova janela:', 'https://www.google.com');
+            if (url) {
+                try {
+                    const novaJanela = window.open(url, '_blank', 'width=800,height=600');
+                    if (novaJanela) {
+                        adicionarSaida(`🆕 Nova janela aberta: ${url}`);
+                    } else {
+                        adicionarSaida('❌ Popup bloqueado ou erro ao abrir');
+                    }
+                } catch (error) {
+                    adicionarSaida(`❌ Erro ao abrir janela: ${error.message}`);
+                }
+            }
+        }
+
+        // Manipulação de URL
+        function construirURL() {
+            const protocolo = document.getElementById('protocolo').value || location.protocol;
+            const hostname = document.getElementById('hostname').value || location.hostname;
+            const porta = document.getElementById('porta').value;
+            const pathname = document.getElementById('pathname').value || location.pathname;
+            const search = document.getElementById('search').value;
+            const hash = document.getElementById('hash').value;
+
+            let url = `${protocolo}//${hostname}`;
+            if (porta) url += `:${porta}`;
+            url += pathname;
+            if (search) url += search.startsWith('?') ? search : `?${search}`;
+            if (hash) url += hash.startsWith('#') ? hash : `#${hash}`;
+
+            adicionarSaida(`🏗️ URL construída: ${url}`);
+            
+            // Mostrar a URL construída
+            alert(`URL construída:\n${url}`);
+        }
+
+        function navegarParaURL() {
+            construirURL();
+            if (confirm('Navegar para a URL construída?')) {
+                const protocolo = document.getElementById('protocolo').value || location.protocol;
+                const hostname = document.getElementById('hostname').value || location.hostname;
+                const porta = document.getElementById('porta').value;
+                const pathname = document.getElementById('pathname').value || location.pathname;
+                const search = document.getElementById('search').value;
+                const hash = document.getElementById('hash').value;
+
+                let url = `${protocolo}//${hostname}`;
+                if (porta) url += `:${porta}`;
+                url += pathname;
+                if (search) url += search.startsWith('?') ? search : `?${search}`;
+                if (hash) url += hash.startsWith('#') ? hash : `#${hash}`;
+
+                location.href = url;
+            }
+        }
+
+        // Testes e experimentos
+        function adicionarParametros() {
+            const params = new URLSearchParams(location.search);
+            const novoParam = prompt('Nome do parâmetro:');
+            const valor = prompt('Valor do parâmetro:');
+            
+            if (novoParam && valor) {
+                params.set(novoParam, valor);
+                const novaURL = `${location.pathname}?${params.toString()}${location.hash}`;
+                
+                // Usar pushState para não recarregar a página
+                history.pushState({}, '', novaURL);
+                adicionarSaida(`➕ Parâmetro adicionado: ${novoParam}=${valor}`);
+                atualizarInfo();
+            }
+        }
+
+        function removerParametros() {
+            const novaURL = `${location.pathname}${location.hash}`;
+            history.pushState({}, '', novaURL);
+            adicionarSaida('➖ Todos os parâmetros removidos');
+            atualizarInfo();
+        }
+
+        function mudarHash() {
+            const novoHash = prompt('Digite o novo hash (sem #):');
+            if (novoHash !== null) {
+                location.hash = novoHash;
+                adicionarSaida(`🔗 Hash alterado para: #${novoHash}`);
+                atualizarInfo();
+            }
+        }
+
+        function analisarURL() {
+            const url = prompt('Digite uma URL para analisar:', location.href);
+            if (url) {
+                try {
+                    const urlObj = new URL(url);
+                    
+                    adicionarSaida('🔍 Análise da URL:');
+                    adicionarSaida(`   - Protocolo: ${urlObj.protocol}`);
+                    adicionarSaida(`   - Hostname: ${urlObj.hostname}`);
+                    adicionarSaida(`   - Porta: ${urlObj.port || 'padrão'}`);
+                    adicionarSaida(`   - Caminho: ${urlObj.pathname}`);
+                    adicionarSaida(`   - Query: ${urlObj.search || 'nenhuma'}`);
+                    adicionarSaida(`   - Hash: ${urlObj.hash || 'nenhum'}`);
+                    adicionarSaida(`   - Origem: ${urlObj.origin}`);
+                    
+                    // Analisar parâmetros
+                    const params = urlObj.searchParams;
+                    if (params.toString()) {
+                        adicionarSaida('   - Parâmetros:');
+                        for (const [key, value] of params) {
+                            adicionarSaida(`     * ${key}: ${value}`);
+                        }
+                    }
+                    
+                } catch (error) {
+                    adicionarSaida(`❌ URL inválida: ${error.message}`);
+                }
+            }
+        }
+
+        function testarURLs() {
+            const urlsTeste = [
+                'https://www.exemplo.com',
+                'http://localhost:3000/api/dados?id=123#secao',
+                'ftp://files.exemplo.com/arquivo.txt',
+                'mailto:contato@exemplo.com',
+                'file:///C:/Users/usuario/arquivo.html'
+            ];
+
+            adicionarSaida('🧪 Testando diferentes tipos de URL:');
+            
+            urlsTeste.forEach(url => {
+                try {
+                    const urlObj = new URL(url);
+                    adicionarSaida(`✅ ${url} - Válida (${urlObj.protocol})`);
+                } catch (error) {
+                    adicionarSaida(`❌ ${url} - Inválida: ${error.message}`);
+                }
+            });
+        }
+
+        function simularNavegacao() {
+            const paginas = [
+                { nome: 'Home', url: '?pagina=home' },
+                { nome: 'Sobre', url: '?pagina=sobre&info=completa' },
+                { nome: 'Contato', url: '?pagina=contato#formulario' },
+                { nome: 'Produtos', url: '?pagina=produtos&categoria=todos' }
+            ];
+
+            adicionarSaida('🎭 Simulando navegação entre páginas:');
+            
+            let index = 0;
+            const simular = () => {
+                if (index < paginas.length) {
+                    const pagina = paginas[index];
+                    history.pushState({ pagina: pagina.nome }, pagina.nome, pagina.url);
+                    adicionarSaida(`📄 Navegando para: ${pagina.nome} (${pagina.url})`);
+                    index++;
+                    setTimeout(simular, 1000);
+                } else {
+                    adicionarSaida('✅ Simulação de navegação concluída');
+                    atualizarInfo();
+                }
+            };
+            
+            simular();
+        }
+
+        // Event listeners
+        window.addEventListener('hashchange', function(event) {
+            adicionarSaida('🔔 Hash mudou!');
+            adicionarSaida(`   - De: ${event.oldURL}`);
+            adicionarSaida(`   - Para: ${event.newURL}`);
+        });
+
+        window.addEventListener('popstate', function(event) {
+            adicionarSaida('🔔 Estado do histórico mudou!');
+            atualizarInfo();
+        });
+
+        // Monitorar mudanças na URL
+        let urlAtual = location.href;
+        setInterval(() => {
+            if (location.href !== urlAtual) {
+                urlAtual = location.href;
+                adicionarSaida('🔄 URL alterada detectada');
+                atualizarInfo();
+            }
+        }, 1000);
+
+        // Inicializar
+        window.onload = function() {
+            adicionarSaida('🚀 Página carregada! Explore o objeto Location.');
+            atualizarInfo();
+            
+            // Preencher campos com valores atuais
+            document.getElementById('protocolo').value = location.protocol;
+            document.getElementById('hostname').value = location.hostname;
+            document.getElementById('porta').value = location.port;
+            document.getElementById('pathname').value = location.pathname;
+            document.getElementById('search').value = location.search;
+            document.getElementById('hash').value = location.hash;
+        };
+    </script>
+</body>
+</html>

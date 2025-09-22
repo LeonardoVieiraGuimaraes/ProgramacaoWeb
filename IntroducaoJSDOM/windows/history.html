@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>History - JavaScript Window Object</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            border-bottom: 3px solid #28a745;
+            padding-bottom: 10px;
+        }
+        .section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        button {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background: #218838;
+        }
+        .danger {
+            background: #dc3545;
+        }
+        .danger:hover {
+            background: #c82333;
+        }
+        .warning {
+            background: #ffc107;
+            color: #212529;
+        }
+        .warning:hover {
+            background: #e0a800;
+        }
+        #output {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            padding: 15px;
+            margin-top: 20px;
+            border-radius: 5px;
+            min-height: 100px;
+        }
+        .code-example {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+            overflow-x: auto;
+        }
+        .url-display {
+            background: #e9ecef;
+            padding: 10px;
+            border-radius: 5px;
+            font-family: monospace;
+            word-break: break-all;
+        }
+        .navigation-demo {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+            margin: 15px 0;
+        }
+        .state-info {
+            background: #d1ecf1;
+            border: 1px solid #bee5eb;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🕒 History - window.history</h1>
+        
+        <div class="section">
+            <h2>📝 Conceito</h2>
+            <p>O objeto <code>window.history</code> permite navegar pelo histórico de páginas visitadas pelo usuário. Ele fornece métodos para ir para frente, para trás, e manipular o histórico do navegador de forma programática.</p>
+        </div>
+
+        <div class="section">
+            <h2>📊 Informações do Histórico Atual</h2>
+            <div class="state-info">
+                <p><strong>Comprimento do histórico:</strong> <span id="historyLength">-</span></p>
+                <p><strong>URL atual:</strong></p>
+                <div class="url-display" id="currentUrl">-</div>
+                <p><strong>Estado atual:</strong> <span id="currentState">-</span></p>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>🎯 Navegação Básica</h2>
+            <div class="navigation-demo">
+                <button onclick="irParaTras()">⬅️ Voltar (back)</button>
+                <button onclick="irParaFrente()">➡️ Avançar (forward)</button>
+                <button onclick="irParaPaginas(-2)">⬅️⬅️ Voltar 2 páginas</button>
+                <button onclick="irParaPaginas(1)">➡️ Avançar 1 página</button>
+                <button onclick="recarregar()">🔄 Recarregar</button>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>🔧 Manipulação de Estado (HTML5 History API)</h2>
+            <div class="navigation-demo">
+                <button onclick="adicionarEstado()">➕ Push State</button>
+                <button onclick="substituirEstado()">🔄 Replace State</button>
+                <button onclick="criarNovaEntrada()">📄 Nova Entrada</button>
+                <button onclick="navegarPorEstado()">🎯 Navegar por Estado</button>
+            </div>
+            
+            <h3>Estados Simulados:</h3>
+            <div class="navigation-demo">
+                <button onclick="simularPagina('home')">🏠 Página Home</button>
+                <button onclick="simularPagina('sobre')">ℹ️ Página Sobre</button>
+                <button onclick="simularPagina('contato')">📧 Página Contato</button>
+                <button onclick="simularPagina('produto/123')">🛍️ Produto 123</button>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>⚠️ Testes Especiais</h2>
+            <div class="navigation-demo">
+                <button onclick="testarLimites()" class="warning">🧪 Testar Limites</button>
+                <button onclick="abrirNovaAba()" class="warning">🆕 Abrir Nova Aba</button>
+                <button onclick="fecharAba()" class="danger">❌ Tentar Fechar Aba</button>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>💻 Código JavaScript</h2>
+            <div class="code-example">
+                <pre><code>// Navegação básica
+history.back();    // Voltar uma página
+history.forward(); // Avançar uma página
+history.go(-1);    // Voltar uma página (equivale ao back())
+history.go(2);     // Avançar duas páginas
+
+// Manipulação de estado (HTML5)
+history.pushState(estado, título, url);    // Adiciona nova entrada
+history.replaceState(estado, título, url); // Substitui entrada atual
+
+// Propriedades
+history.length;    // Número de entradas no histórico
+history.state;     // Estado atual
+
+// Eventos
+window.onpopstate = function(event) {
+    console.log('Estado mudou:', event.state);
+};</code></pre>
+            </div>
+        </div>
+
+        <div id="output">
+            <h3>🖥️ Saída do Console:</h3>
+            <p>Clique nos botões acima e veja os resultados aqui e no console do navegador (F12).</p>
+        </div>
+    </div>
+
+    <script>
+        let contadorEstado = 0;
+
+        // Função para adicionar mensagens na saída
+        function adicionarSaida(mensagem) {
+            const output = document.getElementById('output');
+            const p = document.createElement('p');
+            p.innerHTML = `<strong>${new Date().toLocaleTimeString()}:</strong> ${mensagem}`;
+            output.appendChild(p);
+            console.log(mensagem);
+        }
+
+        // Atualizar informações do histórico
+        function atualizarInfo() {
+            document.getElementById('historyLength').textContent = history.length;
+            document.getElementById('currentUrl').textContent = window.location.href;
+            document.getElementById('currentState').textContent = JSON.stringify(history.state) || 'null';
+        }
+
+        // Navegação básica
+        function irParaTras() {
+            try {
+                history.back();
+                adicionarSaida('⬅️ Executado: history.back()');
+            } catch (error) {
+                adicionarSaida(`❌ Erro ao voltar: ${error.message}`);
+            }
+        }
+
+        function irParaFrente() {
+            try {
+                history.forward();
+                adicionarSaida('➡️ Executado: history.forward()');
+            } catch (error) {
+                adicionarSaida(`❌ Erro ao avançar: ${error.message}`);
+            }
+        }
+
+        function irParaPaginas(numero) {
+            try {
+                history.go(numero);
+                adicionarSaida(`🎯 Executado: history.go(${numero})`);
+            } catch (error) {
+                adicionarSaida(`❌ Erro ao navegar: ${error.message}`);
+            }
+        }
+
+        function recarregar() {
+            if (confirm('Tem certeza que deseja recarregar a página?')) {
+                location.reload();
+            }
+        }
+
+        // Manipulação de estado
+        function adicionarEstado() {
+            contadorEstado++;
+            const estado = {
+                id: contadorEstado,
+                timestamp: new Date().toISOString(),
+                action: 'pushState'
+            };
+            
+            const titulo = `Estado ${contadorEstado}`;
+            const url = `${window.location.pathname}?estado=${contadorEstado}`;
+            
+            history.pushState(estado, titulo, url);
+            adicionarSaida(`➕ Push State criado: ${JSON.stringify(estado)}`);
+            atualizarInfo();
+        }
+
+        function substituirEstado() {
+            const estado = {
+                id: 'substituido',
+                timestamp: new Date().toISOString(),
+                action: 'replaceState'
+            };
+            
+            const titulo = 'Estado Substituído';
+            const url = `${window.location.pathname}?substituido=true`;
+            
+            history.replaceState(estado, titulo, url);
+            adicionarSaida(`🔄 Replace State executado: ${JSON.stringify(estado)}`);
+            atualizarInfo();
+        }
+
+        function criarNovaEntrada() {
+            const pagina = prompt('Digite o nome da página:') || 'nova-pagina';
+            const estado = {
+                pagina: pagina,
+                timestamp: new Date().toISOString(),
+                dados: { exemplo: 'valor' }
+            };
+            
+            history.pushState(estado, `Página ${pagina}`, `?pagina=${pagina}`);
+            adicionarSaida(`📄 Nova entrada criada para: ${pagina}`);
+            atualizarInfo();
+        }
+
+        function navegarPorEstado() {
+            const passos = parseInt(prompt('Quantos passos navegar? (negativo para voltar)') || '0');
+            
+            if (passos !== 0) {
+                history.go(passos);
+                adicionarSaida(`🎯 Navegando ${passos} passos no histórico`);
+            }
+        }
+
+        // Simular páginas
+        function simularPagina(pagina) {
+            const estado = {
+                pagina: pagina,
+                timestamp: new Date().toISOString(),
+                simulada: true
+            };
+            
+            history.pushState(estado, `Página ${pagina}`, `?p=${pagina}`);
+            adicionarSaida(`🔗 Simulando navegação para: ${pagina}`);
+            
+            // Simular mudança de conteúdo
+            document.title = `History Demo - ${pagina}`;
+            atualizarInfo();
+        }
+
+        // Testes especiais
+        function testarLimites() {
+            adicionarSaida('🧪 Testando limites do histórico...');
+            adicionarSaida(`📊 Comprimento atual: ${history.length}`);
+            
+            // Tentar ir muito para trás
+            try {
+                history.go(-1000);
+                adicionarSaida('⬅️ Tentando ir 1000 páginas para trás...');
+            } catch (error) {
+                adicionarSaida(`❌ Erro ao ir muito para trás: ${error.message}`);
+            }
+        }
+
+        function abrirNovaAba() {
+            const novaAba = window.open('about:blank', '_blank');
+            if (novaAba) {
+                adicionarSaida('🆕 Nova aba aberta com sucesso');
+                novaAba.document.write(`
+                    <h1>Nova Aba</h1>
+                    <p>Esta aba foi aberta pelo exemplo do History</p>
+                    <p>Histórico desta aba: ${novaAba.history.length}</p>
+                `);
+            } else {
+                adicionarSaida('❌ Popup bloqueado ou erro ao abrir nova aba');
+            }
+        }
+
+        function fecharAba() {
+            if (confirm('Tentar fechar esta aba? (pode não funcionar dependendo do navegador)')) {
+                try {
+                    window.close();
+                    adicionarSaida('🔄 Comando de fechar executado...');
+                } catch (error) {
+                    adicionarSaida(`❌ Não foi possível fechar: ${error.message}`);
+                }
+            }
+        }
+
+        // Event listeners
+        window.addEventListener('popstate', function(event) {
+            adicionarSaida('🔔 Evento popstate disparado!');
+            adicionarSaida(`📦 Estado: ${JSON.stringify(event.state)}`);
+            atualizarInfo();
+        });
+
+        window.addEventListener('beforeunload', function(event) {
+            console.log('Página prestes a ser descarregada');
+        });
+
+        // Monitorar mudanças na URL
+        let urlAtual = window.location.href;
+        setInterval(() => {
+            if (window.location.href !== urlAtual) {
+                urlAtual = window.location.href;
+                atualizarInfo();
+            }
+        }, 1000);
+
+        // Inicializar
+        window.onload = function() {
+            adicionarSaida('🚀 Página carregada! Explore o objeto History.');
+            atualizarInfo();
+            
+            // Adicionar estado inicial se não houver
+            if (!history.state) {
+                history.replaceState({
+                    inicial: true,
+                    timestamp: new Date().toISOString()
+                }, 'Estado Inicial', window.location.href);
+            }
+        };
+    </script>
+</body>
+</html>

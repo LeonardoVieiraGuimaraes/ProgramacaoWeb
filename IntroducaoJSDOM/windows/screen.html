@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Screen - JavaScript Window Object</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            border-bottom: 3px solid #fd7e14;
+            padding-bottom: 10px;
+        }
+        .section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        button {
+            background: #fd7e14;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background: #e8670e;
+        }
+        .info {
+            background: #17a2b8;
+        }
+        .info:hover {
+            background: #138496;
+        }
+        .success {
+            background: #28a745;
+        }
+        .success:hover {
+            background: #218838;
+        }
+        #output {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            padding: 15px;
+            margin-top: 20px;
+            border-radius: 5px;
+            min-height: 100px;
+        }
+        .code-example {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+            overflow-x: auto;
+        }
+        .screen-info {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin: 15px 0;
+        }
+        .info-card {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            padding: 15px;
+            border-radius: 5px;
+        }
+        .info-card h4 {
+            margin-top: 0;
+            color: #495057;
+        }
+        .metric {
+            display: flex;
+            justify-content: space-between;
+            margin: 8px 0;
+            padding: 5px 0;
+            border-bottom: 1px solid #e9ecef;
+        }
+        .metric:last-child {
+            border-bottom: none;
+        }
+        .button-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+            margin: 15px 0;
+        }
+        .visual-demo {
+            background: #e9ecef;
+            border: 2px solid #adb5bd;
+            padding: 20px;
+            border-radius: 5px;
+            text-align: center;
+            margin: 15px 0;
+            position: relative;
+        }
+        .screen-representation {
+            background: #6c757d;
+            color: white;
+            padding: 10px;
+            border-radius: 3px;
+            margin: 10px 0;
+            position: relative;
+        }
+        .viewport-representation {
+            background: #28a745;
+            color: white;
+            padding: 5px;
+            border-radius: 3px;
+            margin: 5px;
+            font-size: 0.9em;
+        }
+        .fullscreen-demo {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🖥️ Screen - window.screen</h1>
+        
+        <div class="section">
+            <h2>📝 Conceito</h2>
+            <p>O objeto <code>window.screen</code> contém informações sobre a tela do usuário, incluindo dimensões, resolução, profundidade de cor e orientação. É útil para adaptar o layout e comportamento da aplicação baseado nas características da tela.</p>
+        </div>
+
+        <div class="section">
+            <h2>📊 Informações da Tela</h2>
+            <div class="screen-info" id="screenInfo">
+                <!-- Será preenchido dinamicamente -->
+            </div>
+            <button onclick="atualizarInfo()" class="success">🔄 Atualizar Informações</button>
+        </div>
+
+        <div class="section">
+            <h2>📐 Demonstração Visual</h2>
+            <div class="visual-demo" id="visualDemo">
+                <!-- Será preenchido dinamicamente -->
+            </div>
+            <button onclick="criarDemonstracao()">🎨 Criar Demonstração Visual</button>
+        </div>
+
+        <div class="section">
+            <h2>🔄 Orientação da Tela</h2>
+            <div id="orientationInfo" class="info-card">
+                <!-- Será preenchido dinamicamente -->
+            </div>
+            <div class="button-grid">
+                <button onclick="verificarOrientacao()">📱 Verificar Orientação</button>
+                <button onclick="monitorarOrientacao()" class="info">🔄 Monitorar Mudanças</button>
+                <button onclick="pararMonitoramento()" style="background: #dc3545;">⏹️ Parar Monitoramento</button>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>🎯 Funcionalidades Avançadas</h2>
+            <div class="button-grid">
+                <button onclick="testarFullscreen()">⛶ Teste Fullscreen</button>
+                <button onclick="calcularDPI()">🔍 Calcular DPI</button>
+                <button onclick="detectarMultiMonitor()">🖥️🖥️ Multi-Monitor</button>
+                <button onclick="analisarTela()" class="info">📈 Análise Completa</button>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>📱 Responsividade e Adaptação</h2>
+            <div class="button-grid">
+                <button onclick="detectarTipoTela()">📱 Tipo de Tela</button>
+                <button onclick="sugerirLayout()">🎨 Sugerir Layout</button>
+                <button onclick="testarBreakpoints()">📏 Testar Breakpoints</button>
+                <button onclick="simularDispositivos()" class="info">📲 Simular Dispositivos</button>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>💻 Código JavaScript</h2>
+            <div class="code-example">
+                <pre><code>// Propriedades básicas da tela
+screen.width;           // Largura total da tela
+screen.height;          // Altura total da tela
+screen.availWidth;      // Largura disponível (excluindo barra de tarefas)
+screen.availHeight;     // Altura disponível (excluindo barra de tarefas)
+screen.colorDepth;      // Profundidade de cor em bits
+screen.pixelDepth;      // Profundidade de pixel em bits
+
+// Orientação (se suportada)
+screen.orientation;     // Objeto de orientação
+screen.orientation.type;     // Tipo de orientação
+screen.orientation.angle;    // Ângulo de orientação
+
+// Eventos de orientação
+window.addEventListener('orientationchange', function() {
+    console.log('Orientação mudou para:', screen.orientation.type);
+});</code></pre>
+            </div>
+        </div>
+
+        <div id="output">
+            <h3>🖥️ Saída do Console:</h3>
+            <p>Clique nos botões acima e veja os resultados aqui e no console do navegador (F12).</p>
+        </div>
+    </div>
+
+    <script>
+        let orientationMonitor = null;
+
+        // Função para adicionar mensagens na saída
+        function adicionarSaida(mensagem) {
+            const output = document.getElementById('output');
+            const p = document.createElement('p');
+            p.innerHTML = `<strong>${new Date().toLocaleTimeString()}:</strong> ${mensagem}`;
+            output.appendChild(p);
+            console.log(mensagem);
+        }
+
+        // Atualizar informações da tela
+        function atualizarInfo() {
+            const screenInfoDiv = document.getElementById('screenInfo');
+            
+            // Informações básicas da tela
+            const telaInfo = {
+                'Largura Total': `${screen.width}px`,
+                'Altura Total': `${screen.height}px`,
+                'Largura Disponível': `${screen.availWidth}px`,
+                'Altura Disponível': `${screen.availHeight}px`,
+                'Profundidade de Cor': `${screen.colorDepth} bits`,
+                'Profundidade de Pixel': `${screen.pixelDepth} bits`
+            };
+
+            // Informações do viewport
+            const viewportInfo = {
+                'Largura da Janela': `${window.innerWidth}px`,
+                'Altura da Janela': `${window.innerHeight}px`,
+                'Largura Externa': `${window.outerWidth}px`,
+                'Altura Externa': `${window.outerHeight}px`,
+                'Device Pixel Ratio': `${window.devicePixelRatio || 'Não disponível'}`,
+                'Zoom Aproximado': `${Math.round((window.outerWidth / window.innerWidth) * 100)}%`
+            };
+
+            screenInfoDiv.innerHTML = `
+                <div class="info-card">
+                    <h4>🖥️ Informações da Tela</h4>
+                    ${Object.entries(telaInfo).map(([key, value]) => 
+                        `<div class="metric"><span>${key}:</span><strong>${value}</strong></div>`
+                    ).join('')}
+                </div>
+                <div class="info-card">
+                    <h4>🪟 Informações da Janela</h4>
+                    ${Object.entries(viewportInfo).map(([key, value]) => 
+                        `<div class="metric"><span>${key}:</span><strong>${value}</strong></div>`
+                    ).join('')}
+                </div>
+            `;
+
+            verificarOrientacao();
+            adicionarSaida('📊 Informações da tela atualizadas');
+        }
+
+        // Criar demonstração visual
+        function criarDemonstracao() {
+            const demo = document.getElementById('visualDemo');
+            
+            const scaleX = 300 / screen.width;
+            const scaleY = 200 / screen.height;
+            const scale = Math.min(scaleX, scaleY);
+            
+            const screenWidth = screen.width * scale;
+            const screenHeight = screen.height * scale;
+            const availWidth = screen.availWidth * scale;
+            const availHeight = screen.availHeight * scale;
+            const windowWidth = window.innerWidth * scale;
+            const windowHeight = window.innerHeight * scale;
+
+            demo.innerHTML = `
+                <h4>📐 Representação Visual da Tela (escala 1:${Math.round(1/scale)})</h4>
+                <div style="position: relative; width: ${screenWidth}px; height: ${screenHeight}px; margin: 0 auto; background: #6c757d; border-radius: 5px;">
+                    <div style="position: absolute; top: 0; left: 0; width: ${availWidth}px; height: ${availHeight}px; background: #28a745; border-radius: 3px; opacity: 0.8;">
+                        <div style="position: absolute; top: 10px; left: 10px; width: ${Math.min(windowWidth, availWidth-20)}px; height: ${Math.min(windowHeight, availHeight-20)}px; background: #007bff; border-radius: 2px; opacity: 0.9;">
+                            <div style="color: white; font-size: 10px; padding: 2px; text-align: center;">Janela Atual</div>
+                        </div>
+                        <div style="color: white; font-size: 10px; padding: 2px;">Área Disponível</div>
+                    </div>
+                    <div style="color: white; font-size: 10px; padding: 2px; position: absolute; bottom: 2px; left: 2px;">Tela Total</div>
+                </div>
+                <div style="margin-top: 10px; font-size: 0.9em;">
+                    <span style="background: #6c757d; color: white; padding: 2px 5px; border-radius: 2px;">Tela Total</span>
+                    <span style="background: #28a745; color: white; padding: 2px 5px; border-radius: 2px; margin-left: 5px;">Área Disponível</span>
+                    <span style="background: #007bff; color: white; padding: 2px 5px; border-radius: 2px; margin-left: 5px;">Janela Atual</span>
+                </div>
+            `;
+
+            adicionarSaida('🎨 Demonstração visual criada');
+        }
+
+        // Verificar orientação
+        function verificarOrientacao() {
+            const orientationDiv = document.getElementById('orientationInfo');
+            let orientationInfo = '<h4>📱 Informações de Orientação</h4>';
+
+            if (screen.orientation) {
+                orientationInfo += `
+                    <div class="metric"><span>Tipo:</span><strong>${screen.orientation.type}</strong></div>
+                    <div class="metric"><span>Ângulo:</span><strong>${screen.orientation.angle}°</strong></div>
+                `;
+            } else {
+                // Fallback para navegadores mais antigos
+                const orientation = window.orientation !== undefined ? window.orientation : 'Não disponível';
+                orientationInfo += `
+                    <div class="metric"><span>Orientação (legacy):</span><strong>${orientation}°</strong></div>
+                `;
+            }
+
+            // Detectar orientação baseada nas dimensões
+            const isPortrait = screen.height > screen.width;
+            orientationInfo += `
+                <div class="metric"><span>Orientação detectada:</span><strong>${isPortrait ? 'Retrato (Portrait)' : 'Paisagem (Landscape)'}</strong></div>
+                <div class="metric"><span>Proporção:</span><strong>${(Math.max(screen.width, screen.height) / Math.min(screen.width, screen.height)).toFixed(2)}:1</strong></div>
+            `;
+
+            orientationDiv.innerHTML = orientationInfo;
+            adicionarSaida(`📱 Orientação verificada: ${isPortrait ? 'Retrato' : 'Paisagem'}`);
+        }
+
+        // Monitorar orientação
+        function monitorarOrientacao() {
+            if (orientationMonitor) {
+                adicionarSaida('⚠️ Monitoramento já está ativo');
+                return;
+            }
+
+            adicionarSaida('🔄 Iniciando monitoramento de orientação...');
+
+            // Listener para mudanças de orientação
+            const onOrientationChange = () => {
+                adicionarSaida('🔔 Orientação da tela mudou!');
+                verificarOrientacao();
+                atualizarInfo();
+            };
+
+            // Listener para redimensionamento da janela
+            const onResize = () => {
+                adicionarSaida('🔔 Janela redimensionada!');
+                atualizarInfo();
+            };
+
+            if (screen.orientation) {
+                screen.orientation.addEventListener('change', onOrientationChange);
+            }
+            
+            window.addEventListener('orientationchange', onOrientationChange);
+            window.addEventListener('resize', onResize);
+
+            orientationMonitor = {
+                orientationChange: onOrientationChange,
+                resize: onResize
+            };
+
+            adicionarSaida('✅ Monitoramento ativo. Rotacione o dispositivo ou redimensione a janela.');
+        }
+
+        // Parar monitoramento
+        function pararMonitoramento() {
+            if (!orientationMonitor) {
+                adicionarSaida('⚠️ Nenhum monitoramento ativo');
+                return;
+            }
+
+            if (screen.orientation) {
+                screen.orientation.removeEventListener('change', orientationMonitor.orientationChange);
+            }
+            
+            window.removeEventListener('orientationchange', orientationMonitor.orientationChange);
+            window.removeEventListener('resize', orientationMonitor.resize);
+
+            orientationMonitor = null;
+            adicionarSaida('⏹️ Monitoramento parado');
+        }
+
+        // Funcionalidades avançadas
+        function testarFullscreen() {
+            if (document.fullscreenElement) {
+                document.exitFullscreen().then(() => {
+                    adicionarSaida('⛶ Saindo do modo fullscreen...');
+                });
+            } else {
+                if (document.documentElement.requestFullscreen) {
+                    document.documentElement.requestFullscreen().then(() => {
+                        adicionarSaida('⛶ Entrando em modo fullscreen...');
+                        setTimeout(() => {
+                            adicionarSaida(`📏 Dimensões em fullscreen: ${screen.width}x${screen.height}`);
+                        }, 1000);
+                    }).catch(err => {
+                        adicionarSaida(`❌ Erro ao entrar em fullscreen: ${err.message}`);
+                    });
+                } else {
+                    adicionarSaida('❌ Fullscreen não suportado');
+                }
+            }
+        }
+
+        function calcularDPI() {
+            // Método aproximado para calcular DPI
+            const dpr = window.devicePixelRatio || 1;
+            const dpi = 96 * dpr; // 96 DPI é o padrão do CSS
+            
+            adicionarSaida('🔍 Cálculo de DPI:');
+            adicionarSaida(`   - Device Pixel Ratio: ${dpr}`);
+            adicionarSaida(`   - DPI estimado: ${dpi}`);
+            adicionarSaida(`   - Resolução física estimada: ${screen.width * dpr}x${screen.height * dpr}`);
+            
+            // Calcular tamanho físico aproximado (assumindo 96 DPI padrão)
+            const widthInches = (screen.width * dpr) / dpi;
+            const heightInches = (screen.height * dpr) / dpi;
+            const diagonal = Math.sqrt(widthInches * widthInches + heightInches * heightInches);
+            
+            adicionarSaida(`   - Tamanho físico estimado: ${widthInches.toFixed(1)}" x ${heightInches.toFixed(1)}"`);
+            adicionarSaida(`   - Diagonal estimada: ${diagonal.toFixed(1)}"`);
+        }
+
+        function detectarMultiMonitor() {
+            adicionarSaida('🖥️🖥️ Detectando configuração multi-monitor...');
+            
+            // Verificar se a janela pode ser movida além dos limites da tela
+            const currentX = window.screenX || window.screenLeft || 0;
+            const currentY = window.screenY || window.screenTop || 0;
+            
+            adicionarSaida(`   - Posição da janela: X=${currentX}, Y=${currentY}`);
+            adicionarSaida(`   - Dimensões da tela: ${screen.width}x${screen.height}`);
+            
+            // Verificar se a janela está fora da tela principal
+            const isOutsideMain = currentX < 0 || currentY < 0 || 
+                                  currentX > screen.width || currentY > screen.height;
+            
+            if (isOutsideMain) {
+                adicionarSaida('✅ Possível configuração multi-monitor detectada');
+            } else {
+                adicionarSaida('📱 Aparenta ser monitor único');
+            }
+
+            // Tentar detectar através da API Screen (experimental)
+            if ('getScreens' in window) {
+                window.getScreens().then(screens => {
+                    adicionarSaida(`   - Número de telas detectadas: ${screens.length}`);
+                    screens.forEach((screen, index) => {
+                        adicionarSaida(`   - Tela ${index + 1}: ${screen.width}x${screen.height}`);
+                    });
+                }).catch(err => {
+                    adicionarSaida(`   - Erro ao acessar API de telas: ${err.message}`);
+                });
+            } else {
+                adicionarSaida('   - API getScreens() não disponível');
+            }
+        }
+
+        function analisarTela() {
+            adicionarSaida('📈 Iniciando análise completa da tela...');
+            
+            const analysis = {
+                'Resolução': `${screen.width}x${screen.height}`,
+                'Proporção': `${(screen.width / screen.height).toFixed(2)}:1`,
+                'Área Total': `${(screen.width * screen.height / 1000000).toFixed(1)} megapixels`,
+                'Profundidade de Cor': `${screen.colorDepth} bits (${Math.pow(2, screen.colorDepth).toLocaleString()} cores)`,
+                'Área Perdida': `${((screen.width * screen.height) - (screen.availWidth * screen.availHeight))} pixels`,
+                'Eficiência da Tela': `${((screen.availWidth * screen.availHeight) / (screen.width * screen.height) * 100).toFixed(1)}%`
+            };
+
+            // Categorizar tipo de tela
+            let categoria = 'Desconhecida';
+            const totalPixels = screen.width * screen.height;
+            
+            if (totalPixels >= 8294400) categoria = '4K/Ultra HD'; // 3840x2160
+            else if (totalPixels >= 2073600) categoria = 'Full HD'; // 1920x1080
+            else if (totalPixels >= 1310720) categoria = 'HD'; // 1280x1024
+            else if (totalPixels >= 786432) categoria = 'SVGA'; // 1024x768
+            else categoria = 'Baixa Resolução';
+
+            adicionarSaida(`📊 Categoria da tela: ${categoria}`);
+            
+            Object.entries(analysis).forEach(([key, value]) => {
+                adicionarSaida(`   - ${key}: ${value}`);
+            });
+
+            // Sugestões baseadas na análise
+            if (screen.width > 1920) {
+                adicionarSaida('💡 Sugestão: Considere layouts multi-coluna para aproveitar a largura');
+            }
+            if (window.devicePixelRatio > 1) {
+                adicionarSaida('💡 Sugestão: Use imagens de alta resolução para displays retina');
+            }
+            if (screen.availHeight < screen.height * 0.9) {
+                adicionarSaida('💡 Sugestão: Considere a altura da barra de tarefas no layout');
+            }
+        }
+
+        // Responsividade e adaptação
+        function detectarTipoTela() {
+            const width = screen.width;
+            const height = screen.height;
+            const diagonal = Math.sqrt(width*width + height*height);
+            
+            let tipo = 'Desktop';
+            let categoria = '';
+            
+            // Detectar baseado na resolução e proporção
+            if (width <= 480) {
+                tipo = 'Mobile (Pequeno)';
+            } else if (width <= 768) {
+                tipo = 'Mobile/Tablet (Médio)';
+            } else if (width <= 1024) {
+                tipo = 'Tablet/Laptop (Grande)';
+            } else if (width <= 1920) {
+                tipo = 'Desktop/Laptop';
+            } else {
+                tipo = 'Desktop (Alta Resolução)';
+            }
+
+            // Detectar categoria de tela
+            const ratio = width / height;
+            if (ratio > 2) categoria = 'Ultra-wide';
+            else if (ratio > 1.7) categoria = 'Widescreen';
+            else if (ratio > 1.5) categoria = 'Standard';
+            else categoria = 'Quadrado/Retrato';
+
+            adicionarSaida(`📱 Tipo de tela detectado: ${tipo}`);
+            adicionarSaida(`   - Categoria: ${categoria}`);
+            adicionarSaida(`   - Resolução: ${width}x${height}`);
+            adicionarSaida(`   - Proporção: ${ratio.toFixed(2)}:1`);
+        }
+
+        function sugerirLayout() {
+            const width = window.innerWidth;
+            const height = window.innerHeight;
+            
+            adicionarSaida('🎨 Sugestões de layout baseadas na tela atual:');
+            
+            if (width < 576) {
+                adicionarSaida('📱 Mobile: Layout single-column, navegação hambúrguer');
+            } else if (width < 768) {
+                adicionarSaida('📱 Mobile Large: 1-2 colunas, botões maiores');
+            } else if (width < 992) {
+                adicionarSaida('💻 Tablet: 2-3 colunas, sidebar colapsável');
+            } else if (width < 1200) {
+                adicionarSaida('🖥️ Desktop Small: 3-4 colunas, sidebar fixa');
+            } else {
+                adicionarSaida('🖥️ Desktop Large: 4+ colunas, aproveitamento total');
+            }
+
+            // Sugestões específicas
+            if (height < 600) {
+                adicionarSaida('⚠️ Altura limitada: Minimize headers/footers');
+            }
+            if (window.devicePixelRatio > 1) {
+                adicionarSaida('✨ Display Retina: Use imagens @2x ou SVG');
+            }
+        }
+
+        function testarBreakpoints() {
+            const breakpoints = {
+                'xs': 0,
+                'sm': 576,
+                'md': 768,
+                'lg': 992,
+                'xl': 1200,
+                'xxl': 1400
+            };
+
+            const width = window.innerWidth;
+            adicionarSaida('📏 Teste de breakpoints CSS:');
+            
+            Object.entries(breakpoints).forEach(([name, minWidth]) => {
+                const matches = width >= minWidth;
+                const nextBreakpoint = Object.entries(breakpoints).find(([n, w]) => w > width);
+                const maxWidth = nextBreakpoint ? nextBreakpoint[1] - 1 : '∞';
+                
+                adicionarSaida(`   - ${name} (≥${minWidth}px): ${matches ? '✅ ATIVO' : '❌'}`);
+            });
+
+            // Mostrar breakpoint atual
+            const currentBreakpoint = Object.entries(breakpoints)
+                .reverse()
+                .find(([name, minWidth]) => width >= minWidth);
+            
+            if (currentBreakpoint) {
+                adicionarSaida(`🎯 Breakpoint atual: ${currentBreakpoint[0]} (${width}px)`);
+            }
+        }
+
+        function simularDispositivos() {
+            const dispositivos = [
+                { nome: 'iPhone SE', width: 375, height: 667 },
+                { nome: 'iPhone 14', width: 390, height: 844 },
+                { nome: 'iPad', width: 768, height: 1024 },
+                { nome: 'Desktop HD', width: 1920, height: 1080 },
+                { nome: 'Desktop 4K', width: 3840, height: 2160 }
+            ];
+
+            adicionarSaida('📲 Simulação de dispositivos:');
+            adicionarSaida(`   - Tela atual: ${window.innerWidth}x${window.innerHeight}`);
+            
+            dispositivos.forEach(device => {
+                const fitWidth = device.width <= screen.availWidth;
+                const fitHeight = device.height <= screen.availHeight;
+                const canSimulate = fitWidth && fitHeight;
+                
+                adicionarSaida(`   - ${device.nome} (${device.width}x${device.height}): ${canSimulate ? '✅ Pode simular' : '❌ Muito grande'}`);
+            });
+
+            // Sugerir redimensionamento
+            const currentDevice = dispositivos.find(d => 
+                Math.abs(d.width - window.innerWidth) < 50 && 
+                Math.abs(d.height - window.innerHeight) < 50
+            );
+            
+            if (currentDevice) {
+                adicionarSaida(`🎯 Dispositivo similar atual: ${currentDevice.nome}`);
+            }
+        }
+
+        // Event listeners para mudanças de tela
+        window.addEventListener('resize', () => {
+            // Debounce para evitar muitas chamadas
+            clearTimeout(window.resizeTimeout);
+            window.resizeTimeout = setTimeout(() => {
+                if (document.getElementById('output').children.length > 0) {
+                    atualizarInfo();
+                }
+            }, 250);
+        });
+
+        // Inicializar
+        window.onload = function() {
+            adicionarSaida('🚀 Página carregada! Explore o objeto Screen.');
+            atualizarInfo();
+            criarDemonstracao();
+        };
+
+        // Cleanup ao sair da página
+        window.onbeforeunload = function() {
+            pararMonitoramento();
+        };
+    </script>
+</body>
+</html>
