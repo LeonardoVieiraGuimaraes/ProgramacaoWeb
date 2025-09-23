@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Tarefas - Prática DOM</title>
+    <link rel="stylesheet" href="template-style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📝 Minha Lista de Tarefas</h1>
+            <p class="subtitle">Organize suas atividades com JavaScript!</p>
+        </header>
+
+        <div class="add-task-section">
+            <input type="text" id="taskInput" placeholder="Digite uma nova tarefa...">
+            <button id="addBtn">Adicionar</button>
+        </div>
+
+        <div class="filters">
+            <button class="filter-btn active" data-filter="all">Todas</button>
+            <button class="filter-btn" data-filter="pending">Pendentes</button>
+            <button class="filter-btn" data-filter="completed">Concluídas</button>
+        </div>
+
+        <div class="stats">
+            <span id="totalTasks">Total: 0</span>
+            <span id="completedTasks">Concluídas: 0</span>
+            <span id="pendingTasks">Pendentes: 0</span>
+        </div>
+
+        <ul id="taskList" class="task-list">
+            <!-- Tarefas serão inseridas aqui via JavaScript -->
+        </ul>
+
+        <div class="empty-state" id="emptyState">
+            <p>🎉 Nenhuma tarefa por aqui!</p>
+            <p>Adicione uma nova tarefa para começar.</p>
+        </div>
+    </div>
+
+    <script src="template-script.js"></script>
+
+    <!-- 
+    ============================================
+    📚 INSTRUÇÕES PARA O ALUNO:
+    
+    1. Este é um template base para sua prática
+    2. O HTML está completo e funcional
+    3. O CSS está estilizado e responsivo
+    4. O JavaScript tem a estrutura básica
+    5. Você deve implementar as funções marcadas com TODO
+    
+    COMO COMEÇAR:
+    1. Abra o arquivo template-script.js
+    2. Implemente as seleções de elementos DOM
+    3. Complete as funções uma por vez
+    4. Teste cada funcionalidade antes de continuar
+    5. Use o console do navegador (F12) para debug
+    
+    DICAS:
+    - Comece pela função addTask()
+    - Teste frequently no navegador
+    - Use console.log() para debug
+    - Leia os comentários no código
+    ============================================
+    -->
+</body>
+</html>
