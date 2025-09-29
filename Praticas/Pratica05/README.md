@@ -15,9 +15,11 @@ Desenvolver um site de portfólio pessoal utilizando HTML, CSS e JavaScript, com
 - Estilo visual agradável e coerente com a proposta profissional
 - Navegação simples e intuitiva
 
+
 ## 🚀 Publicação do site
 - Publicar no GitHub Pages
 - Tutorial: [Como publicar seu site no GitHub Pages](https://docs.github.com/pt/pages/getting-started-with-github-pages/creating-a-github-pages-site)
+- Vídeo de apoio: [Como publicar no GitHub Pages e usar Git na prática](https://www.youtube.com/watch?v=QMTvjsd-oEg)
 
 ## 📦 Entregáveis
 1. ✅ Link do site publicado (GitHub Pages)
