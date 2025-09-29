@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prática 03 - Layout Responsivo</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header>
+        <button class="nav-toggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="navMenu">
+            <span class="nav-toggle-bar"></span>
+            <span class="nav-toggle-bar"></span>
+            <span class="nav-toggle-bar"></span>
+        </button>
+        <nav class="nav-multilist" id="navMenu">
+            <ul class="nav-list nav-list-1">
+                <li><a href="#home">Início</a></li>
+                <li><a href="#servicos">Serviços</a></li>
+            </ul>
+            <ul class="nav-list nav-list-2">
+                <li><a href="#portfolio">Portfólio</a></li>
+            </ul>
+            <ul class="nav-list nav-list-3">
+                <li><a href="#contato">Contato</a></li>
+            </ul>
+        </nav>
+
+    </header>
+
+    <main>
+         <div class="header-content">
+                <h1>Agência Web Responsiva</h1>
+                <p>Sites modernos, bonitos e que funcionam em qualquer dispositivo!</p>
+            </div>
+        <section id="home" class="hero">
+           
+            <div class="hero-text">
+                <h2>Bem-vindo à sua nova experiência digital</h2>
+                <p>Desenvolvemos soluções web com foco em design responsivo, performance e usabilidade.</p>
+                <a href="#contato" class="btn">Solicite um orçamento</a>
+            </div>
+            <img src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=600&q=80"
+                alt="Web Design" class="hero-img">
+        </section>
+
+        <section id="servicos" class="servicos">
+            <h2>Nossos Serviços</h2>
+            <div class="servicos-grid">
+                <div class="servico-card">
+                    <h3>Websites Responsivos</h3>
+                    <p>Sites que se adaptam a qualquer tela, do celular ao desktop.</p>
+                </div>
+                <div class="servico-card">
+                    <h3>Lojas Virtuais</h3>
+                    <p>Comércio eletrônico seguro, rápido e fácil de gerenciar.</p>
+                </div>
+                <div class="servico-card">
+                    <h3>Identidade Visual</h3>
+                    <p>Criação de logotipos, paleta de cores e manual de marca.</p>
+                </div>
+                <div class="servico-card">
+                    <h3>Consultoria UX/UI</h3>
+                    <p>Melhore a experiência do usuário e aumente seus resultados.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="portfolio" class="portfolio">
+            <h2>Portfólio</h2>
+            <div class="portfolio-grid">
+                <div class="portfolio-item">
+                    <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80"
+                        alt="Projeto 1">
+                    <h4>Landing Page Startup</h4>
+                </div>
+                <div class="portfolio-item">
+                    <img src="https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=400&q=80"
+                        alt="Projeto 2">
+                    <h4>E-commerce Moderno</h4>
+                </div>
+                <div class="portfolio-item">
+                    <img src="https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=400&q=80"
+                        alt="Projeto 3">
+                    <h4>Blog Responsivo</h4>
+                </div>
+                <div class="portfolio-item">
+                    <img src="https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=400&q=80"
+                        alt="Projeto 4">
+                    <h4>Site Institucional</h4>
+                </div>
+            </div>
+        </section>
+
+        <section id="contato" class="contato">
+            <h2>Contato</h2>
+            <form>
+                <div class="form-row">
+                    <input type="text" placeholder="Nome" required>
+                    <input type="email" placeholder="E-mail" required>
+                </div>
+                <textarea placeholder="Mensagem" rows="4" required></textarea>
+                <button type="submit">Enviar</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Agência Web Responsiva. Todos os direitos reservados.</p>
+    </footer>
+    <script>
+        // Menu mobile toggle
+        const navToggle = document.querySelector('.nav-toggle');
+        const navMenu = document.getElementById('navMenu');
+        navToggle.addEventListener('click', function () {
+            const expanded = navToggle.getAttribute('aria-expanded') === 'true';
+            navToggle.setAttribute('aria-expanded', !expanded);
+            navMenu.classList.toggle('nav-open');
+        });
+        // Fecha o menu ao clicar em um link (mobile)
+        navMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                if (window.innerWidth <= 600) {
+                    navMenu.classList.remove('nav-open');
+                    navToggle.setAttribute('aria-expanded', false);
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

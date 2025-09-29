@@ -1,0 +1,23 @@
+# # Publica automaticamente a pasta Praticas/Pratica05 no GitHub Pages
+# name: Deploy Pratica05 to GitHub Pages
+
+# on:
+#   push:
+#     branches:
+#       - main
+#   workflow_dispatch:
+
+# jobs:
+#   deploy:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Checkout código
+#         uses: actions/checkout@v4
+
+#       - name: Deploy para o GitHub Pages
+#         uses: peaceiris/actions-gh-pages@v4
+#         with:
+#           github_token: ${{ secrets.GITHUB_TOKEN }}
+#           publish_dir: Praticas/Pratica05
+#           publish_branch: gh-pages
+#           force_orphan: true

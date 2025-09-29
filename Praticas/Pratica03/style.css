@@ -1,0 +1,302 @@
+/* Botão menu mobile */
+.nav-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 44px;
+    height: 44px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    position: absolute;
+    top: 22px;
+    right: 22px;
+    z-index: 20;
+}
+.nav-toggle-bar {
+    width: 28px;
+    height: 4px;
+    background: #fff;
+    margin: 4px 0;
+    border-radius: 2px;
+    transition: all 0.3s;
+}
+/* Prática 03 - Layout Responsivo */
+
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #f6f8fa;
+    color: #222;
+}
+
+header {
+    background: #0a3d62;
+    color: #fff;
+    padding: 0 0 30px 0;
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
+}
+
+
+/* Nav com 3 listas */
+.nav-multilist {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 40px;
+    padding-top: 30px;
+    flex-wrap: wrap;
+}
+.nav-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 18px;
+}
+.nav-list-1 {
+    gap: 18px;
+}
+.nav-list-2 {
+    gap: 18px;
+}
+.nav-list-3 {
+    gap: 18px;
+}
+.nav-list li {
+    margin: 0;
+}
+.nav-list a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1.1em;
+    transition: color 0.2s;
+    padding: 4px 10px;
+    border-radius: 4px;
+}
+.nav-list a:hover {
+    color: #38ada9;
+    background: rgba(255,255,255,0.08);
+}
+
+.header-content {
+    text-align: center;
+    margin-top: 20px;
+}
+.header-content h1 {
+    font-size: 2.7em;
+    margin-bottom: 10px;
+}
+.header-content p {
+    font-size: 1.2em;
+    opacity: 0.9;
+}
+
+main {
+    max-width: 1100px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+.hero {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+    background: #fff;
+    border-radius: 18px;
+    box-shadow: 0 4px 24px rgba(10,61,98,0.08);
+    padding: 40px 30px;
+    margin-bottom: 50px;
+    flex-wrap: wrap;
+}
+.hero-text {
+    flex: 1 1 300px;
+}
+.hero-img {
+    width: 320px;
+    max-width: 100%;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(56,173,169,0.10);
+    background: #eaf6fb;
+}
+.btn {
+    display: inline-block;
+    background: #38ada9;
+    color: #fff;
+    padding: 14px 32px;
+    border-radius: 8px;
+    font-weight: bold;
+    text-decoration: none;
+    margin-top: 18px;
+    transition: background 0.2s;
+}
+.btn:hover {
+    background: #0a3d62;
+}
+
+.servicos {
+    margin-bottom: 50px;
+}
+.servicos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 28px;
+    margin-top: 30px;
+}
+.servico-card {
+    background: #eaf6fb;
+    border-radius: 10px;
+    padding: 28px 20px;
+    box-shadow: 0 2px 8px rgba(56,173,169,0.08);
+    text-align: center;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+.servico-card:hover {
+    transform: translateY(-6px) scale(1.03);
+    box-shadow: 0 8px 24px rgba(10,61,98,0.10);
+}
+
+.portfolio {
+    margin-bottom: 50px;
+}
+.portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 28px;
+    margin-top: 30px;
+}
+.portfolio-item {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(10,61,98,0.08);
+    text-align: center;
+    padding: 18px 10px 10px 10px;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+.portfolio-item:hover {
+    transform: translateY(-6px) scale(1.03);
+    box-shadow: 0 8px 24px rgba(56,173,169,0.10);
+}
+.portfolio-item img {
+    width: 100%;
+    max-width: 180px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    background: #eaf6fb;
+}
+
+.contato form {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(10,61,98,0.08);
+    padding: 28px 20px;
+    max-width: 500px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+.form-row {
+    display: flex;
+    gap: 16px;
+}
+.form-row input {
+    flex: 1;
+}
+input, textarea {
+    padding: 12px;
+    border: 1.5px solid #bcdff1;
+    border-radius: 5px;
+    font-size: 1em;
+    background: #f8fafc;
+    transition: border 0.2s;
+}
+input:focus, textarea:focus {
+    border: 1.5px solid #38ada9;
+    outline: none;
+}
+button[type="submit"] {
+    background: #38ada9;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 14px;
+    font-size: 1.1em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+button[type="submit"]:hover {
+    background: #0a3d62;
+}
+
+footer {
+    background: #0a3d62;
+    color: #fff;
+    text-align: center;
+    padding: 18px 0;
+    margin-top: 40px;
+    border-radius: 0 0 18px 18px;
+}
+
+@media (max-width: 900px) {
+    main {
+        padding: 0 8px;
+    }
+    .hero {
+        flex-direction: column;
+        text-align: center;
+        gap: 20px;
+    }
+    .hero-img {
+        width: 90%;
+        margin: 0 auto;
+    }
+}
+@media (max-width: 600px) {
+    .nav-toggle {
+        display: flex;
+    }
+    .nav-multilist {
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+        padding-top: 18px;
+        position: absolute;
+        top: 64px;
+        right: 0;
+        left: 0;
+        background: #0a3d62;
+        z-index: 10;
+        display: none;
+        box-shadow: 0 8px 24px rgba(10,61,98,0.10);
+        border-bottom-left-radius: 18px;
+        border-bottom-right-radius: 18px;
+    }
+    .nav-multilist.nav-open {
+        display: flex;
+    }
+    .nav-list {
+        flex-direction: column;
+        gap: 8px;
+        align-items: center;
+    }
+    .header-content h1 {
+        font-size: 1.5em;
+    }
+    .servicos-grid, .portfolio-grid {
+        grid-template-columns: 1fr;
+    }
+    .contato form {
+        padding: 18px 6px;
+    }
+    .form-row {
+        flex-direction: column;
+        gap: 8px;
+    }
+}

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>DOM + Contador | Prática 04</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Manipulação do DOM + Contador</h1>
+
+    <input type="text" id="entrada" placeholder="Digite uma mensagem">
+    <button onclick="mostrarTexto()">Mostrar</button>
+    <button onclick="limparTexto()">Limpar</button>
+
+    <div id="resultado"></div>
+
+    <h2>Contador</h2>
+    <div id="contador">0</div>
+    <button onclick="incrementar()">+</button>
+    <button onclick="decrementar()">−</button>
+    <button onclick="zerar()">Zerar</button>
+  </div>
+
+  <script src="js/script.js"></script>
+</body>
+</html>
