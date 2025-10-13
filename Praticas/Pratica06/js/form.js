@@ -34,12 +34,27 @@ function showMessage(text, type = 'success'){
 }
 
 // ----- Função genérica para chamar a API -----
-// Retorna {ok, status, data} onde data já é JSON (quando possível)
+// Faz uma requisição para API e retorna um objeto simples { ok, status, data }
+// - `ok`: boolean (res.ok)
+// - `status`: código HTTP
+// - `data`: resposta já parseada como JSON quando possível, ou texto cru
 async function callApi(path = '', opts = {}){
+  // Monta a URL final: base API + path (ex.: '/123')
+  // Usa fetch para fazer a requisição. Passamos `mode: 'cors'` para permitir chamadas cross-origin
+  // e um header Content-Type padrão. Qualquer opção adicional (method, body, etc.) pode ser passada via `opts`.
   const res = await fetch(API + path, { mode: 'cors', headers: { 'Content-Type': 'application/json' }, ...opts });
+
+  // Lê o corpo da resposta como texto. Fizemos isso porque nem sempre a resposta tem corpo JSON
+  // (ex.: respostas 204 No Content). Ler como texto evita exceções ao chamar res.json() em corpos vazios.
   const txt = await res.text();
-  try { return { ok: res.ok, status: res.status, data: txt ? JSON.parse(txt) : null }; }
-  catch { return { ok: res.ok, status: res.status, data: txt }; }
+
+  // Tenta converter o texto para JSON. Se der certo, retornamos `data` como objeto; se falhar, retornamos o texto.
+  try {
+    return { ok: res.ok, status: res.status, data: txt ? JSON.parse(txt) : null };
+  } catch (e) {
+    // Se o parse falhar (não é JSON), retornamos o texto original para inspeção.
+    return { ok: res.ok, status: res.status, data: txt };
+  }
 }
 
 // ----- Carregar produto para edição -----
