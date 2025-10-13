@@ -274,13 +274,21 @@ console.log(nomes);
 
 Objetivo do exercício: praticar seleção de elementos com seletores CSS e conversão de NodeList para Array para uso de métodos como `map`.
 
-// forma curta (arrow function usada no arquivo)
-const $ = s => document.querySelector(s);
+## Versões mínimas (úteis para aula rápida)
 
-// uso
-const nomeInput = $('#nome'); // equivalente a document.querySelector('#nome')
+Existem duas versões ainda mais curtas dos scripts, pensadas para demonstração rápida em sala:
 
-// forma equivalente mais explícita
-function $(s) {
-  return document.querySelector(s);
-}
+- `js/script.minimo.js`: lista produtos e permite excluir com poucas linhas.
+- `js/form.minimo.js`: cria/atualiza produto (POST/PUT) com código direto.
+
+Como usar durante a aula:
+
+1. Abra `index.html` e no final da página substitua temporariamente `script.js` por `script.minimo.js`.
+2. Abra `form.html` e substitua `form.js` por `form.minimo.js`.
+3. Recarregue a página e demonstre o fluxo mínimo (GET -> listagem; POST/PUT -> salvar).
+
+Depois da explicação, reverta as tags para `script.js` e `form.js` se quiser mostrar a versão completa e comentada.
+
+---
+
+**Desenvolvido para a disciplina de Programação Web - Newton Paiva**
