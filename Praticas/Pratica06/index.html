@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+        <!--
+            Prática 06 - CRUD de Produtos
+            - index.html mostra a lista de produtos e ações (Novo, Editar, Excluir)
+            - O botão 'Novo Produto' abre form.html para criar um novo item
+            - A página carrega o script `js/script.simple.js` que:
+                    * Faz requisições GET para listar produtos
+                    * Exclui produtos via DELETE
+                    * Atualiza a tabela no DOM
+            - Para editar, a aplicação abre: form.html?id=<id>
+            Observação: Sirva esta pasta por HTTP (ex.: npx http-server . --cors) para evitar problemas de CORS no navegador.
+        -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRUD Produtos - Prática 06</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+    <nav class="navbar navbar-dark bg-primary mb-4">
+        <div class="container">
+            <a class="navbar-brand" href="#">Sistema de Produtos</a>
+            <span class="navbar-text">Prática 06 - CRUD</span>
+        </div>
+    </nav>
+
+    <main class="container py-4">
+        <div class="row">
+            <div class="col-12">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h3 class="mb-0">Lista de Produtos</h3>
+                    <a href="form.html" class="btn btn-success">Novo Produto</a>
+                </div>
+
+                <div id="loading" style="display:none;" class="mb-3"></div>
+                <div id="message" style="display:none;" class="mb-3"></div>
+
+                <div class="card">
+                    <div class="card-body p-2">
+                        <div class="table-responsive">
+                            <table id="produtos-table" class="table table-sm table-hover mb-0">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Nome</th>
+                                        <th>Preço</th>
+                                        <th>Ações</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- produtos -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-white py-3 border-top">
+        <div class="container text-center text-muted">&copy; 2025 - Prática 06 - Programação Web - Newton Paiva</div>
+    </footer>
+
+    <!-- Bootstrap 5 JS (Bundle incluir Popper) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/script.js"></script>
+</body>
+</html>
