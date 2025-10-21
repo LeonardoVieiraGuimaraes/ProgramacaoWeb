@@ -5,7 +5,7 @@ import React, { Component } from "react";
 export default class MyComponent01 extends Component {
   // O estado inicial é definido como propriedades booleanas
   state = {
-    first: false,
+    first: true,
     second: false,
   };
 
