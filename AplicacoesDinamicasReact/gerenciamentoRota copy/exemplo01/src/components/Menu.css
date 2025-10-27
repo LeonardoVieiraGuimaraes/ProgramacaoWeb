@@ -1,0 +1,31 @@
+.menu-nav {
+  display: flex;
+  gap: 20px;
+  background: #282c34;
+  padding: 16px 24px;
+  border-radius: 8px;
+  margin-bottom: 24px;
+  align-items: center;
+}
+
+.menu-nav a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  padding: 8px 14px;
+  border-radius: 4px;
+  transition: background 0.2s, color 0.2s;
+}
+
+.menu-nav a .icon {
+  margin-right: 8px;
+  font-size: 1.2em;
+}
+
+.menu-nav a.active,
+.menu-nav a:hover {
+  background: #61dafb;
+  color: #222;
+}
