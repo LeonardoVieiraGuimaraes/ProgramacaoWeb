@@ -44,10 +44,8 @@ body {
 
 .app-main {
   flex: 1;
-  padding: 32px 16px;
-  max-width: 1200px;
+  padding: 32px 24px;
   width: 100%;
-  margin: 0 auto;
 }
 
 .toolbar {
@@ -86,8 +84,7 @@ body {
 
 .mensagem {
   padding: 16px;
-  margin: 16px auto;
-  max-width: 1200px;
+  margin: 16px;
   border-radius: 4px;
   font-weight: 600;
   text-align: center;
@@ -137,7 +134,7 @@ body {
 
 @media (max-width: 768px) {
   .app-main {
-    padding: 16px 8px;
+    padding: 16px 12px;
   }
 
   .toolbar {

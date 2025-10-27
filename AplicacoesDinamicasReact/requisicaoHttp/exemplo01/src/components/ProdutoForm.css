@@ -1,7 +1,8 @@
 .produto-form {
-  max-width: 500px;
-  margin: 0 auto;
-  padding: 24px;
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  padding: 32px;
   background: white;
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
@@ -26,10 +27,10 @@
 
 .form-group input {
   width: 100%;
-  padding: 10px 12px;
+  padding: 12px 14px;
   border: 1px solid #ddd;
   border-radius: 4px;
-  font-size: 14px;
+  font-size: 16px;
   transition: border-color 0.3s;
 }
 
@@ -56,10 +57,10 @@
 }
 
 .btn {
-  padding: 10px 20px;
+  padding: 12px 22px;
   border: none;
-  border-radius: 4px;
-  font-size: 14px;
+  border-radius: 6px;
+  font-size: 15px;
   font-weight: 600;
   cursor: pointer;
   transition: background-color 0.3s;
