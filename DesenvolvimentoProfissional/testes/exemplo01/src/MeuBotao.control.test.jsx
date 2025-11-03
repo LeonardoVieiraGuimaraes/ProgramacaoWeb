@@ -1,3 +1,6 @@
+// Teste de controle: valida regras/contratos do componente (ex.: respeitar disabled)
+// - Importa jest-dom para matchers como toBeDisabled
+import "@testing-library/jest-dom";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
 import MeuBotao from "./MeuBotao";

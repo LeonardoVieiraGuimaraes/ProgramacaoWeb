@@ -1,3 +1,7 @@
+// Teste unitário: valida o comportamento isolado do componente MeuBotao
+// - Usa Testing Library para renderizar e interagir
+// - Importa jest-dom para matchers como toBeInTheDocument, toBeDisabled, etc.
+import "@testing-library/jest-dom";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
 import MeuBotao from "./MeuBotao";

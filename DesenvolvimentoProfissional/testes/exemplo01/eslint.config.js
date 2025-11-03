@@ -1,3 +1,7 @@
+// Configuração do ESLint para projeto Vite + React
+// - Baseado nas regras recomendadas do ESLint
+// - Inclui plugins para React Hooks e React Refresh
+// - Define ambiente de browser e suporte a JSX
 import js from '@eslint/js'
 import globals from 'globals'
 import reactHooks from 'eslint-plugin-react-hooks'
@@ -23,6 +27,8 @@ export default [
     rules: {
       ...js.configs.recommended.rules,
       ...reactHooks.configs.recommended.rules,
+      // Ignora variáveis em SCREAMING_SNAKE_CASE ou iniciadas por maiúscula
+      // úteis para constantes globais ou padrões de exportação
       'no-unused-vars': ['error', { varsIgnorePattern: '^[A-Z_]' }],
       'react-refresh/only-export-components': [
         'warn',

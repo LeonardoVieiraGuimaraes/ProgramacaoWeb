@@ -1,9 +1,3 @@
-/*
-  Estilos globais do exemplo
-  - Define tipografia, cores base e resets leves
-  - Focado em simplicidade para destacar o comportamento do componente
-*/
-
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
