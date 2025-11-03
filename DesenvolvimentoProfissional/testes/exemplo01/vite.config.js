@@ -8,6 +8,8 @@ export default defineConfig({
   plugins: [react()],
   test: {
     environment: "jsdom",
+    // Torna describe/it/expect globais para compatibilidade com jest-dom
+    globals: true,
     // Dica: se preferir carregar matchers do jest-dom automaticamente,
     // crie um arquivo de setup (ex.: src/setupTests.js) e descomente:
     // setupFiles: ["./src/setupTests.js"],
